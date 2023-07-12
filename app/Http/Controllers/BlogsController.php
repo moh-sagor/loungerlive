@@ -40,7 +40,7 @@ class BlogsController extends Controller
         Blog::create($validatedData);
 
         // You can add a success message or redirect to a new page
-        return redirect()->back()->with('success', 'Blog created successfully');
+        return redirect('/');
     }
 
     /**
@@ -57,7 +57,8 @@ class BlogsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        return view('blogs.edit', compact('blog'));
     }
 
     /**
@@ -65,14 +66,46 @@ class BlogsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
 
+        $blog = Blog::findOrFail($id);
+        $blog->update($validatedData);
+
+        // You can add a success message or redirect to a new page
+        return redirect('/blogs');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $blog = Blog::findOrFail($id); // Find the specific Blog model instance
+        $blog->delete(); // Delete the model
+        // You can add a success message or redirect to a new page
+        return redirect('/');
     }
+
+    public function trash()
+    {
+        $trashedBlogs = Blog::onlyTrashed()->get(); # get all tr
+        return view("blogs.trash", compact("trashedBlogs"));
+
+    }
+
+    public function restore($id)
+    {
+        $restoredBlog = Blog::onlyTrashed()->findOrFail($id);
+
+        if ($restoredBlog) {
+            $restoredBlog->restore();
+            return redirect('/')->with('success', 'Blog post restored successfully.');
+        }
+
+        return redirect('/')->with('message', 'The trash is empty.');
+    }
+
+
 }

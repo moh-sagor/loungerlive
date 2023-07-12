@@ -42,6 +42,9 @@
                                 <a class="nav-link" href="{{ url('/blogs') }}">Blogs</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/blogs/trash') }}">Trash</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/blogs/create') }}">New Blogs</a>
                             </li>
                             <li class="nav-item">
