@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     // keep trashed routes 
     Route::get('/blogs/trash', [BlogsController::class, 'trash'])->name('blogs.trash');
     Route::get('/blogs/trash/{id}/restore', [BlogsController::class, 'restore'])->name('blogs.restore');
+    Route::get('/blogs/trash/{id}/parmanent-delete', [BlogsController::class, 'parmanentDelete'])->name('blogs.parmanent-delete');
 
 
 

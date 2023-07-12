@@ -33,8 +33,9 @@
                         <ul class="navbar-nav ml-auto">
                             @auth
                             <li class="nav-item">
-                                <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
+                                <h5 class="nav-link border border-primary rounded p-2">Hi {{ Auth::user()->name }} as {{ Auth::user()->role->name }}</h5>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/profile') }}">Profile</a>
                             </li>

@@ -107,5 +107,18 @@ class BlogsController extends Controller
         return redirect('/')->with('message', 'The trash is empty.');
     }
 
+    public function parmanentDelete($id)
+    {
+        $deletedBlog = Blog::onlyTrashed()->findOrFail($id);
+
+        if ($deletedBlog) {
+            $deletedBlog->forceDelete();
+            return redirect('/')->with('success', 'Blog post permanently deleted.');
+        }
+
+        return redirect('/')->with('message', 'Blog post not found.');
+    }
+
+
 
 }
