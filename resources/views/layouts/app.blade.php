@@ -33,21 +33,13 @@
                         <ul class="navbar-nav ml-auto">
                             @auth
                             <li class="nav-item">
-                                <h5 class="nav-link border border-primary rounded p-2">Hi {{ Auth::user()->name }} as {{ Auth::user()->role->name }}</h5>
+                                <h5 class="nav-link border border-primary rounded p-2 bg-light text-dark">Hi {{ Auth::user()->name }} as {{ Auth::user()->role->name }}</h5>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/profile') }}">Profile</a>
+                                <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/blogs') }}">Blogs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/blogs/trash') }}">Trash</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/blogs/create') }}">New Blogs</a>
-                            </li>
+                            
                             <li class="nav-item">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf

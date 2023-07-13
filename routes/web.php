@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogsController;
 use Illuminate\Support\Facades\Route;
@@ -11,12 +12,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    // admin routes 
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('admin');
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/blogs/create', [BlogsController::class, 'create'])->name('blogs.create');
-    Route::post('/blogs/store', [BlogsController::class, 'store'])->name('blogs.store');
-    Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
 
     // keep trashed routes 
     Route::get('/blogs/trash', [BlogsController::class, 'trash'])->name('blogs.trash');
@@ -25,11 +28,16 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::get('/blogs/{id}', [BlogsController::class, 'show'])->name('blogs.show');
+    // blogs route 
+    Route::get('/blogs/create', [BlogsController::class, 'create'])->name('blogs.create');
+    Route::post('/blogs/store', [BlogsController::class, 'store'])->name('blogs.store');
+    Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
     Route::get('/blogs/{id}/edit', [BlogsController::class, 'edit'])->name('blogs.edit');
     Route::post('/blogs/{id}/update', [BlogsController::class, 'update'])->name('blogs.update');
     Route::post('/blogs/{id}/destroy', [BlogsController::class, 'destroy'])->name('blogs.destroy');
 });
+Route::get('/blogs/{id}', [BlogsController::class, 'show'])->name('blogs.show');
+
 
 
 require __DIR__ . '/auth.php';

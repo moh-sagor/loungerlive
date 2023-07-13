@@ -10,6 +10,7 @@
             <p>{{$blog->body}}</p>
             </div>
         </div>
+        
         <div class="row">
             <div class="col-md-1 col-sm-1">
                 <a class="btn btn-warning btn-sm" href="{{ route('blogs.edit', $blog->id) }}">Edit</a>
