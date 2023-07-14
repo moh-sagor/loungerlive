@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
@@ -35,8 +36,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/blogs/{id}/edit', [BlogsController::class, 'edit'])->name('blogs.edit');
     Route::post('/blogs/{id}/update', [BlogsController::class, 'update'])->name('blogs.update');
     Route::post('/blogs/{id}/destroy', [BlogsController::class, 'destroy'])->name('blogs.destroy');
+
+    // category route 
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+    Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name('categories.show');
+    Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/edit/{slug}', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::post('/categories/update/{slug}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::post('/categories/destroy/{slug}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
 Route::get('/blogs/{id}', [BlogsController::class, 'show'])->name('blogs.show');
+
+
+
+
+
+
 
 
 

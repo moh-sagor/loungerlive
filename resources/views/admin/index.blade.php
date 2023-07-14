@@ -11,6 +11,9 @@
     <button class="btn btn-secondary btn-margin-right">
         <a href="{{route('blogs.trash')}}" class="text-white" style="text-decoration: none">Trashed Blog</a>
     </button>
+    <button class="btn btn-info btn-margin-right">
+        <a href="{{route('categories.create')}}" class="text-white" style="text-decoration: none">Create Category</a>
+    </button>
 </div>
 </div>
     
