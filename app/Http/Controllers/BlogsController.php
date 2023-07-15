@@ -14,7 +14,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::latest()->get();
 
         return view('blogs.index', compact('blogs'));
     }
@@ -33,13 +33,17 @@ class BlogsController extends Controller
      */
     public function store(Request $request)
     {
-
         $validatedData = $request->validate([
             'title' => 'required',
             'body' => 'required',
         ]);
 
-        Blog::create($validatedData);
+        $blog = Blog::create($validatedData);
+
+        if ($request->has('category_id')) {
+            $categoryIds = $request->input('category_id');
+            $blog->category()->sync($categoryIds);
+        }
 
         // You can add a success message or redirect to a new page
         return redirect('/');

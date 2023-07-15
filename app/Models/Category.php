@@ -14,7 +14,7 @@ class Category extends Model
     ];
     public function blog()
     {
-        return $this->belongsToMany(Blog::class); // (model, pivot table name)
+        return $this->belongsToMany(Blog::class, 'blogs_categories'); // (model, pivot table name)
 
     }
 }
