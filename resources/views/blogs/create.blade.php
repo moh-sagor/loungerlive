@@ -7,7 +7,7 @@
     
     <div class="row">
         <div class="col-md-12">
-            <form action="{{ route('blogs.store') }}" method="POST">
+            <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="title" class="form-label">Title</label>
@@ -25,6 +25,12 @@
                                 <label class="form-check-label mr-2" for="category_{{$category->id}}"><b>{{$category->name}}</b></label>
                         @endforeach
                 </div>
+                <div class="col-md-6 form-group mt-3">
+                    <label class="form-label" for="featured_image">Featured Image</label>
+                    <input type="file" class="form-control" id="featured_image" name="featured_image" />
+                </div>
+                
+
                 
                 <div class="d-flex justify-content-center mt-3">
                     <button type="submit" class="btn btn-primary">Create New Blog</button>

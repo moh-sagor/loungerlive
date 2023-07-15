@@ -6,6 +6,9 @@ use App\Models\Blog;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+
+use Illuminate\Support\Collection;
 
 class BlogsController extends Controller
 {
@@ -36,7 +39,16 @@ class BlogsController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'body' => 'required',
+            'featured_image' => 'image|mimes:jpeg,png,jpg,gif,JPG|max:2048',
         ]);
+
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'featured_image_' . time() . '.' . $extension;
+            $image->move(public_path('images/featured_image'), $imageName);
+            $validatedData['featured_image'] = 'images/featured_image/' . $imageName;
+        }
 
         $blog = Blog::create($validatedData);
 
@@ -48,7 +60,6 @@ class BlogsController extends Controller
         // You can add a success message or redirect to a new page
         return redirect('/');
     }
-
     /**
      * Display the specified resource.
      */
@@ -61,11 +72,22 @@ class BlogsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
+
+
     public function edit(string $id)
     {
+        $categories = Category::latest()->get();
         $blog = Blog::findOrFail($id);
-        return view('blogs.edit', compact('blog'));
+
+        $bc = $blog->category->pluck('id')->all();
+        $filtered = $categories->whereNotIn('id', $bc);
+
+        return view('blogs.edit', compact('blog', 'categories', 'filtered'));
     }
+
+
+
 
     /**
      * Update the specified resource in storage.
@@ -79,6 +101,11 @@ class BlogsController extends Controller
 
         $blog = Blog::findOrFail($id);
         $blog->update($validatedData);
+
+        if ($request->has('category_id')) {
+            $categoryIds = $request->input('category_id');
+            $blog->category()->sync($categoryIds);
+        }
 
         // You can add a success message or redirect to a new page
         return redirect('/blogs');

@@ -15,6 +15,7 @@ class Blog extends Model
     protected $fillable = [
         'title',
         'body',
+        'featured_image',
     ];
     public function category()
     {
