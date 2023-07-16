@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('admin');
 
 
+    // Profile routes 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -45,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/categories/edit/{slug}', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::post('/categories/update/{slug}', [CategoryController::class, 'update'])->name('categories.update');
     Route::post('/categories/destroy/{slug}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 });
 Route::get('/blogs/{id}', [BlogsController::class, 'show'])->name('blogs.show');
 

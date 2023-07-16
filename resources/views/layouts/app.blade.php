@@ -4,8 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="title" content="@yield('meta_title')">
+    <meta name="description" content="@yield('meta_description')">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <title> @yield('meta_title')</title>
+    {{-- <title> @yield('meta_title') - {{ config('app.name', 'Laravel') }}</title> --}}
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
@@ -18,57 +22,8 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
         <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    @if (Route::has('login'))
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        @if (Route::has('login'))
-                        <ul class="navbar-nav ml-auto">
-                            @auth
-                            <li class="nav-item">
-                                <h5 class="nav-link border border-primary rounded p-2 bg-light text-dark">Hi {{ Auth::user()->name }} as {{ Auth::user()->role->name }}</h5>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
-                            </li>
-                            
-                            <li class="nav-item">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="nav-link btn btn-link">{{ __('Log Out') }}</button>
-                                </form>
-                            </li>
-                            @else
-                            <li class="nav-item">
-                                <a href="{{ route('login') }}" class="nav-link">Log in</a>
-                            </li>
-                            @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a href="{{ route('register') }}" class="nav-link">Register</a>
-                            </li>
-                            @endif
-                            @endauth
-                        </ul>
-                        @endif
-                    </div>
-                    
-                @endif
-                </div>
-            </div>
-        </nav>
-
+       @include('layouts.nav')
+       
         <!-- Page Heading -->
         @if (isset($header))
             <header class="bg-white shadow">

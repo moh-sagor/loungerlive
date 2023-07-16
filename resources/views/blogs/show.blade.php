@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('partials.meta_dynamic')
     <div class="container">
         <style>
             .category-span {
@@ -17,10 +18,11 @@
         
         <div class="row">
             <div class="col-md-12 mt-3">
-            <p>{{$blog->body}}</p>
                 @if ($blog->featured_image)
                 <img src="{{ asset($blog->featured_image ? $blog->featured_image : ' ') }}" alt="{{Str::limit($blog->title,25)}}" width="400" height="300" style="border: 2px solid #639c2b9b; border-radius: 10px;">
                 @endif
+            {!!$blog->body!!}
+              
             <hr>
             <strong>Categories: </strong>
             @foreach ($blog->category as $category)
@@ -29,7 +31,7 @@
             
             </div>
         </div>
-        
+        @auth
         <div class="row">
             <div class="col-md-1 col-sm-1">
                 <a class="btn btn-warning btn-sm" href="{{ route('blogs.edit', $blog->id) }}">Edit</a>
@@ -41,6 +43,7 @@
                 </form>
             </div>
         </div>
+        @endauth
     </div>
 
 

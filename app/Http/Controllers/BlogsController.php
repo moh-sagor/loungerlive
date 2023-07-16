@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 
 class BlogsController extends Controller
@@ -41,6 +42,10 @@ class BlogsController extends Controller
             'body' => 'required',
             'featured_image' => 'image|mimes:jpeg,png,jpg,gif,JPG|max:2048',
         ]);
+
+        $validatedData['slug'] = Str::slug($request->title);
+        $validatedData['meta_title'] = Str::limit($request->title, 55);
+        $validatedData['meta_description'] = Str::limit($request->body, 150);
 
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
@@ -146,12 +151,9 @@ class BlogsController extends Controller
 
         if ($deletedBlog) {
             $deletedBlog->forceDelete();
-            return redirect('/')->with('success', 'Blog post permanently deleted.');
+            return redirect('/blogs/trash')->with('success', 'Blog post permanently deleted.');
         }
 
-        return redirect('/')->with('message', 'Blog post not found.');
+        return redirect('/blogs/trash')->with('message', 'Blog post not found.');
     }
-
-
-
 }
