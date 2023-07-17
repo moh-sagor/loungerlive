@@ -17,7 +17,8 @@
         
                 <div class="form-group">
                     <label for="body" class="form-label">Body</label>
-                    <textarea class="form-control" id="body" name="body" rows="5" placeholder="Enter body"></textarea>
+                    <textarea name="body" id="body" class="form-control my-editor" placeholder="Enter body"></textarea>
+                    
                 </div>
                 <div class="form-group form-check-inline">
                     <label for="category" class="form-label mt-4">Select Category</label><br>
@@ -40,6 +41,7 @@
         </div>
     </div>
 </div>
+
 
 
 @endsection

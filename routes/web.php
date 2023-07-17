@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/categories/update/{slug}', [CategoryController::class, 'update'])->name('categories.update');
     Route::post('/categories/destroy/{slug}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
-    Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
     });
 });
