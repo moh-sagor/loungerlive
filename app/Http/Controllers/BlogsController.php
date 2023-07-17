@@ -99,13 +99,9 @@ class BlogsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validatedData = $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-        ]);
-
+        $input = $request->all();
         $blog = Blog::findOrFail($id);
-        $blog->update($validatedData);
+        $blog->update($input);
 
         if ($request->has('category_id')) {
             $categoryIds = $request->input('category_id');

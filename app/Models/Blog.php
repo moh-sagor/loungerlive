@@ -19,6 +19,7 @@ class Blog extends Model
         'slug',
         'meta_title',
         'meta_description',
+        'status',
     ];
     public function category()
     {

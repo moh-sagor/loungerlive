@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
 
     // admin routes 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('admin');
+    Route::get('/admin/blogs', [AdminController::class, 'blogs'])->name('admin.blogs');
 
 
     // Profile routes 
