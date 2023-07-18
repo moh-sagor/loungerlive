@@ -1,22 +1,23 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/blogs/{id}', [BlogsController::class, 'show'])->name('blogs.show');
 
 Route::middleware('auth')->group(function () {
 
     // admin routes 
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('admin');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/blogs', [AdminController::class, 'blogs'])->name('admin.blogs');
+
+    // user dashboard 
+    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
 
 
     // Profile routes 
@@ -52,7 +53,7 @@ Route::middleware('auth')->group(function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
     });
 });
-Route::get('/blogs/{id}', [BlogsController::class, 'show'])->name('blogs.show');
+
 
 
 

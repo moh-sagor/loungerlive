@@ -28,15 +28,15 @@
 
                                 @if (Auth::user() && Auth::user()->role_id === 1)
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
+                                        <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
                                     </li>
                                 @elseif(Auth::user() && Auth::user()->role_id === 2)
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('admin.index') }}">Author</a>
+                                        <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
                                     </li>
                                 @elseif(Auth::user() && Auth::user()->role_id === 3)
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('admin.index') }}">Subscriber</a>
+                                        <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>
                                     </li>
                                 @endif
 

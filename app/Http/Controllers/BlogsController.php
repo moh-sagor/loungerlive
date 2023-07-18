@@ -44,34 +44,27 @@ class BlogsController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-            'featured_image' => 'image|mimes:jpeg,png,jpg,gif,JPG|max:2048',
-        ]);
+        $input = $request->all();
 
-        $validatedData['slug'] = Str::slug($request->title);
-        $validatedData['meta_title'] = Str::limit($request->title, 55);
-        $validatedData['meta_description'] = Str::limit($request->body, 150);
+        $input['slug'] = Str::slug($request->title);
+        $input['meta_title'] = Str::limit($request->title, 55);
+        $input['meta_description'] = Str::limit($request->body, 150);
 
         if ($request->hasFile('featured_image')) {
             $image = $request->file('featured_image');
             $extension = $image->getClientOriginalExtension();
             $imageName = 'featured_image_' . time() . '.' . $extension;
             $image->move(public_path('images/featured_image'), $imageName);
-            $validatedData['featured_image'] = 'images/featured_image/' . $imageName;
+            $input['featured_image'] = 'images/featured_image/' . $imageName;
         }
-
         // $blog = Blog::create($validatedData);
-        $blogByUser = $request->user()->blogs()->create($validatedData);
+        $blogByUser = $request->user()->blogs()->create($input);
 
-        if ($request->has('category_id')) {
-            $categoryIds = $request->input('category_id');
-            $blogByUser->category()->sync($categoryIds);
+        if ($request->category_id) {
+            $blogByUser->category()->sync($request->category_id);
         }
 
-        // You can add a success message or redirect to a new page
-        return redirect('/');
+        return redirect('/blogs');
     }
     /**
      * Display the specified resource.

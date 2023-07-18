@@ -3,22 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Blog;
-use Illuminate\Pagination\Paginator;
+use App\Models\User;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'admin'], ['only' => ['blogs']]);
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.index');
+        return view('admin.users')->with('users', User::all());
     }
 
     /**
@@ -67,14 +61,5 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function blogs()
-    {
-        $publishedBlogs = Blog::where('status', 1)->latest()->paginate(5);
-        $draftBlogs = Blog::where('status', 0)->latest()->paginate(5);
-        Paginator::useBootstrap(); // Optional: Use Bootstrap styles for pagination
-
-        return view('admin.blogs', compact('publishedBlogs', 'draftBlogs'));
     }
 }
