@@ -52,14 +52,16 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        User::findOrFail($id)->update($request->only('role_id'));
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return back();
     }
 }

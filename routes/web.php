@@ -18,6 +18,8 @@ Route::middleware('auth')->group(function () {
 
     // user dashboard 
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+    Route::post('/admin/users/update/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::post('/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
 
     // Profile routes 
@@ -26,14 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // keep trashed routes 
-    Route::get('/blogs/trash', [BlogsController::class, 'trash'])->name('blogs.trash');
+    Route::get('/trashblogs', [BlogsController::class, 'trash'])->name('blogs.trash');
     Route::get('/blogs/trash/{id}/restore', [BlogsController::class, 'restore'])->name('blogs.restore');
     Route::get('/blogs/trash/{id}/parmanent-delete', [BlogsController::class, 'parmanentDelete'])->name('blogs.parmanent-delete');
 
 
 
     // blogs route 
-    Route::get('/blogs/create', [BlogsController::class, 'create'])->name('blogs.create');
+    Route::get('/createblogs', [BlogsController::class, 'create'])->name('blogs.create');
     Route::post('/blogs/store', [BlogsController::class, 'store'])->name('blogs.store');
     Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
     Route::get('/blogs/{id}/edit', [BlogsController::class, 'edit'])->name('blogs.edit');

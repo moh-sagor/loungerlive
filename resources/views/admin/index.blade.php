@@ -21,15 +21,23 @@
                     <a href="{{ route('admin.blogs') }}" class="text-white" style="text-decoration: none">Published /
                         Drafted</a>
                 </button>
-            @elseif(Auth::user() && Auth::user()->role_id === 2)
                 <button class="btn btn-primary btn-margin-right mt-1">
-                    <a href="{{ route('blogs.create') }}" class="text-white" style="text-decoration: none">Create Blog</a>
+                    <a href="{{ route('admin.users') }}" class="text-white" style="text-decoration: none">Manage Users</a>
+                </button>
+            @endif
+
+            @if (Auth::user() && Auth::user()->role_id === 2)
+                <button class="btn btn-primary btn-margin-right mt-1">
+                    <a href="{{ route('blogs.create') }}" class="text-white" style="text-decoration: none">Create
+                        Blog</a>
                 </button>
                 <button class="btn btn-info btn-margin-right mt-1">
                     <a href="{{ route('categories.create') }}" class="text-white" style="text-decoration: none">Create
                         Category</a>
                 </button>
-            @elseif(Auth::user() && Auth::user()->role_id === 3)
+            @endif
+
+            @if (Auth::user() && Auth::user()->role_id === 3)
                 <button class="btn btn-primary btn-margin-right mt-1">
                     <a href="#" class="text-white" style="text-decoration: none">Upcoming</a>
                 </button>
