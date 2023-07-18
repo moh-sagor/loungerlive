@@ -56,10 +56,4 @@ Route::get('/blogs/{id}', [BlogsController::class, 'show'])->name('blogs.show');
 
 
 
-
-
-
-
-
-
 require __DIR__ . '/auth.php';

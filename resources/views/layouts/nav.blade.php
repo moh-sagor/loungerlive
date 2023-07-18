@@ -26,9 +26,19 @@
                                     <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
-                                </li>
+                                @if (Auth::user() && Auth::user()->role_id === 1)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
+                                    </li>
+                                @elseif(Auth::user() && Auth::user()->role_id === 2)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('admin.index') }}">Author</a>
+                                    </li>
+                                @elseif(Auth::user() && Auth::user()->role_id === 3)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('admin.index') }}">Subscriber</a>
+                                    </li>
+                                @endif
 
                                 <li class="nav-item">
                                     <form method="POST" action="{{ route('logout') }}">

@@ -18,13 +18,14 @@
                                 <h5>
                                     <a href="{{ route('blogs.show', $blog->id) }}"
                                         style="text-decoration: none;">{{ $blog->title }}</a>
+                                    <p>{!! Str::limit($blog->body, 50) !!}</p>
                                 </h5>
                             </div>
                             <div style="flex: 2;">
                                 <form action="{{ route('blogs.update', $blog->id) }}" method="POST">
                                     @csrf
                                     <input type="checkbox" name="status" value="0" checked style="display: none">
-                                    <button class="btn btn-sm btn-primary mb-2" type="submit">Save as Draft</button>
+                                    <button class="btn btn-sm btn-warning mb-2" type="submit">Save as Draft</button>
                                 </form>
                             </div>
                         </div>

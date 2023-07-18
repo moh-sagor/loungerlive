@@ -13,6 +13,13 @@ use Illuminate\Support\Collection;
 
 class BlogsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('author', ['only' => ['create', 'store', 'edit', 'update']]);
+        $this->middleware('admin', ['only' => ['destroy', 'trash', 'restore', 'parmanentDelete']]);
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -55,11 +62,12 @@ class BlogsController extends Controller
             $validatedData['featured_image'] = 'images/featured_image/' . $imageName;
         }
 
-        $blog = Blog::create($validatedData);
+        // $blog = Blog::create($validatedData);
+        $blogByUser = $request->user()->blogs()->create($validatedData);
 
         if ($request->has('category_id')) {
             $categoryIds = $request->input('category_id');
-            $blog->category()->sync($categoryIds);
+            $blogByUser->category()->sync($categoryIds);
         }
 
         // You can add a success message or redirect to a new page
