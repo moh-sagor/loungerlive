@@ -8,7 +8,7 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
-Route::get('/blogs/{id}', [BlogsController::class, 'show'])->name('blogs.show');
+Route::get('/blogs/{id}/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
 
 Route::middleware('auth')->group(function () {
 

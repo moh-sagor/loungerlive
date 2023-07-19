@@ -28,7 +28,7 @@
                     <div class="d-flex justify-content-end">
                         <span class="mr-3">
                             Author: <a style="text-decoration:none;"
-                                href="{{ route('users.show', $blog->user) }}">{{ $blog->user->name }} </a>
+                                href="{{ route('users.show', $blog->user->name) }}">{{ $blog->user->name }} </a>
                         </span>
                         <span>
                             Posted: {{ $blog->created_at->diffForHumans() }}

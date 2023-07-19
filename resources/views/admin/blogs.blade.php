@@ -16,7 +16,7 @@
                         <div style="display: flex; align-items: center;" class="mt-1">
                             <div style="flex: 9;">
                                 <h5>
-                                    <a href="{{ route('blogs.show', $blog->id) }}"
+                                    <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
                                         style="text-decoration: none;">{{ $blog->title }}</a>
                                     <p>{!! Str::limit($blog->body, 50) !!}</p>
                                 </h5>
@@ -45,7 +45,7 @@
                     @foreach ($draftBlogs as $blog)
                         <div style="display: flex; align-items: center;" class="mt-1">
                             <div style="flex: 9;">
-                                <h5><a href="{{ route('blogs.show', $blog->id) }}"
+                                <h5><a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
                                         style="text-decoration: none;">{{ $blog->title }}</a></h5>
                             </div>
                             <div style="flex: 2;">
