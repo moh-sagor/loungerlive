@@ -30,16 +30,15 @@ Route::middleware('auth')->group(function () {
 
     // keep trashed routes 
     Route::get('/trashblogs', [BlogsController::class, 'trash'])->name('blogs.trash');
-    Route::get('/blogs/trash/{id}/restore', [BlogsController::class, 'restore'])->name('blogs.restore');
-    Route::get('/blogs/trash/{id}/parmanent-delete', [BlogsController::class, 'parmanentDelete'])->name('blogs.parmanent-delete');
-
+    Route::post('/blogs/store', [BlogsController::class, 'store'])->name('blogs.store');
+    Route::get('/blogs/{id}/{slug}/parmanent-delete', [BlogsController::class, 'parmanentDelete'])->name('blogs.parmanent-delete');
 
 
     // blogs route 
     Route::get('/createblogs', [BlogsController::class, 'create'])->name('blogs.create');
-    Route::post('/blogs/store', [BlogsController::class, 'store'])->name('blogs.store');
+    Route::get('/blogs/{id}/{slug}/restore', [BlogsController::class, 'restore'])->name('blogs.restore');
     Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
-    Route::get('/blogs/{id}/edit', [BlogsController::class, 'edit'])->name('blogs.edit');
+    Route::get('/blogs/{id}/{slug}/edit', [BlogsController::class, 'edit'])->name('blogs.edit');
     Route::post('/blogs/{id}/update', [BlogsController::class, 'update'])->name('blogs.update');
     Route::post('/blogs/{id}/destroy', [BlogsController::class, 'destroy'])->name('blogs.destroy');
 

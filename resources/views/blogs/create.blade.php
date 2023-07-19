@@ -10,6 +10,9 @@
             <div class="col-md-12">
                 <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+
+                    @include('partials.error')
+
                     <div class="form-group">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Enter title">
@@ -29,11 +32,11 @@
                                 for="category_{{ $category->id }}"><b>{{ $category->name }}</b></label>
                         @endforeach
                     </div>
+
                     <div class="col-md-6 form-group mt-3">
                         <label class="form-label" for="featured_image">Featured Image</label>
                         <input type="file" class="form-control" id="featured_image" name="featured_image" />
                     </div>
-
 
 
                     <div class="d-flex justify-content-center mt-3">

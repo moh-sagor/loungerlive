@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Session;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
@@ -44,6 +45,14 @@ class BlogsController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            "title" => ["required", 'min:20', "max:160"],
+            "body" => ["required", 'min:100'],
+
+        ];
+        $this->validate($request, $rules);
+
+
         $input = $request->all();
 
         $input['slug'] = Str::slug($request->title);
@@ -64,6 +73,8 @@ class BlogsController extends Controller
             $blogByUser->category()->sync($request->category_id);
         }
 
+
+        Session::flash('blog_created_message', 'Congratulations on creation a great Blog!');
         return redirect('/blogs');
     }
     /**
@@ -84,17 +95,18 @@ class BlogsController extends Controller
 
 
 
-    public function edit(string $id)
+    public function edit($id, $slug)
     {
         $categories = Category::latest()->get();
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::where('id', $id)
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         $bc = $blog->category->pluck('id')->all();
         $filtered = $categories->whereNotIn('id', $bc);
 
         return view('blogs.edit', compact('blog', 'categories', 'filtered'));
     }
-
 
 
 
@@ -133,9 +145,12 @@ class BlogsController extends Controller
 
     }
 
-    public function restore($id)
+    public function restore($id, $slug)
     {
-        $restoredBlog = Blog::onlyTrashed()->findOrFail($id);
+        $restoredBlog = Blog::onlyTrashed()
+            ->where('id', $id)
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         if ($restoredBlog) {
             $restoredBlog->restore();
@@ -145,15 +160,20 @@ class BlogsController extends Controller
         return redirect('/')->with('message', 'The trash is empty.');
     }
 
-    public function parmanentDelete($id)
+
+    public function parmanentDelete($id, $slug)
     {
-        $deletedBlog = Blog::onlyTrashed()->findOrFail($id);
+        $deletedBlog = Blog::onlyTrashed()
+            ->where('id', $id)
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         if ($deletedBlog) {
             $deletedBlog->forceDelete();
-            return redirect('/blogs/trash')->with('success', 'Blog post permanently deleted.');
+            return view('blogs.trash')->with('success', 'Blog post permanently deleted.');
         }
 
-        return redirect('/blogs/trash')->with('message', 'Blog post not found.');
+        return view('blogs.trash')->with('message', 'Blog post not found.');
     }
+
 }

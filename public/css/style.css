@@ -1,0 +1,10 @@
+.jumbotron {
+    /* Define the gradient color */
+    background-image: linear-gradient(to bottom right, #17946a, #b1b3d5);
+    color: #fff;
+    /* Set text color to white for better readability */
+    text-align: center;
+    /* Center the text within the jumbotron */
+    padding: 2rem;
+    /* Add padding to the jumbotron */
+}

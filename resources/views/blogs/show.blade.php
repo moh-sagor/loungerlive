@@ -50,8 +50,11 @@
         @auth
             <div class="row">
                 <div class="col-md-1 col-sm-1">
-                    <a class="btn btn-warning btn-sm" href="{{ route('blogs.edit', $blog->id) }}">Edit</a>
+                    <a class="btn btn-warning btn-sm"
+                        href="{{ route('blogs.edit', ['id' => $blog->id, 'slug' => $blog->slug]) }}">Edit</a>
                 </div>
+
+
                 <div class="col-md-1 col-sm-1">
                     <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
                         @csrf
