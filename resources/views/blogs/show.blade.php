@@ -24,6 +24,17 @@
                         style="border: 2px solid #639c2b9b; border-radius: 10px;">
                 @endif
                 {!! $blog->body !!}
+                @if ($blog->user)
+                    <div class="d-flex justify-content-end">
+                        <span class="mr-3">
+                            Author: <a style="text-decoration:none;"
+                                href="{{ route('users.show', $blog->user) }}">{{ $blog->user->name }} </a>
+                        </span>
+                        <span>
+                            Posted: {{ $blog->created_at->diffForHumans() }}
+                        </span>
+                    </div>
+                @endif
 
                 <hr>
                 <strong>Categories: </strong>
@@ -31,6 +42,8 @@
                     <span class="category-span mb-3"> <a href="{{ route('categories.show', $category->slug) }}"
                             style="text-decoration:none; color:#fff">{{ $category->name }}</a></span>
                 @endforeach
+
+
 
             </div>
         </div>
