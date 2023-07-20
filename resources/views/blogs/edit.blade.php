@@ -3,12 +3,12 @@
     @include('partials.tinymce')
     <div class="container offset-md-2">
         <div class="jumbotron text-center bg-light form-control">
-            <h1 class="display-4">Edit the blog</h1>
+            <h1 class="display-4">Edit the blog | {{ $blog->title }}</h1>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('blogs.update', $blog->id) }}" method="POST">
+                <form action="{{ route('blogs.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="title" class="form-label">Title</label>
@@ -43,6 +43,10 @@
                                     for="category_{{ $category->id }}"><b>{{ $category->name }}</b></label>
                             @endforeach
                         @endif
+                    </div>
+                    <div class="col-md-6 form-group mt-3">
+                        <label class="form-label" for="featured_image">Featured Image</label>
+                        <input type="file" class="form-control" id="featured_image" name="featured_image" />
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         <button type="submit" class="btn btn-primary">Update Blog</button>

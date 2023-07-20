@@ -117,6 +117,42 @@ class BlogsController extends Controller
     {
         $input = $request->all();
         $blog = Blog::findOrFail($id);
+
+        $rules = [
+            "title" => ["required", 'min:20', "max:160"],
+            "body" => ["required", 'min:100'],
+        ];
+        $this->validate($request, $rules);
+
+        $input['slug'] = Str::slug($request->title);
+        $input['meta_title'] = Str::limit($request->title, 55);
+        $input['meta_description'] = Str::limit($request->body, 150);
+
+        if ($request->hasFile('featured_image')) {
+            $image = $request->file('featured_image');
+            $extension = $image->getClientOriginalExtension();
+            $imageName = 'featured_image_' . time() . '.' . $extension;
+            $image->move(public_path('images/featured_image'), $imageName);
+            $input['featured_image'] = 'images/featured_image/' . $imageName;
+
+            // If there was a previous featured image, delete it
+            if ($blog->featured_image) {
+                // Assuming 'images/featured_image' is the directory where images are stored
+                $imagePath = public_path($blog->featured_image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+        }
+
+        if ($request->input('status') === '0') {
+            // Save as Draft
+            $input['status'] = 0;
+        } elseif ($request->input('status') === '1') {
+            // Save as Published
+            $input['status'] = 1;
+        }
+
         $blog->update($input);
 
         if ($request->has('category_id')) {
@@ -127,6 +163,7 @@ class BlogsController extends Controller
         // You can add a success message or redirect to a new page
         return redirect('/blogs');
     }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -175,5 +212,20 @@ class BlogsController extends Controller
 
         return view('blogs.trash')->with('message', 'Blog post not found.');
     }
+
+    public function toggleStatus(Request $request, $id)
+    {
+        $blog = Blog::findOrFail($id);
+
+        // Toggle the status between 0 and 1
+        $newStatus = ($blog->status == 0) ? 1 : 0;
+
+        // Update the status
+        $blog->update(['status' => $newStatus]);
+
+        // Redirect back to the admin page
+        return redirect()->route('admin.blogs');
+    }
+
 
 }

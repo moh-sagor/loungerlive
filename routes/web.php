@@ -15,6 +15,8 @@ Route::middleware('auth')->group(function () {
     // admin routes 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/blogs', [AdminController::class, 'blogs'])->name('admin.blogs');
+    Route::post('/admin/blogs/{id}/toggle-status', [BlogsController::class, 'toggleStatus'])->name('blogs.toggle-status');
+
 
     // user dashboard 
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');

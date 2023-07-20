@@ -74,7 +74,7 @@ class AdminController extends Controller
         $publishedBlogs = Blog::where('status', 1)->latest()->paginate(5);
         $draftBlogs = Blog::where('status', 0)->latest()->paginate(5);
         Paginator::useBootstrap(); // Optional: Use Bootstrap styles for pagination
-
         return view('admin.blogs', compact('publishedBlogs', 'draftBlogs'));
     }
+
 }

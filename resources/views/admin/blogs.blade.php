@@ -22,11 +22,11 @@
                                 </h5>
                             </div>
                             <div style="flex: 2;">
-                                <form action="{{ route('blogs.update', $blog->id) }}" method="POST">
+                                <form action="{{ route('blogs.toggle-status', ['id' => $blog->id]) }}" method="POST">
                                     @csrf
-                                    <input type="checkbox" name="status" value="0" checked style="display: none">
                                     <button class="btn btn-sm btn-warning mb-2" type="submit">Save as Draft</button>
                                 </form>
+
                             </div>
                         </div>
 
@@ -49,11 +49,11 @@
                                         style="text-decoration: none;">{{ $blog->title }}</a></h5>
                             </div>
                             <div style="flex: 2;">
-                                <form action="{{ route('blogs.update', $blog->id) }}" method="POST">
+                                <form action="{{ route('blogs.toggle-status', ['id' => $blog->id]) }}" method="POST">
                                     @csrf
-                                    <input type="checkbox" name="status" value="1" checked style="display: none">
                                     <button class="btn btn-sm btn-primary mb-2" type="submit">Save as Published</button>
                                 </form>
+
                             </div>
                         </div>
 
