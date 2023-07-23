@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Role;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -67,14 +68,28 @@ class BlogsController extends Controller
             $input['featured_image'] = 'images/featured_image/' . $imageName;
         }
         // $blog = Blog::create($validatedData);
+
+        $isAdmin = $request->user()->role_id === 1;
+        if ($isAdmin) {
+            $input['status'] = 1;
+        } else {
+            $input['status'] = 0;
+        }
+
         $blogByUser = $request->user()->blogs()->create($input);
+
 
         if ($request->category_id) {
             $blogByUser->category()->sync($request->category_id);
         }
 
+        $isAdmin = $request->user()->role_id === 1;
+        if ($isAdmin) {
+            Session::flash('blog_created_message', 'Congratulations on creation a great Blog!');
+        } else {
+            Session::flash('blog_created_message', "Wow, great work. your post will be published after admin's approval. It will take some time. Be patient and write another awesome post. !");
+        }
 
-        Session::flash('blog_created_message', 'Congratulations on creation a great Blog!');
         return redirect('/blogs');
     }
     /**

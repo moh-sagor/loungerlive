@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @include('partials.tinymce')
-    <div class="container offset-md-2">
+    <div class="container">
         <div class="jumbotron text-center bg-light form-control">
             <h1 class="display-4">Create a new blog</h1>
         </div>

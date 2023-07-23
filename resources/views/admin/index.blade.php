@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container offset-md-2">
+    <div class="container">
         <div class="jumbotron text-center bg-light form-control">
             <h1 class="display-4">{{ ucfirst(Auth::user()->role->name) }} Dashboard</h1>
         </div>

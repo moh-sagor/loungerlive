@@ -47,21 +47,25 @@
 
             </div>
         </div>
-        @auth
-            <div class="row">
-                <div class="col-md-1 col-sm-1">
-                    <a class="btn btn-warning btn-sm"
-                        href="{{ route('blogs.edit', ['id' => $blog->id, 'slug' => $blog->slug]) }}">Edit</a>
+        @if (Auth::user())
+            @if (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $blog->user_id))
+                <div class="row">
+                    <div class="col-md-1 col-sm-1">
+                        <a class="btn btn-warning btn-sm"
+                            href="{{ route('blogs.edit', ['id' => $blog->id, 'slug' => $blog->slug]) }}">Edit</a>
+                    </div>
+                    <div class="col-md-1 col-sm-1">
+                        <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
+            @endif
+        @endif
 
 
-                <div class="col-md-1 col-sm-1">
-                    <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
-                        @csrf
-                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                    </form>
-                </div>
-            </div>
-        @endauth
+
+
     </div>
 @endsection
