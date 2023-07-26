@@ -85,9 +85,9 @@ class BlogsController extends Controller
 
         $isAdmin = $request->user()->role_id === 1;
         if ($isAdmin) {
-            Session::flash('blog_created_message', 'Congratulations on creation a great Blog!');
+            Session::flash('success', 'Congratulations on creating a great Blog!');
         } else {
-            Session::flash('blog_created_message', "Wow, great work. your post will be published after admin's approval. It will take some time. Be patient and write another awesome post. !");
+            Session::flash('success', 'Be patient !! Your Blog will be Live Soon. ');
         }
 
         return redirect('/blogs');

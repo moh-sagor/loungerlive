@@ -2,27 +2,6 @@
 @include('partials.meta_static')
 @section('content')
     <div class="container">
-        @if (Session::has('blog_created_message'))
-            <div class="alert alert-success" id="auto-close-alert">
-                {{ Session::get('blog_created_message') }}
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            </div>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    // Function to automatically close the alert after 10 seconds
-                    function autoCloseAlert() {
-                        setTimeout(function() {
-                            $("#auto-close-alert").alert("close");
-                        }, 5000); // 10 seconds in milliseconds
-                    }
-
-                    autoCloseAlert(); // Call the function to start the timer
-                });
-            </script>
-        @endif
-
-
         @foreach ($blogs as $blog)
             <div class="blog">
                 <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
@@ -53,4 +32,20 @@
             <hr>
         @endforeach
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    @if (Session::has('success'))
+        <script>
+            // Show the SweetAlert when the page is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: "{{ Session::get('success') }}",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            });
+        </script>
+    @endif
 @endsection

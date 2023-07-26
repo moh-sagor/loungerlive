@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/users/update/{id}', [UserController::class, 'update'])->name('users.update');
     Route::post('/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::get('/users/profile/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/my/{username?}', [UserController::class, 'show'])->name('show');
 
 
     // Profile routes 
