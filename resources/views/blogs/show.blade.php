@@ -57,7 +57,7 @@
                     <div class="col-md-1 col-sm-1">
                         <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
                             @csrf
-                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            <button class="btn btn-danger btn-sm delete-btn" type="submit">Delete</button>
                         </form>
                     </div>
                 </div>

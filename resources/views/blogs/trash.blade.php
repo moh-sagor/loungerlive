@@ -19,37 +19,73 @@
                     </h2>
                     <p>{!! Str::limit($trash->body, 200) !!}</p>
                     <div class="row">
-                        @if (isset($trash) && $trash)
-                            <div class="col-md-6 col-sm-6">
-                                <div class="d-flex">
-                                    <a class="btn btn-danger btn-sm me-2"
-                                        href="{{ route('blogs.parmanent-delete', ['id' => $trash->id, 'slug' => $trash->slug]) }}">Delete
-                                        Permanently</a>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="d-flex">
+                                <form action="{{ route('blogs.restore', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
+                                    method="GET">
+                                    @csrf
+                                    <button class="btn btn-primary restore-btn me-2" type="button">Restore</button>
+                                </form>
 
-                                    <form
-                                        action="{{ route('blogs.restore', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
-                                        method="get">
-                                        @csrf
-                                        <button class="btn btn-primary" type="submit">Restore</button>
-                                    </form>
-
-                                </div>
+                                <a class="btn btn-danger btn-sm delete-parmanently"
+                                    href="{{ route('blogs.parmanent-delete', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
+                                    data-id="{{ $trash->id }}" data-slug="{{ $trash->slug }}">Delete Permanently</a>
                             </div>
-                        @else
-                            <div class="col-md-12">
-                                <p>No data to restore.</p>
-                            </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
-
             </div>
-
-
-
-
             <hr>
         @endforeach
-
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
+    <script>
+        const deleteButtons = document.querySelectorAll('.delete-parmanently');
+        deleteButtons.forEach((button) => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const dataHref = this.getAttribute('href');
+                const id = this.getAttribute('data-id');
+                const slug = this.getAttribute('data-slug');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = dataHref;
+                    }
+                });
+            });
+        });
+
+        // SweetAlert for Restore
+        const restoreButtons = document.querySelectorAll('.restore-btn');
+        restoreButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const form = this.closest('form');
+                Swal.fire({
+                    title: 'Restore this blog?',
+                    text: 'This blog will be restored.',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Restore'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Trigger the form submission when confirmed
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

@@ -222,11 +222,11 @@ class BlogsController extends Controller
 
         if ($deletedBlog) {
             $deletedBlog->forceDelete();
-            return view('blogs.trash')->with('success', 'Blog post permanently deleted.');
+            return redirect()->route('blogs.trash')->with('success', 'Blog post permanently deleted.');
         }
-
-        return view('blogs.trash')->with('message', 'Blog post not found.');
+        return redirect()->route('blogs.trash')->with('message', 'Blog post not found.');
     }
+
 
     public function toggleStatus(Request $request, $id)
     {
