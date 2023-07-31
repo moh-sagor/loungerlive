@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
+
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +19,13 @@ class BlogFactory extends Factory
      */
     public function definition(): array
     {
+        $title = $this->faker->sentence(10);
+
         return [
-            'title' => $this->faker->sentence(10),
+            'title' => $title,
             'body' => $this->faker->sentence(100),
+            'slug' => Str::slug($title),
         ];
     }
+
 }

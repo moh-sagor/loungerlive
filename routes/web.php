@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{id}/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
+Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/users/profile/{username?}', [UserController::class, 'show'])->name('users.show');
+Route::get('/my/{username?}', [UserController::class, 'show'])->name('show');
 
 Route::middleware('auth')->group(function () {
 
@@ -22,8 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     Route::post('/admin/users/update/{id}', [UserController::class, 'update'])->name('users.update');
     Route::post('/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/users/profile/{user}', [UserController::class, 'show'])->name('users.show');
-    Route::get('/my/{username?}', [UserController::class, 'show'])->name('show');
 
 
     // Profile routes 
@@ -47,7 +48,7 @@ Route::middleware('auth')->group(function () {
 
     // category route 
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-    Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name('categories.show');
+
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/edit/{slug}', [CategoryController::class, 'edit'])->name('categories.edit');
