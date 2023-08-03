@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     Route::post('/admin/users/update/{id}', [UserController::class, 'update'])->name('users.update');
     Route::post('/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/edit/{username?}', [UserController::class, 'edit'])->name('users.edit');
+    Route::post('/update/{id}', [UserController::class, 'update'])->name('users.update');
 
 
     // Profile routes 

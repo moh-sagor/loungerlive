@@ -4,42 +4,44 @@
     <div class="container">
         @foreach ($blogs as $blog)
             <div class="blog">
-                <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
-                    style="text-decoration: none; color:black;">
-                    <div class="row">
-                        <div class="flex justify-content-center" style="text-align: right;">
-                            @if ($blog->user)
-                                <span>
-                                    <i class="fa-solid fa-user"></i><b>
-                                        <a style="text-decoration:none;"
-                                            href="{{ route('users.show', $blog->user->username) }}">{{ $blog->user->name }}</a>
-                                    </b> | <i class="fa-solid fa-file"></i> {{ $blog->created_at->diffForHumans() }} |
-                                    <i class="fas fa-tags"></i>
-                                    @foreach ($blog->category as $category)
-                                        <span class="category-span">
-                                            <a href="{{ route('categories.show', $category->slug) }}"
-                                                style="text-decoration:none;">{{ $category->name }}</a>,
-                                        </span>
-                                    @endforeach
-                                </span>
-                            @endif
-                        </div>
-                        <div class="col-md-3 col-12">
+                <div class="row">
+                    <div class="flex justify-content-center" style="text-align: right;">
+                        @if ($blog->user)
+                            <span>
+                                <i class="fa-solid fa-user"></i><b>
+                                    <a style="text-decoration:none;"
+                                        href="{{ route('users.show', $blog->user->username) }}">{{ $blog->user->name }}</a>
+                                </b> | <i class="fa-solid fa-file"></i> {{ $blog->created_at->diffForHumans() }} |
+                                <i class="fas fa-tags"></i>
+                                @foreach ($blog->category as $category)
+                                    <span class="category-span">
+                                        <a href="{{ route('categories.show', $category->slug) }}"
+                                            style="text-decoration:none;">{{ $category->name }}</a>,
+                                    </span>
+                                @endforeach
+                            </span>
+                        @endif
+                    </div>
+                    <div class="col-md-3 col-12">
+                        <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
+                            style="text-decoration: none; color:black;">
                             <!-- Image -->
                             @if ($blog->featured_image)
                                 <img src="{{ asset($blog->featured_image ? $blog->featured_image : ' ') }}"
                                     alt="{{ Str::limit($blog->title, 25) }}" class="img-fluid"
                                     style="border: 2px solid #639c2b9b; border-radius: 10px;">
                             @endif
-                        </div>
-                        <div class="col-md-9 col-12">
+                        </a>
+                    </div>
+                    <div class="col-md-9 col-12">
+                        <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
+                            style="text-decoration: none; color:black;">
                             <h2>{{ ucwords($blog->title) }}</h2>
                             {!! Str::limit($blog->body, 550) !!}
-                            <br>
-
-                        </div>
+                        </a>
+                        <br>
                     </div>
-                </a>
+                </div>
 
             </div>
             <hr>

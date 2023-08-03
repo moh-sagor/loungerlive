@@ -25,6 +25,10 @@
                 <button class="btn btn-secondary btn-margin-right mt-1">
                     <a href="{{ route('admin.users') }}" class="text-white" style="text-decoration: none">Manage Users</a>
                 </button>
+                <button class="btn btn-primary btn-margin-right mt-1">
+                    <a href="{{ route('users.edit', ['username' => Auth::user()->username]) }}" class="text-white"
+                        style="text-decoration: none">Update Profile</a>
+                </button>
             @endif
 
             @if (Auth::user() && Auth::user()->role_id === 2)
@@ -36,11 +40,17 @@
                     <a href="{{ route('categories.create') }}" class="text-white" style="text-decoration: none">Create
                         Category</a>
                 </button>
+                <button class="btn btn-primary btn-margin-right mt-1">
+                    <a href="{{ route('users.edit', ['username' => Auth::user()->username]) }}" class="text-white"
+                        style="text-decoration: none">Update Profile</a>
+                </button>
             @endif
 
+            <!-- users/show.blade.php -->
             @if (Auth::user() && Auth::user()->role_id === 3)
                 <button class="btn btn-primary btn-margin-right mt-1">
-                    <a href="#" class="text-white" style="text-decoration: none">Upcoming</a>
+                    <a href="{{ route('users.edit', ['username' => Auth::user()->username]) }}" class="text-white"
+                        style="text-decoration: none">Update Profile</a>
                 </button>
             @endif
 
