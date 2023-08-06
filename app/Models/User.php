@@ -33,6 +33,7 @@ class User extends Authenticatable
         'youtube',
         'nid',
         'passport',
+        'github',
     ];
 
     /**
