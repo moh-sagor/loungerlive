@@ -28,6 +28,8 @@ return new class extends Migration {
             $table->string('youtube')->nullable();
             $table->string('nid')->nullable();
             $table->string('passport')->nullable();
+            $table->string('address')->nullable();
+            $table->string('profession')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

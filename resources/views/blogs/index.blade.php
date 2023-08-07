@@ -2,6 +2,31 @@
 @include('partials.meta_static')
 @section('content')
     <div class="container">
+        <!-- Search Bar -->
+        <form action="{{ route('blogs.search') }}" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search blogs...">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+        @if (isset($message1))
+            <script>
+                // Show the SweetAlert with auto-dismiss and a close button
+                Swal.fire({
+                    title: 'Search is not Found',
+                    text: "{{ $message1 }}",
+                    icon: 'warning',
+                    showConfirmButton: false, // Hide the Confirm (OK) button
+                    showCancelButton: true, // Show the Cancel button
+                    cancelButtonColor: '#d33',
+                })
+            </script>
+        @endif
+
+        <div class="d-flex justify-content-end mt-4">
+            {{ $blogs->links() }}
+        </div>
         @foreach ($blogs as $blog)
             <div class="blog">
                 <div class="row">
@@ -10,7 +35,7 @@
                             <span>
                                 <i class="fa-solid fa-user"></i><b>
                                     <a style="text-decoration:none;"
-                                        href="{{ route('users.show', $blog->user->username) }}">{{ $blog->user->name }}</a>
+                                        href="{{ route('users.profile_show', $blog->user->username) }}">{{ $blog->user->name }}</a>
                                 </b> | <i class="fa-solid fa-file"></i> {{ $blog->created_at->diffForHumans() }} |
                                 <i class="fas fa-tags"></i>
                                 @foreach ($blog->category as $category)
@@ -29,7 +54,7 @@
                             @if ($blog->featured_image)
                                 <img src="{{ asset($blog->featured_image ? $blog->featured_image : ' ') }}"
                                     alt="{{ Str::limit($blog->title, 25) }}" class="img-fluid"
-                                    style="border: 2px solid #639c2b9b; border-radius: 10px;">
+                                    style="border: 2px solid #639c2b9b; border-radius: 10px; height:200px; width:500px;">
                             @endif
                         </a>
                     </div>
@@ -46,7 +71,11 @@
             </div>
             <hr>
         @endforeach
-
+        <div class="container">
+            <div class="d-flex justify-content-center mt-4">
+                {{ $blogs->links() }}
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>

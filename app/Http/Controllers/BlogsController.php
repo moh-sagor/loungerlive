@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Session;
 
+use Illuminate\Pagination\Paginator;
+
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 
@@ -27,8 +29,8 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::where('status', 1)->latest()->get();
-
+        $blogs = Blog::where('status', 1)->latest()->paginate(10);
+        Paginator::useBootstrap();
         return view('blogs.index', compact('blogs'));
     }
 
@@ -240,6 +242,32 @@ class BlogsController extends Controller
 
         // Redirect back to the admin page
         return redirect()->route('admin.blogs');
+    }
+
+    public function search(Request $request)
+    {
+        // Get the search query from the request
+        $searchQuery = $request->input('search');
+
+        // Search for blogs using the title or body
+        $blogs = Blog::where('status', 1)
+            ->where(function ($query) use ($searchQuery) {
+                $query->where('title', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('body', 'like', '%' . $searchQuery . '%');
+            })
+            ->latest()
+            ->paginate(10);
+
+        Paginator::useBootstrap();
+
+        // Check if there are no search results
+        if ($blogs->isEmpty()) {
+            // Get all blogs with pagination
+            $blogs = Blog::where('status', 1)->latest()->paginate(10);
+            return view('blogs.index', compact('blogs'))->with('message1', 'Search agian with valid keyword.');
+        }
+
+        return view('blogs.index', compact('blogs'));
     }
 
 

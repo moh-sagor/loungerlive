@@ -19,9 +19,11 @@
         <div class="row">
             <div class="col-md-12 mt-3">
                 @if ($blog->featured_image)
-                    <img src="{{ asset($blog->featured_image ? $blog->featured_image : ' ') }}"
-                        alt="{{ Str::limit($blog->title, 25) }}" width="400" height="300"
-                        style="border: 2px solid #639c2b9b; border-radius: 10px;">
+                    <div class="d-flex justify-content-center">
+                        <img src="{{ asset($blog->featured_image ? $blog->featured_image : ' ') }}"
+                            alt="{{ Str::limit($blog->title, 25) }}" class="img-fluid"
+                            style="border: 2px solid #639c2b9b; border-radius: 10px; width: 600px; height: 400px;">
+                    </div>
                 @endif
                 {!! $blog->body !!}
                 @if ($blog->user)
@@ -42,9 +44,6 @@
                     <span class="category-span mb-3"> <a href="{{ route('categories.show', $category->slug) }}"
                             style="text-decoration:none; color:#fff">{{ $category->name }}</a></span>
                 @endforeach
-
-
-
             </div>
         </div>
         @if (Auth::user())

@@ -34,6 +34,8 @@ class User extends Authenticatable
         'nid',
         'passport',
         'github',
+        'profession',
+        'address',
     ];
 
     /**

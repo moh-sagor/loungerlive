@@ -91,7 +91,7 @@ class UserController extends Controller
             $user = User::findOrFail($id);
 
             // Update the fields you want to allow the user to change
-            $user->update($request->only('name', 'email', 'about', 'role_id', 'phone', 'website', 'linkedin', 'github', 'facebook', 'twitter', 'youtube', 'nid', 'passport'));
+            $user->update($request->only('name', 'email', 'about', 'role_id', 'phone', 'website', 'linkedin', 'github', 'facebook', 'twitter', 'youtube', 'nid', 'passport', 'address', 'profession'));
 
             // Handle the photo upload if it's provided in the request
             if ($request->hasFile('photo')) {

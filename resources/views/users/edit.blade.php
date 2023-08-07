@@ -19,6 +19,14 @@
                     <h5 class="mt-2"><i style="color: red" class="fas fa-user"></i><span style="color:blue;"> User Name
                             :</span>
                         {{ $user->username }}</h5>
+                    <h5 class="mt-2"><i style="color: red" class="fas fa-user"></i><span style="color:blue;"> Profession
+                            :</span>
+                        {{ $user->profession }}</h5>
+                    <h5 class="mt-2"><i style="color: red" class="fas fa-map-marker-alt"></i><span style="color:blue;">
+                            Address
+                            :</span>
+                        {{ $user->address }}</h5>
+
                     <h5><i style="color: red" class="fas fa-envelope"></i><span style="color:blue;"> Email :</span>
                         {{ $user->email }}</h5>
                     <h5><i style="color: red" class="fas fa-phone"></i><span style="color:blue;"> Phone :</span>
@@ -68,6 +76,11 @@
                                         value="{{ $user->username }}" readonly>
                                 </div>
                                 <div class="form-group">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control sky-input" id="address" name="address"
+                                        value="{{ $user->address }}">
+                                </div>
+                                <div class="form-group">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" class="form-control sky-input" id="email" name="email"
                                         value="{{ $user->email }}" readonly>
@@ -93,6 +106,11 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="profession" class="form-label">Profession</label>
+                                    <input type="text" class="form-control sky-input" id="profession"
+                                        name="profession" value="{{ $user->profession }}">
+                                </div>
                                 <div class="form-group">
                                     <label for="github" class="form-label">github</label>
                                     <input type="text" class="form-control sky-input" id="github" name="github"
