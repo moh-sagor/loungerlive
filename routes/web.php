@@ -11,7 +11,7 @@ Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{id}/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
 Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/users/profile/{username?}', [UserController::class, 'show'])->name('users.show');
-Route::get('/my/{username?}', [UserController::class, 'show'])->name('show');
+Route::get('/my/{username?}', [UserController::class, 'profile_show'])->name('users.profile_show');
 
 Route::middleware('auth')->group(function () {
 

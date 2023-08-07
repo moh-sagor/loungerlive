@@ -26,6 +26,12 @@
                                     <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
                                 </li>
 
+
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                        href="{{ route('users.profile_show', ['username' => Auth::user()->username]) }}">Profile</a>
+                                </li>
+
                                 @if (Auth::user() && Auth::user()->role_id === 1)
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('admin.index') }}">Dashboard</a>

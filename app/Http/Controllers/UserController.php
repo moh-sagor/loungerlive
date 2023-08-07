@@ -51,6 +51,19 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
+    public function profile_show(string $username = null)
+    {
+        // If $username is null, get the current logged-in user
+        if ($username === null) {
+            $user = auth()->user();
+        } else {
+            // If $username is provided, get the user based on the username
+            $user = User::where('username', $username)->first();
+        }
+
+        return view('users.show', compact('user'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
