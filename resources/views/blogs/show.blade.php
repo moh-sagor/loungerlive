@@ -62,5 +62,60 @@
                 </div>
             @endif
         @endif
+
+
+
+        <!-- ... existing content ... -->
+
+        <hr>
+
+        <div class="mt-3">
+
+            <h3>Comments</h3>
+
+            @if (Auth::check())
+                <div class="card mt-3 mb-3">
+                    <div class="card-body">
+                        <form action="{{ route('comments.store', $blog->id) }}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <textarea name="content" class="form-control" rows="3" placeholder="Add a comment..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Post Comment</button>
+                        </form>
+                    </div>
+                </div>
+            @else
+                <p class="mt-3">Please <a href="{{ route('login') }}">login</a> to post a comment.</p>
+            @endif
+
+
+            @foreach ($blog->comments->reverse() as $comment)
+                <div class="card p-3 mt-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="user d-flex flex-row align-items-center">
+
+                            <i class="fas fa-user-circle fa-3x mr-2 me-3 text-primary"></i>
+
+                            <span>
+                                <small class="font-weight-bold fs-5">{{ $comment->content }}</small></span>
+                        </div>
+                        <small>{{ $comment->created_at->format('F j, Y') }}</small>
+                    </div>
+                    <div class="action d-flex justify-content-between mt-2 align-items-center">
+                        <div class="reply text-red">
+                            Comment by <span style="color:blue;">{{ $comment->user->name }}</span>
+
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+
+        </div>
+
+
+
+
     </div>
 @endsection

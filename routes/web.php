@@ -13,6 +13,8 @@ Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name
 Route::get('/users/profile/{username?}', [UserController::class, 'show'])->name('users.show');
 Route::get('/my/{username?}', [UserController::class, 'profile_show'])->name('users.profile_show');
 Route::get('/blogs/search', [BlogsController::class, 'search'])->name('blogs.search');
+Route::post('/blogs/{blog}/comments', [App\Http\Controllers\CommentsController::class, 'store'])->name('comments.store');
+
 
 
 Route::middleware('auth')->group(function () {
