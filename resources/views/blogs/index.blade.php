@@ -37,12 +37,9 @@
                                     <img src="{{ asset('storage/' . $blog->user->photo) }}"
                                         class="img-fluid rounded-circle avatar" alt="user profile image">
                                 @else
-                                    <img src="{{ asset('images/default-profile.jpg') }}"
+                                    <img src="{{ asset('images/default_profile.jpg') }}"
                                         class="img-fluid rounded-circle avatar" alt="default profile image">
                                 @endif
-
-
-
                             </div>
                             @if ($blog->user)
                                 <div class="float-start meta ms-2">
@@ -82,14 +79,26 @@
                                 <div class="col-md-9 col-12">
                                     <h2>{{ Str::limit(ucwords($blog->title), 40) }}</h2>
                                     <p style="text-align: justify;">{!! Str::limit($blog->body, 500) !!}</p>
-                                    <a class="btn btn-light rounded-pill mx-1 title h5 category-span"
+                                    <a class="btn btn-outline-info rounded-pill mx-1 title h5 category-span"
                                         href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
                                         style="text-decoration: none; color: #555;">
                                         ...........Read More
                                     </a>
 
-                                    <br>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button"
+                                            class="btn btn-outline-secondary btn-arrow position-relative btn-sm">
+                                            <h6>Comments</h6>
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                                                {{ $blog->comments->count() }}
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        </button>
+                                    </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -126,6 +135,7 @@
                     @endforeach
                 </div>
             </div>
+
 
         </div>
     </div>
