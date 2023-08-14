@@ -13,7 +13,7 @@
             }
         </style>
         <div class="jumbotron text-center bg-light form-control">
-            <h1 class="display-4">{{ $blog->title }}</h1>
+            <h1 class="display-0">{{ $blog->title }}</h1>
         </div>
 
         <div class="row">
@@ -71,7 +71,13 @@
 
         <div class="mt-3">
 
-            <h3>Comments</h3>
+            <button type="button" class="btn btn-primary position-relative">
+                <h6>Comments</h6>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ $blog->comments->count() }}
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </button>
 
             @if (Auth::check())
                 <div class="card mt-3 mb-3">
@@ -95,7 +101,16 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="user d-flex flex-row align-items-center">
 
-                            <i class="fas fa-user-circle fa-3x mr-2 me-3 text-primary"></i>
+                            @if ($blog->user && $blog->user->photo)
+                                <img src="{{ asset('storage/' . $blog->user->photo) }}" class="img-fluid rounded-circle"
+                                    alt="user profile image" width="20" height="50" style="border-radius: 50%;">
+                            @else
+                                <img src="{{ asset('images/default-profile.jpg') }}" class="img-fluid rounded-circle"
+                                    alt="default profile image" width="20" height="50" style="border-radius: 50%;">
+                            @endif
+
+
+
 
                             <span>
                                 <small class="font-weight-bold fs-5">{{ $comment->content }}</small></span>

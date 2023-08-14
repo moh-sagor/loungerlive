@@ -31,7 +31,8 @@ class BlogsController extends Controller
     {
         $blogs = Blog::where('status', 1)->latest()->paginate(10);
         Paginator::useBootstrap();
-        return view('blogs.index', compact('blogs'));
+        $categories = Category::all();
+        return view('blogs.index', compact('blogs', 'categories'));
     }
 
     /**
@@ -249,6 +250,9 @@ class BlogsController extends Controller
         // Get the search query from the request
         $searchQuery = $request->input('search');
 
+        // Get all categories
+        $categories = Category::all();
+
         // Search for blogs using the title or body
         $blogs = Blog::where('status', 1)
             ->where(function ($query) use ($searchQuery) {
@@ -264,11 +268,12 @@ class BlogsController extends Controller
         if ($blogs->isEmpty()) {
             // Get all blogs with pagination
             $blogs = Blog::where('status', 1)->latest()->paginate(10);
-            return view('blogs.index', compact('blogs'))->with('message1', 'Search agian with valid keyword.');
+            return view('blogs.index', compact('blogs'))->with('message1', 'Search again with a valid keyword.')->with('categories', $categories);
         }
 
-        return view('blogs.index', compact('blogs'));
+        return view('blogs.index', compact('blogs', 'categories'));
     }
+
 
 
 }
