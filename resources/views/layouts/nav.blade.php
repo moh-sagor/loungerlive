@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img src="{{ asset('images/loungerlive.png') }}" alt="Logo" height="45">
@@ -43,8 +43,13 @@
                                         <a class="btn dropdown-toggle" href="#" role="button" id="profileDropdown"
                                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <!-- Profile Photo -->
-                                            <img src="{{ asset('images/default_profile.jpg') }}" alt="Profile Photo"
-                                                height="35" class="rounded-circle">
+                                            @if (Auth::user()->photo)
+                                                <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Profile Photo"
+                                                    height="35" width="35" class="rounded-circle avatar">
+                                            @else
+                                                <img src="{{ asset('images/default_profile.jpg') }}" alt="Profile Photo"
+                                                    height="35" width="35" class="rounded-circle">
+                                            @endif
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                                             @if (Route::has('login'))

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @include('partials.meta_static')
 @section('content')
-    <div class="container">
+    <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-md-10">
                 <form action="{{ route('blogs.search') }}" method="GET" class="mb-4">
                     <div class="input-group">
                         <input type="text" class="form-control" name="search" placeholder="Search blogs...">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary ubuntu-font">Search</button>
                     </div>
                 </form>
 
@@ -42,8 +42,8 @@
                                 @endif
                             </div>
                             @if ($blog->user)
-                                <div class="float-start meta ms-2">
-                                    <div class="title h5">
+                                <div class="float-start meta ms-2 me-3">
+                                    <div class="title h5 ubuntu-font">
                                         <a style="text-decoration:none;"
                                             href="{{ route('users.profile_show', $blog->user->username) }}">{{ strtoupper($blog->user->name) }}
                                         </a>
@@ -52,8 +52,9 @@
                                 </div>
                                 <div class="ml-4">
                                     @foreach ($blog->category as $category)
-                                        <span class="title h5 category-span bg-primary rounded-pill  mx-1">
-                                            <a class="mx-2" href="{{ route('categories.show', $category->slug) }}"
+                                        <span class="title h5 category-span bg-primary rounded-pill  mx-1 p-1 ">
+                                            <a class="mx-2 ubuntu-font"
+                                                href="{{ route('categories.show', $category->slug) }}"
                                                 style="text-decoration:none; color:aliceblue; ">{{ $category->name }}</a>
                                         </span>
                                     @endforeach
@@ -79,63 +80,80 @@
                                 <div class="col-md-9 col-12">
                                     <h2>{{ Str::limit(ucwords($blog->title), 40) }}</h2>
                                     <p style="text-align: justify;">{!! Str::limit($blog->body, 500) !!}</p>
-                                    <a class="btn btn-outline-info rounded-pill mx-1 title h5 category-span"
-                                        href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
-                                        style="text-decoration: none; color: #555;">
-                                        ...........Read More
-                                    </a>
-
-                                    <div class="d-flex justify-content-end">
-                                        <button type="button"
-                                            class="btn btn-outline-secondary btn-arrow position-relative btn-sm">
-                                            <h6>Comments</h6>
-                                            <span
-                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                                                {{ $blog->comments->count() }}
-                                                <span class="visually-hidden">unread messages</span>
-                                            </span>
-                                        </button>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a class="btn btn-outline-info rounded-pill mx-1 title h5 category-span"
+                                                href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
+                                                style="text-decoration: none; color: #555;">
+                                                ...........Read More
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button"
+                                                    class="btn btn-outline-secondary btn-arrow position-relative btn-sm">
+                                                    <h6>Comments</h6>
+                                                    <span
+                                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                                                        {{ $blog->comments->count() }}
+                                                        <span class="visually-hidden">unread messages</span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
 
                             </div>
                         </div>
                     </div>
                 @endforeach
 
-                <div class="container">
-                    <div class="d-flex justify-content-center mt-4">
-                        {{ $blogs->links() }}
+            </div>
+
+            <div class="col-md-2 card card-white">
+                <div class="sticky-column">
+                    <h6 class="text-center card card-white mt-3 bg-primary my-2 ubuntu-font p-2">
+                        <span style="color: azure;">Categories</span>
+                    </h6>
+                    <div class="container justify-content-center border-left border-right">
+                        @foreach ($categories as $category)
+                            <div class="d-flex justify-content-center py-1">
+                                <div class="second py-2 px-2">
+                                    <span class="text1 ms-2 ubuntu-font">
+                                        <a href="{{ route('categories.show', $category->slug) }}"
+                                            style="text-decoration: none;"> <i class="fas fa-folder"></i>
+                                            {{ $category->name }}
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
 
-
-
-
-            <div class="col-md-2 card card-white">
-                <div class="d-flex justify-content-end mt-4">
+            <div class="container">
+                <div class="d-flex justify-content-center mt-4">
                     {{ $blogs->links() }}
-                </div>
-                <hr>
-                <h5 class="text-center card card-white mt-2 bg-primary my-2">Categories</h5>
-                <div class="container justify-content-center border-left border-right">
-                    @foreach ($categories as $category)
-                        <div class="d-flex justify-content-center py-2">
-                            <div class="second py-2 px-2">
-                                <span class="text1">
-                                    <a href="{{ route('categories.show', $category->slug) }}"
-                                        style="text-decoration: none;">
-                                        {{ $category->name }}
-                                    </a>
-                                </span>
-                            </div>
-                        </div>
-                    @endforeach
                 </div>
             </div>
 
+            <a href="#" class="go-to-home">
+                <i class="fas fa-home"></i>
+            </a>
+
+            <script>
+                document.querySelector(".go-to-home").addEventListener("click", function(event) {
+                    event.preventDefault();
+                    // Scroll to the top of the page
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                });
+            </script>
 
         </div>
     </div>

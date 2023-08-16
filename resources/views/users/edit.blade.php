@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="container"style="padding-top: 70px;">
         <style>
             .sky-input {
                 background-color: rgba(147, 211, 216, 0.574);

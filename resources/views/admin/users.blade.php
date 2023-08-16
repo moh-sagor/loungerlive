@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="jumbotron text-center bg-secondary form-control mb-1">
                 <h1 class="display-6">Manage Users</h1>

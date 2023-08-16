@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="container" style="padding-top: 70px;">
         <div class="jumbotron text-center bg-light form-control">
             <h1 class="display-4">Create a Category</h1>
         </div>

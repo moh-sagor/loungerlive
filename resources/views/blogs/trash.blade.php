@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="container" style="padding-top: 70px;">
         <div class="jumbotron text-center bg-light form-control mb-2">
             <h1 class="display-4">Restore the blog</h1>
         </div>

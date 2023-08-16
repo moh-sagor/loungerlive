@@ -1,7 +1,31 @@
 @extends('layouts.app')
 @include('partials.meta_dynamic')
 @section('content')
-    <div class="container">
+    <div class="container" style="padding-top: 70px;">
+
+
+        {{-- Category dropdown menu --}}
+        <div class="position-fixed top-0 end-0 mt-4 me-4" style="padding-top: 70px; z-index: 1000;"> {{-- Add z-index --}}
+            {{-- Category dropdown menu --}}
+            <div class="btn-group dropend">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="fas fa-folder"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                    @foreach ($categories as $category)
+                        <a class="dropdown-item" href="{{ route('categories.show', $category->slug) }}">
+                            <i class="fas fa-file text-primary"></i> {{ $category->name }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+
+
+
+
 
 
         <div class="card card-white post mt-2">
@@ -152,6 +176,23 @@
 
 
         </div>
+
+
+        <a href="#" class="go-to-home">
+            <i class="fas fa-home"></i>
+        </a>
+
+        <script>
+            document.querySelector(".go-to-home").addEventListener("click", function(event) {
+                event.preventDefault();
+                // Scroll to the top of the page
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+        </script>
+
 
 
 
