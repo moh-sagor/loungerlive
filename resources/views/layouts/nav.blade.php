@@ -84,26 +84,18 @@
                                             @endif
                                         </ul>
                                     @else
-                                        <a class="nav-item" href="{{ route('login') }}">Log in</a>
-                                        @if (Route::has('register'))
-                                            <a class="nav-item" href="{{ route('register') }}">Register</a>
-                                        @endif
+                                        <ul class="navbar-nav ml-auto">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('login') }}">Log in</a>
+                                            </li>
+                                        </ul>
                                     @endauth
-                                @else
-                                    <li><a class="dropdown-item" href="{{ route('login') }}">Log in</a></li>
-                                    @if (Route::has('register'))
-                                        <li><a class="dropdown-item" href="{{ route('register') }}">Register</a>
-                                        </li>
-                                    @endif
-
-
                                 </div>
+
+
                             </div>
-
-
                         </div>
                     </div>
-                </div>
             @endif
         </div>
     </div>
