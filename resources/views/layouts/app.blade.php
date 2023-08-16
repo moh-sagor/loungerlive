@@ -27,9 +27,11 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased" style="background: rgba(147, 178, 176, 0.475)">
     <div class="min-h-screen bg-gray-100">
         <!-- Navigation Bar -->
         @include('layouts.nav')
@@ -51,10 +53,12 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="{{ asset('sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('js/sweet.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
 
 
