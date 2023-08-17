@@ -3,7 +3,6 @@
 @section('content')
     <div class="container" style="padding-top: 70px;">
 
-
         {{-- Category dropdown menu --}}
         <div class="position-fixed top-0 end-0 mt-4 me-4" style="padding-top: 70px; z-index: 1000;"> {{-- Add z-index --}}
             {{-- Category dropdown menu --}}
@@ -21,10 +20,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
 
 
 
@@ -62,7 +57,7 @@
                 <div class="row">
                     <div class="col-md-12 col-12">
                         <div class="text-center">
-                            <h2>{{ ucwords($blog->title) }}</h2>
+                            <h2>{{ ucwords($blog->title) }}</h2> <br>
                         </div>
 
                         <!-- Image -->
@@ -87,7 +82,6 @@
                                     {{-- added next  --}}
                                 </div>
                             </div>
-
 
                         </div>
 
@@ -117,6 +111,7 @@
 
             </div>
         </div>
+
 
 
 

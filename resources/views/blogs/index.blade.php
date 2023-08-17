@@ -112,9 +112,9 @@
 
             </div>
 
-            <div class="col-md-2 card card-white">
+            <div class="col-md-2">
                 <div class="sticky-column">
-                    <h6 class="text-center card card-white mt-3 bg-primary my-2 ubuntu-font p-2">
+                    <h6 class="text-center card card-white bg-primary my-2 ubuntu-font py-2">
                         <span style="color: azure;">Categories</span>
                     </h6>
                     <div class="container justify-content-center border-left border-right">

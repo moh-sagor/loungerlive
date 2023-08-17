@@ -58,7 +58,7 @@
         border-radius: 20px;
         border: 1px solid #FF4B2B;
         background-color: #FF4B2B;
-        color: #FFFFFF;
+        color: black;
         font-size: 12px;
         font-weight: bold;
         padding: 12px 45px;
@@ -76,8 +76,8 @@
     }
 
     button.ghost {
-        background-color: transparent;
-        border-color: #FFFFFF;
+        background-color: rgba(1, 204, 255, 0.498);
+        border-color: rgba(1, 204, 255, 0.498);
     }
 
     form {
@@ -173,19 +173,20 @@
     }
 
     .overlay {
-        background: #FF416C;
+        color: #000000;
+        /* background: #FF416C;
         background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-        background: linear-gradient(to right, #FF4B2B, #FF416C);
+        background: linear-gradient(to right, #FF4B2B, #FF416C); */
         background-repeat: no-repeat;
         background-size: cover;
         background-position: 0 0;
-        color: #FFFFFF;
         position: relative;
         left: -100%;
         height: 100%;
         width: 200%;
         transform: translateX(0);
         transition: transform 0.6s ease-in-out;
+        background-image: url({{ asset('images/bg-1.avif') }});
     }
 
     .container.right-panel-active .overlay {
@@ -296,7 +297,8 @@
             background-repeat: no-repeat;
             background-position: left bottom;
             background-size: 500px;
-            background-image: url('https://images.unsplash.com/photo-1690172278382-0a7d1c93342d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80');
+            background-image: url({{ asset('images/bg-1.avif') }});
+
         }
 
         .signup {
@@ -701,12 +703,12 @@
                 <div class="overlay">
                     <div class="overlay-panel overlay-left">
                         <h1>Welcome Back!</h1>
-                        <p>To keep connected with us please login with your personal info</p>
+                        <p>To keep connected with us please login with your info</p>
                         <button class="ghost" id="signIn">Sign In</button>
                     </div>
                     <div class="overlay-panel overlay-right">
                         <h1>Hello, Friend!</h1>
-                        <p>Enter your personal details and start journey with us</p>
+                        <p>Enter your details and start journey with us</p>
                         <button class="ghost" id="signUp">Sign Up</button>
                     </div>
                 </div>
