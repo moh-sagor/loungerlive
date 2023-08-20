@@ -4,6 +4,8 @@
         <div class="col-md-12 mt-3">
             <link href="{{ asset('admin_welcome/assets/css/theme.css') }}" rel="stylesheet" />
             <link href="{{ asset('admin_welcome/vendors/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
             <!-- ============================================-->
             <!-- <section> begin ============================-->
 
@@ -30,7 +32,9 @@
                             </h1>
                             <p class="mt-4 fs-2 fs-md-4 lh-sm">Run your affiliate marketing dream here.It's hasslefree and
                                 easy and obviously secure.</p>
-                            <button class="btn btn-success mt-4">Request early access</button>
+                            @if (Auth::user() && Auth::user()->role_id === 3)
+                                <button class="btn btn-success mt-4" id="requestAccessBtn">Request to be Author</button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -105,7 +109,7 @@
                             <p class="mt-4 fs-1">If you can’t wait to run a new or existing organization on Open
                                 Enterprise and are willing to explore and navigate the beta, we’d love to get you
                                 started.</p>
-                            <button class="btn btn-success mt-4">Request early access</button>
+                            <button class="btn btn-success mt-4" id="requestAccessBtn">Request to be Author</button>
                         </div>
                     </div>
                 </div>
@@ -116,5 +120,33 @@
             <!-- ============================================-->
 
         </div>
+        <script>
+            document.getElementById("requestAccessBtn").addEventListener("click", function() {
+                Swal.fire({
+                    title: 'Fill the FORM for sending a request',
+                    html: `
+                        <form id="requestForm">
+                            <input type="text" name="name" class="swal2-input" placeholder="Your Name" required>
+                            <input type="email" name="email" class="swal2-input" placeholder="Your Email" required>
+                        </form>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Submit',
+                    preConfirm: () => {
+                        const formData = new FormData(document.querySelector('#requestForm'));
+                        return {
+                            name: formData.get('name'),
+                            email: formData.get('email'),
+                        };
+                    }
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        // Handle the form submission, e.g., send a request to the server
+                        // Notify admin about the request (you may need to implement this part)
+                        Swal.fire('Success', 'Your request has been submitted!', 'success');
+                    }
+                });
+            });
+        </script>
     </div>
 @endsection
