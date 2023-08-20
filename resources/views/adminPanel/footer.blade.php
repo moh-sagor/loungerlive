@@ -1,7 +1,7 @@
 <footer class="py-4 bg-light mt-auto">
     <div class="container-fluid px-4">
         <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; LoungerLive 2024</div>
+            <div>Copyright &copy; LoungerLive 2024</div>
             <div>
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('images/loungerlive.png') }}" alt="Logo" height="35">

@@ -1,24 +1,37 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container" style="padding-top: 70px;">
-        <div class="row">
-            <div class="jumbotron text-center bg-secondary form-control mb-1">
-                <h1 class="display-6">Manage Users</h1>
+@extends('adminPanel.mainpage')
+@section('main')
+    <div class="container-fluid px-4">
+        <div class="jumbotron text-center bg-secondary form-control mb-1">
+            <h1 class="display-6">Manage Users</h1>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Manage users or Update Role
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                </div>
+                <div class="col-md-3 mt-1">
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Users.."
+                        title="Type in a name">
+                </div>
             </div>
             <div class="col-md-12">
-                <div class="row justify-content-between">
+                <div class="card-body">
                     @php
                         $serialNumber = 1;
                     @endphp
-                    <table class="table table-striped">
+                    <table class="table" id="myTable">
                         <thead>
                             <tr>
-                                <th scope="col">S/N</th>
-                                <th scope="col">UserName</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">Created At</th>
-                                <th scope="col">Action</th>
+                                <th>S/N</th>
+                                <th>UserName</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Created At</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         @foreach ($users as $user)
@@ -26,21 +39,24 @@
                                 @csrf
                                 <tbody>
                                     <tr>
-                                        <th scope="row">{{ $serialNumber }}</th>
+                                        <th>{{ $serialNumber }}</th>
                                         <td> <a href="{{ route('users.show', $user->username) }}"
                                                 style="text-decoration: none">{{ $user->username }}</a></td>
                                         <td>{{ $user->email }}</td>
                                         <td>
                                             <select name="role_id" id="role" class="form-control">
-                                                <option value="{{ $user->role->name }}" selected>
+                                                <option value="{{ $user->role->id }}" selected>
                                                     {{ ucfirst($user->role->name) }}</option>
+                                                <option value="1">Admin</option>
                                                 <option value="2">Author</option>
                                                 <option value="3">Subscriber</option>
                                             </select>
-
-
                                         </td>
-                                        <td>{{ $user->created_at->diffForHumans() }}</td>
+                                        <td>{{ $user->created_at->format('Y-m-d') }}
+                                            <sup>{{ $user->created_at->diffForHumans() }}</sup>
+                                        </td>
+
+
                                         <td>
                                             <div class="d-flex">
                                                 <form action="{{ route('users.update', $user->id) }}" method="POST">
@@ -55,15 +71,37 @@
                                                 </form>
                                             </div>
                                         </td>
+                                        @php
+                                            $serialNumber++;
+                                        @endphp
                                     </tr>
-                                    @php
-                                        $serialNumber++;
-                                    @endphp
                                 </tbody>
+                            </form>
                         @endforeach
                     </table>
 
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+@endsection

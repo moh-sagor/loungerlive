@@ -1,16 +1,16 @@
 .jumbotron {
     /* Define the gradient color */
-    background-image: linear-gradient(to bottom right, #17946a, #b1b3d5);
+    background-image: linear-gradient(to bottom right, #00edfe, #108071);
     color: #fff;
     /* Set text color to white for better readability */
     text-align: center;
     /* Center the text within the jumbotron */
-    padding: 2rem;
+    padding: 1rem;
     /* Add padding to the jumbotron */
 }
 
 .second {
-    width: 350px;
+    width: 100%;
     background-color: white;
     border-radius: 4px;
     box-shadow: 10px 10px 5px #aaaaaa;

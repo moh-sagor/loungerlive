@@ -1,7 +1,7 @@
-@extends('layouts.app')
-@section('content')
+@extends('adminPanel.mainpage')
+@section('main')
     <div class="container" style="padding-top: 70px;">
-        <div class="jumbotron text-center bg-light form-control mb-2">
+        <div class="jumbotron text-center bg-light form-control ubuntu-font text-white">
             <h1 class="display-4">Restore the blog</h1>
         </div>
         @foreach ($trashedBlogs as $trash)

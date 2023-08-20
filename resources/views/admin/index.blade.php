@@ -76,9 +76,9 @@
                             <div class="card py-md-6 px-md-4 mt-3 h-100 box-shadow-all border-0">
                                 <div class="card-body"><img src="{{ asset('admin_welcome/assets/img/icons/icon3.png') }}"
                                         alt="" />
-                                    <h3 class="py-3">Engineered for resilience</h3>
-                                    <p class="lead mb-0">Open Enterprise supports best practices in sociocratic
-                                        management.</p>
+                                    <h3 class="py-3">Policy of Work</h3>
+                                    <p class="lead mb-0">Don't violate the term and condition. otherwise account will be
+                                        terminated.</p>
                                 </div>
                             </div>
                         </div>

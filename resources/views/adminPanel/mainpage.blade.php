@@ -9,6 +9,7 @@
     <meta name="description" content="@yield('meta_description')">
     <title> @yield('meta_title')</title>
 
+
     {{-- google font  --}}
     <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Poppins:wght@400;500&display=swap"
         rel="stylesheet">
@@ -33,6 +34,7 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
 </head>
 
 

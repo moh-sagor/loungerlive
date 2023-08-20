@@ -1,9 +1,9 @@
-@extends('layouts.app')
-@section('content')
+@extends('adminPanel.mainpage')
+@section('main')
     @include('partials.tinymce')
     <div class="container" style="padding-top: 70px;">
-        <div class="jumbotron text-center bg-light form-control">
-            <h1 class="display-4">Edit the blog | {{ $blog->title }}</h1>
+        <div class="jumbotron text-center bg-light form-control ubuntu-font text-white">
+            <h1 class="display-4">Edit the blog | {{ Str::limit($blog->title, 25) }}</h1>
         </div>
 
         <div class="row">

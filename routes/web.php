@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/update/{id}', [UserController::class, 'update'])->name('users.update');
 
 
+
     // Profile routes 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
