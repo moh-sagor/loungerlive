@@ -1,13 +1,13 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container"style="padding-top: 70px;">
+@extends('adminPanel.mainpage')
+@section('main')
+    <div class="container"style="padding-top: 10px;">
         <style>
             .sky-input {
                 background-color: rgba(147, 211, 216, 0.574);
             }
         </style>
         <div class="row">
-            <div class="col-md-3 col-12 border rounded border-success">
+            <div class="col-md-3 col-12 border rounded border-success ms-3">
                 @if (Auth::check() && Auth::user()->id === $user->id)
                     <h3 class="d-flex justify-content-center">Hello, {{ $user->name }}</h3>
                     <hr>

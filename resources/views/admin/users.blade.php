@@ -1,6 +1,6 @@
 @extends('adminPanel.mainpage')
 @section('main')
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-4" style="padding-top: 10px;">
         <div class="jumbotron text-center bg-secondary form-control mb-1">
             <h1 class="display-6">Manage Users</h1>
         </div>
@@ -86,16 +86,19 @@
     </div>
     <script>
         function myFunction() {
-            var input, filter, table, tr, td, i, txtValue;
+            var input, filter, table, tr, tdName, tdEmail, i, txtValueName, txtValueEmail;
             input = document.getElementById("myInput");
             filter = input.value.toUpperCase();
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
             for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tdName = tr[i].getElementsByTagName("td")[1];
+                tdEmail = tr[i].getElementsByTagName("td")[2];
+                if (tdName || tdEmail) {
+                    txtValueName = tdName.textContent || tdName.innerText;
+                    txtValueEmail = tdEmail.textContent || tdEmail.innerText;
+                    if (txtValueName.toUpperCase().indexOf(filter) > -1 ||
+                        txtValueEmail.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";
                     } else {
                         tr[i].style.display = "none";

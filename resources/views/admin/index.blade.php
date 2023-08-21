@@ -33,6 +33,10 @@
                             <p class="mt-4 fs-2 fs-md-4 lh-sm">Run your affiliate marketing dream here.It's hasslefree and
                                 easy and obviously secure.</p>
                             @if (Auth::user() && Auth::user()->role_id === 3)
+                                <form id="requestForm">
+                                    @csrf
+                                </form>
+                                <!-- The button to trigger SweetAlert -->
                                 <button class="btn btn-success mt-4" id="requestAccessBtn">Request to be Author</button>
                             @endif
                         </div>
@@ -109,7 +113,6 @@
                             <p class="mt-4 fs-1">If you can’t wait to run a new or existing organization on Open
                                 Enterprise and are willing to explore and navigate the beta, we’d love to get you
                                 started.</p>
-                            <button class="btn btn-success mt-4" id="requestAccessBtn">Request to be Author</button>
                         </div>
                     </div>
                 </div>
@@ -120,31 +123,57 @@
             <!-- ============================================-->
 
         </div>
+
         <script>
-            document.getElementById("requestAccessBtn").addEventListener("click", function() {
-                Swal.fire({
-                    title: 'Fill the FORM for sending a request',
-                    html: `
-                        <form id="requestForm">
-                            <input type="text" name="name" class="swal2-input" placeholder="Your Name" required>
-                            <input type="email" name="email" class="swal2-input" placeholder="Your Email" required>
-                        </form>
-                    `,
-                    showCancelButton: true,
-                    confirmButtonText: 'Submit',
-                    preConfirm: () => {
-                        const formData = new FormData(document.querySelector('#requestForm'));
-                        return {
-                            name: formData.get('name'),
-                            email: formData.get('email'),
-                        };
-                    }
-                }).then(result => {
-                    if (result.isConfirmed) {
-                        // Handle the form submission, e.g., send a request to the server
-                        // Notify admin about the request (you may need to implement this part)
-                        Swal.fire('Success', 'Your request has been submitted!', 'success');
-                    }
+            document.addEventListener('DOMContentLoaded', function() {
+                const requestAccessBtn = document.getElementById('requestAccessBtn');
+
+                requestAccessBtn.addEventListener('click', function() {
+                    Swal.fire({
+                        title: 'Fill the FORM for sending a request',
+                        html: `
+                             <input type="text" name="name" class="swal2-input input-fields-hidden" placeholder="Your Name" required>
+                                 <input type="email" name="email" class="swal2-input input-fields-hidden" placeholder="Your Email" required>
+                                 `,
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Save it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const name = Swal.getPopup().querySelector('[name="name"]').value;
+                            const email = Swal.getPopup().querySelector('[name="email"]').value;
+
+                            // Create an object with the collected data
+                            const data = {
+                                name: name,
+                                email: email
+                            };
+
+                            // Send the data to the server using fetch or your preferred method
+                            fetch('{{ route('emails.sendEmail') }}', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token if needed
+                                    },
+                                    body: JSON.stringify(data)
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        Swal.fire('Success', 'Data saved successfully', 'success');
+                                    } else {
+                                        Swal.fire('Error', 'Data could not be saved', 'error');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    Swal.fire('Error', 'An error occurred while saving data',
+                                        'error');
+                                });
+                        }
+                    });
                 });
             });
         </script>

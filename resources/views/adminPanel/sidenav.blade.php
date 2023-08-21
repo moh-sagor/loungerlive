@@ -29,6 +29,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-user-edit"></i></div>
                     Update Profile
                 </a>
+                <a class="nav-link" href="{{ route('emails.show') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Author Request
+                </a>
             @endif
 
             {{-- for author   --}}

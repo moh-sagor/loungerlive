@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
@@ -23,6 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/blogs', [AdminController::class, 'blogs'])->name('admin.blogs');
     Route::post('/admin/blogs/{id}/toggle-status', [BlogsController::class, 'toggleStatus'])->name('blogs.toggle-status');
+
+
+    // request for auth 
+    Route::post('/send-email', [EmailController::class, 'sendEmail'])->name('emails.sendEmail');
+    Route::get('/request/show', [EmailController::class, 'show'])->name('emails.show');
+
 
 
     // user dashboard 

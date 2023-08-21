@@ -79,16 +79,17 @@
                                 </div>
                                 <div class="col-md-9 col-12">
                                     <h2>{{ Str::limit(ucwords($blog->title), 40) }}</h2>
-                                    <p style="text-align: justify;">{!! Str::limit($blog->body, 500) !!}</p>
+                                    <p style="text-align: justify;">{!! Str::limit(app('purifier')->clean($blog->body, ['HTML.Allowed' => 'p,strong,i,em']), 500) !!}
+                                    </p>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-6">
                                             <a class="btn btn-outline-info rounded-pill mx-1 title h5 category-span"
                                                 href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
                                                 style="text-decoration: none; color: #555;">
                                                 ...........Read More
                                             </a>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-6">
                                             <div class="d-flex justify-content-end">
                                                 <button type="button"
                                                     class="btn btn-outline-secondary btn-arrow position-relative btn-sm">
