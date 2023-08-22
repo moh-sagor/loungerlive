@@ -9,9 +9,9 @@
             <div class="row">
                 <div class="col-md-9">
                 </div>
-                <div class="col-md-3 mt-1">
-                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Request.."
-                        title="Type in a name or email">
+                <div class="col-md-3 mt-1 form-group">
+                    <input class="form-control" type="text" id="myInput" onkeyup="myFunction()"
+                        placeholder="Search for Request.." title="Type in a name or email">
                 </div>
             </div>
             <div class="col-md-12">
@@ -26,6 +26,8 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Request Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         @foreach ($savedData->reverse() as $data)
@@ -36,6 +38,26 @@
                                     <td>{{ $data->email }}</td>
                                     <td>{{ $data->created_at->format('Y-m-d') }}
                                         <sup>{{ $data->created_at->diffForHumans() }}</sup>
+                                    </td>
+                                    <td class="status" style="color: {{ $data->status === 'read' ? 'green' : 'red' }}">
+                                        {{ $data->status }}
+                                    </td>
+                                    <td>
+                                        <form class="d-inline-block mr-2" method="post"
+                                            action="{{ route('emails.update-status', $data->id) }}">
+                                            @csrf
+                                            <input type="hidden" name="status"
+                                                value="{{ $data->status === 'read' ? 'unread' : 'read' }}">
+                                            <button type="submit" class="btn btn-primary">
+                                                {{ $data->status === 'read' ? 'Unread' : 'Read' }}
+                                            </button>
+                                        </form>
+
+                                        <form class="d-inline-block" method="post"
+                                            action="{{ route('emails.delete-request', $data->id) }}">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger delete-btn">Delete</button>
+                                        </form>
                                     </td>
                                     @php
                                         $serialNumber++;
@@ -49,6 +71,37 @@
         </div>
     </div>
     <script>
+        function toggleStatus(button, requestId, currentStatus) {
+            var row = button.closest('tr');
+            var statusCell = row.querySelector('.status');
+
+            var newStatus = currentStatus === 'read' ? 'unread' : 'read';
+
+            fetch(`/update-status/${requestId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        status: newStatus
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        statusCell.textContent = newStatus;
+                        button.textContent = newStatus === 'read' ? 'Unread' : 'Read';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating status:', error);
+                });
+        }
+
+
+
+
         function myFunction() {
             var input, filter, table, tr, tdName, tdEmail, i, txtValueName, txtValueEmail;
             input = document.getElementById("myInput");

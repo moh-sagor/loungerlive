@@ -11,5 +11,6 @@ class EmailRequest extends Model
     protected $fillable = [
         'name',
         'email',
+        'status',
     ];
 }

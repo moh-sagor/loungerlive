@@ -5,17 +5,14 @@
             <h1 class="display-4">{{ $category->name }}</h1>
         </div>
         @auth
-            <div class="row">
-                <div class="col-md-1 col-sm-1">
-                    <a class="btn btn-warning btn-sm" href="{{ route('categories.edit', $category->slug) }}">Edit</a>
-                </div>
-                <div class="col-md-1 col-sm-1">
-                    <form action="{{ route('categories.destroy', $category->slug) }}" method="POST">
-                        @csrf
-                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                    </form>
-                </div>
+            <div class="d-flex align-items-center m-2">
+                <a href="{{ route('categories.edit', $category->slug) }}" type="button" class="btn btn-success me-2">Edit</a>
+                <form action="{{ route('categories.destroy', $category->slug) }}" method="POST">
+                    @csrf
+                    <button class="btn btn-danger delete-btn" type="submit">Delete</button>
+                </form>
             </div>
+
         @endauth
 
         <hr>

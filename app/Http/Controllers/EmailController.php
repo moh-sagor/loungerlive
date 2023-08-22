@@ -40,5 +40,39 @@ class EmailController extends Controller
         return view('emails.show', compact('savedData'));
     }
 
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $emailRequest = EmailRequest::findOrFail($id);
+
+            // Update the status field
+            $newStatus = $request->input('status');
+            $emailRequest->status = $newStatus;
+            $emailRequest->save();
+
+            return redirect()->back()->with('success', 'Status updated successfully.');
+        } catch (\Exception $e) {
+            \Log::error('Error updating status:', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Error updating status.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $emailRequest = EmailRequest::findOrFail($id);
+            $emailRequest->delete();
+
+            return redirect()->back()->with('success', 'Request deleted successfully.');
+        } catch (\Exception $e) {
+            \Log::error('Error deleting request:', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Error deleting request.');
+        }
+    }
+
+
+
+
+
 
 }

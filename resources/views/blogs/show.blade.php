@@ -92,18 +92,13 @@
 
                 @if (Auth::user())
                     @if (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $blog->user_id))
-                        <div class="row">
-                            <div class="col-md-1 col-sm-1">
-                                <a class="btn btn-outline-secondary btn-arrow"
-                                    href="{{ route('blogs.edit', ['id' => $blog->id, 'slug' => $blog->slug]) }}">Edit</a>
-                            </div>
-                            <div class="col-md-1 col-sm-1">
-                                <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit"
-                                        class="btn btn-outline-danger btn-arrow delete-btn">Delete</button>
-                                </form>
-                            </div>
+                        <div class="d-flex align-items-center m-2">
+                            <a href="{{ route('blogs.edit', ['id' => $blog->id, 'slug' => $blog->slug]) }}" type="button"
+                                class="btn btn-success me-2">Edit</a>
+                            <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-danger delete-btn" type="submit">Delete</button>
+                            </form>
                         </div>
                     @endif
                 @endif

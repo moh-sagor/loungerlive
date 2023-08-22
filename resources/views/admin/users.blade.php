@@ -13,9 +13,9 @@
             <div class="row">
                 <div class="col-md-9">
                 </div>
-                <div class="col-md-3 mt-1">
-                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Users.."
-                        title="Type in a name">
+                <div class="col-md-3 mt-1 form-group">
+                    <input class="form-control" type="text" id="myInput" onkeyup="myFunction()"
+                        placeholder="Search for Users.." title="Type in a name">
                 </div>
             </div>
             <div class="col-md-12">

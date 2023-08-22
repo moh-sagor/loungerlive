@@ -29,6 +29,9 @@ Route::middleware('auth')->group(function () {
     // request for auth 
     Route::post('/send-email', [EmailController::class, 'sendEmail'])->name('emails.sendEmail');
     Route::get('/request/show', [EmailController::class, 'show'])->name('emails.show');
+    Route::post('/update-status/{id}', [EmailController::class, 'updateStatus'])->name('emails.update-status');
+    Route::post('/delete-request/{id}', [EmailController::class, 'destroy'])->name('emails.delete-request');
+
 
 
 
