@@ -14,7 +14,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users')->with('users', User::all());
+        $users = User::all();
+
+        // Calculate role counts
+        $roleCounts = [
+            'admin' => $users->where('role_id', 1)->count(),
+            'author' => $users->where('role_id', 2)->count(),
+            'subscriber' => $users->where('role_id', 3)->count(),
+        ];
+
+        return view('admin.users', compact('users', 'roleCounts'));
     }
 
     /**

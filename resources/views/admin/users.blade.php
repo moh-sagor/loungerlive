@@ -11,14 +11,29 @@
                 Manage users or Update Role
             </div>
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-9 p-3">
+                    <button type="button" class="btn btn-primary position-relative ms-3">
+                        Total Users
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ $users->count() }}
+                        </span>
+                    </button>
+                    @foreach ($roleCounts as $role => $count)
+                        <button type="button" class="btn btn-info position-relative ms-4">
+                            {{ ucfirst($role) }}
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ $count }}
+                            </span>
+                        </button>
+                    @endforeach
                 </div>
-                <div class="col-md-3 mt-1 form-group">
+                <div class="col-md-3 mt-1 form-group px-4">
                     <input class="form-control" type="text" id="myInput" onkeyup="myFunction()"
                         placeholder="Search for Users.." title="Type in a name">
                 </div>
             </div>
             <div class="col-md-12">
+
                 <div class="card-body">
                     @php
                         $serialNumber = 1;
@@ -55,8 +70,6 @@
                                         <td>{{ $user->created_at->format('Y-m-d') }}
                                             <sup>{{ $user->created_at->diffForHumans() }}</sup>
                                         </td>
-
-
                                         <td>
                                             <div class="d-flex">
                                                 <form action="{{ route('users.update', $user->id) }}" method="POST">

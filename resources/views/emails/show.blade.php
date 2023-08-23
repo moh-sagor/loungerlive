@@ -7,9 +7,21 @@
                 Manage Requests
             </div>
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-9 p-3">
+                    <button type="button" class="btn btn-info position-relative ms-3">
+                        Unread
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ">
+                            {{ $unreadCount++ }}
+                        </span>
+                    </button>
+                    <button type="button" class="btn btn-primary position-relative ms-4">
+                        Read
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ">
+                            {{ $readCount++ }}
+                        </span>
+                    </button>
                 </div>
-                <div class="col-md-3 mt-1 form-group">
+                <div class="col-md-3 mt-1 form-group px-4">
                     <input class="form-control" type="text" id="myInput" onkeyup="myFunction()"
                         placeholder="Search for Request.." title="Type in a name or email">
                 </div>
@@ -31,11 +43,6 @@
                             </tr>
                         </thead>
 
-
-                        @php
-                            $unreadCount = 0;
-                            $readCount = 0;
-                        @endphp
                         @foreach ($savedData->reverse() as $data)
                             <tbody>
                                 <tr>
@@ -47,17 +54,6 @@
                                     </td>
                                     <td class="status" style="color: {{ $data->status === 'read' ? 'green' : 'red' }}">
                                         {{ $data->status }}
-                                        @if ($data->status === 'unread')
-                                            @php
-                                                $unreadCount++;
-                                            @endphp
-                                        @endif
-
-                                        @if ($data->status === 'read')
-                                            @php
-                                                $readCount++;
-                                            @endphp
-                                        @endif
                                     </td>
                                     <td>
                                         <form class="d-inline-block mr-2" method="post"
@@ -82,18 +78,6 @@
                                 </tr>
                             </tbody>
                         @endforeach
-                        <button type="button" class="btn btn-info position-relative mb-2">
-                            Unread
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ">
-                                {{ $unreadCount++ }}
-                            </span>
-                        </button>
-                        <button type="button" class="btn btn-primary position-relative mb-2 ms-4">
-                            Read
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ">
-                                {{ $readCount++ }}
-                            </span>
-                        </button>
                 </div>
                 </table>
 

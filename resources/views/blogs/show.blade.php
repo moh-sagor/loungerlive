@@ -23,7 +23,7 @@
 
 
 
-        <div class="card card-white post mt-2">
+        <div class="card card-white post mt-2 mb-4">
             <div class="card-header post-heading d-flex">
                 <div class="float-start image">
                     @if ($blog->user && $blog->user->photo)
@@ -102,15 +102,11 @@
                         </div>
                     @endif
                 @endif
-
-
             </div>
+
         </div>
 
-
-
-
-        <!-- ... existing content ... -->
+        <!-- ... existing comments ... -->
 
         <div class="mt-3">
 
@@ -164,7 +160,45 @@
                 </div>
             @endforeach
 
+        </div>
 
+        <h3 class="text-danger">You May Like !! </h3>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @php
+                $shuffledBlogs = $blogshow->shuffle()->take(6);
+            @endphp
+
+            @foreach ($shuffledBlogs as $blog)
+                <div class="col">
+                    <div class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+
+                        @if ($blog->featured_image)
+                            <img class="card-img-top" src="{{ asset($blog->featured_image) }}"
+                                alt="{{ Str::limit($blog->title, 25) }}" class="img-fluid"
+                                style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                        @else
+                            <!-- Placeholder image when featured image is empty -->
+                            <img class="card-img-top" src="{{ asset('images/empty.png') }}"
+                                alt="{{ Str::limit($blog->title, 25) }}" class="img-fluid"
+                                style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                        @endif
+
+                        <div class="card-body">
+                            <h5 class="card-title text-lg fw-bold text-dark">
+                                {{ Str::limit(ucwords($blog->title), 30) }}</h5>
+                            <p>{!! Str::limit(app('purifier')->clean($blog->body, ['HTML.Allowed' => 'p,strong,i,em']), 100) !!}
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
+                                class="btn btn-primary">Read More</a>
+                            <span class="text-muted">
+                                <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
 
 

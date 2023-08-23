@@ -100,11 +100,12 @@ class BlogsController extends Controller
      */
     public function show(string $id, string $slug)
     {
+        $blogshow = Blog::all();
         $blog = Blog::where('id', $id)
             ->where('slug', $slug)
             ->firstOrFail();
         $categories = Category::all();
-        return view('blogs.show', compact('blog', 'categories'));
+        return view('blogs.show', compact('blog', 'categories', 'blogshow'));
     }
 
     /**

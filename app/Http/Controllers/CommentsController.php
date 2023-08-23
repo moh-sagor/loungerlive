@@ -13,7 +13,6 @@ class CommentsController extends Controller
         $this->validate($request, [
             'content' => 'required|min:5'
         ]);
-
         $blog = Blog::findOrFail($blogId);
 
         $comment = new Comment();

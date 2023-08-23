@@ -37,8 +37,12 @@ class EmailController extends Controller
     public function show()
     {
         $savedData = EmailRequest::all();
-        return view('emails.show', compact('savedData'));
+        $unreadCount = $savedData->where('status', 'unread')->count();
+        $readCount = $savedData->where('status', 'read')->count();
+
+        return view('emails.show', compact('savedData', 'unreadCount', 'readCount'));
     }
+
 
     public function updateStatus(Request $request, $id)
     {

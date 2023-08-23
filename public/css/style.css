@@ -465,7 +465,7 @@ h6 {
     left: 0;
     width: 30px;
     height: 100%;
-    background-color: #0800ff;
+    background-color: #ff00b7;
     animation: shiny-btn1 3s ease-in-out infinite;
 }
 
@@ -481,7 +481,7 @@ h6 {
 }
 
 
-@-webkit-keyframes shiny-btn1 {
+@keyframes shiny-btn1 {
     0% {
         -webkit-transform: scale(0) rotate(45deg);
         opacity: 0;
