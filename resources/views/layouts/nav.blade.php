@@ -86,8 +86,8 @@
                                     @else
                                         <ul class="navbar-nav ml-auto">
                                             <li class="nav-item">
-                                                <a class="nav-link btn btn-sm btn-primary" href="{{ route('login') }}">Log
-                                                    in</a>
+                                                <a class="custom-btn btn-11 nav-link btn btn-sm btn-primary ubuntu-font"
+                                                    href="{{ route('login') }}">Log in</a>
                                             </li>
                                         </ul>
                                     @endauth

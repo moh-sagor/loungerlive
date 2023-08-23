@@ -186,7 +186,7 @@
         width: 200%;
         transform: translateX(0);
         transition: transform 0.6s ease-in-out;
-        background-image: url({{ asset('images/bg-1.avif') }});
+        background-image: url({{ asset('images/bg-1.jpg') }});
     }
 
     .container.right-panel-active .overlay {
@@ -297,7 +297,7 @@
             background-repeat: no-repeat;
             background-position: left bottom;
             background-size: 500px;
-            background-image: url({{ asset('images/bg-1.avif') }});
+            background-image: url({{ asset('images/bg-1.jpg') }});
 
         }
 
