@@ -6,7 +6,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\SocialloginController;
 use Illuminate\Support\Facades\Route;
+
+
+
 
 Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{id}/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
@@ -15,6 +19,12 @@ Route::get('/users/profile/{username?}', [UserController::class, 'show'])->name(
 Route::get('/my/{username?}', [UserController::class, 'profile_show'])->name('users.profile_show');
 Route::get('/blogs/search', [BlogsController::class, 'search'])->name('blogs.search');
 Route::post('/blogs/{blog}/comments', [App\Http\Controllers\CommentsController::class, 'store'])->name('comments.store');
+
+
+// google login
+Route::get('/gotogoogle', [SocialloginController::class, 'gotogoogle'])->name('gotogoogle');
+Route::get('/apigstore', [SocialloginController::class, 'apigstore'])->name('apigstore');
+
 
 
 

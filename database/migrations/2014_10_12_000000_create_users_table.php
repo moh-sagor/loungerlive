@@ -30,6 +30,7 @@ return new class extends Migration {
             $table->string('passport')->nullable();
             $table->string('address')->nullable();
             $table->string('profession')->nullable();
+            $table->string('sid')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

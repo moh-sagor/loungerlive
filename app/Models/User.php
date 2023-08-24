@@ -36,6 +36,7 @@ class User extends Authenticatable
         'github',
         'profession',
         'address',
+        'sid'
     ];
 
     /**
