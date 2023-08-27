@@ -81,27 +81,16 @@
                                     <h2>{{ Str::limit(ucwords($blog->title), 40) }}</h2>
                                     <p style="text-align: justify;">{!! Str::limit(app('purifier')->clean($blog->body, ['HTML.Allowed' => 'p,strong,i,em']), 500) !!}
                                     </p>
-                                    <div class="row">
-                                        <div class="col-md-6 col-6">
-                                            <a class="btn btn-outline-info rounded-pill mx-1 title h5 category-span"
-                                                href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
-                                                style="text-decoration: none; color: #555;">
-                                                ...........Read More
-                                            </a>
-                                        </div>
-                                        <div class="col-md-6 col-6">
-                                            <div class="d-flex justify-content-end">
-                                                <button type="button"
-                                                    class="btn btn-outline-secondary btn-arrow position-relative btn-sm">
-                                                    <h6>Comments</h6>
-                                                    <span
-                                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                                                        {{ $blog->comments->count() }}
-                                                        <span class="visually-hidden">unread messages</span>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
+
+                                    <div class="card-footer d-flex justify-content-between align-items-center">
+                                        <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
+                                            class="btn btn-primary">Read More</a>
+                                        <span class="text-primary">
+                                            <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
+                                        </span>
+                                        <span class="text-primary">
+                                            <i class="fas fa-eye"></i> {{ $blog->view_count }}
+                                        </span>
                                     </div>
 
                                 </div>

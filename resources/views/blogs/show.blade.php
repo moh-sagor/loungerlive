@@ -53,6 +53,7 @@
                     </div>
                 @endif
             </div>
+
             <div class="card-body post-description">
                 <div class="row">
                     <div class="col-md-12 col-12">
@@ -102,7 +103,14 @@
                         </div>
                     @endif
                 @endif
+
+
             </div>
+
+            <?php
+            // Increment the view count of the blog post
+            $blog->increment('view_count');
+            ?>
 
         </div>
 
@@ -110,13 +118,19 @@
 
         <div class="mt-3">
 
-            <button type="button" class="btn btn-primary position-relative">
-                <h6>Comments</h6>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {{ $blog->comments->count() }}
-                    <span class="visually-hidden">unread messages</span>
+            <div class="d-flex justify-content-between align-items-center">
+                <button type="button" class="btn btn-primary position-relative">
+                    <h6>Comments</h6>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ $blog->comments->count() }}
+                    </span>
+                </button>
+
+                <span class="text-danger">
+                    <i class="fas fa-eye me-1"></i> {{ $blog->view_count }}
                 </span>
-            </button>
+            </div>
+
 
             @if (Auth::check())
                 <div class="card mt-3 mb-3">
@@ -192,8 +206,12 @@
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
                                 class="btn btn-primary">Read More</a>
-                            <span class="text-muted">
+                            <span class="text-info">
                                 <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
+                            </span>
+
+                            <span class="text-danger">
+                                <i class="fas fa-eye me-1"></i> {{ $blog->view_count }}
                             </span>
                         </div>
                     </div>

@@ -21,6 +21,7 @@ class Blog extends Model
         'meta_description',
         'status',
         'user_id',
+        'view_count',
     ];
     public function category()
     {

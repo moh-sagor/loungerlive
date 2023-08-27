@@ -28,7 +28,7 @@ Route::get('/apigstore', [SocialloginController::class, 'apigstore'])->name('api
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', )->group(function () {
 
     // admin routes 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');

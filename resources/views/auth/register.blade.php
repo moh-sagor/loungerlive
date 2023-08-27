@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('path-to-your-styles.css') }}">
     <title>Login / Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
 <style>
@@ -226,18 +227,26 @@
     }
 
     .social-container {
-        margin: 20px 0;
+        margin: 5px 0;
     }
 
     .social-container a {
-        border: 1px solid #DDDDDD;
+        border: 1px solid #ff0000;
         border-radius: 50%;
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        margin: 0 5px;
+        margin: 0;
         height: 40px;
         width: 40px;
+    }
+
+    .fa-google {
+        background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
     }
 
     .web-view {
@@ -582,7 +591,9 @@
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
                     <button class="submit-btn">Sign up</button>
+
                 </form>
+
             </div>
             <!-- Login -->
             <div class="login slide-up">
@@ -603,6 +614,8 @@
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
                         <button class="submit-btn">Log in</button>
+
+
                     </form>
                 </div>
             </div>
@@ -624,12 +637,15 @@
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <h1>Create Account</h1>
-                    {{-- <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div> --}}
                     <span>with your email for registration</span>
+
+                    {{-- google register and login  --}}
+                    <div class="social-container">
+                        <a href="{{ route('gotogoogle') }}"><i class="fab fa-google"></i></a>
+                    </div>
+
+
+
                     <!-- Name -->
                     <input id="name" class="block mt-1 w-full" type="text" name="name"
                         value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Name" />
@@ -658,6 +674,7 @@
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     <button>Sign Up</button>
                 </form>
+
             </div>
 
             {{-- register end  --}}
@@ -672,12 +689,11 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <h1>Sign in</h1>
-                    {{-- <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div> --}}
                     <span>on use your account</span>
+                    {{-- google register  or login  --}}
+                    <div class="social-container">
+                        <a href="{{ route('gotogoogle') }}"><i class="fab fa-google"></i></a>
+                    </div>
                     <input id="email" class="block mt-1 w-full" type="email" name="email"
                         value="{{ old('email') }}" required autofocus autocomplete="username"
                         placeholder="Email" />

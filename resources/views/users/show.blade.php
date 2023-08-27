@@ -35,16 +35,18 @@
                                                 {{ $user->username }}</h6>
                                         </li>
                                     @endif
-                                    @if ($user->email)
+                                    @if (Auth::check() && Auth::user()->id === $user->id)
                                         <li
                                             class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0"><i style="color: rgb(8, 157, 244)"
-                                                    class="me-4 fas fa-envelope"></i>
+                                            <h6 class="mb-0">
+                                                <i style="color: rgb(8, 157, 244)" class="me-4 fas fa-envelope"></i>
                                                 <a style="text-decoration: none;"
                                                     href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                                             </h6>
                                         </li>
                                     @endif
+
+
                                     @if ($user->phone)
                                         <li
                                             class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -160,7 +162,7 @@
                                         </div>
                                         <hr>
                                     @endif
-                                    @if ($user->email)
+                                    @if (Auth::check() && Auth::user()->id === $user->id)
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0"><span style="color:rgb(51, 51, 58);"> Email :</span></h6>

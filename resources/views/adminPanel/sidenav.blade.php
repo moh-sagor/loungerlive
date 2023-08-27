@@ -47,7 +47,7 @@
                 </a>
                 <a class="nav-link" href="{{ route('users.edit', ['username' => Auth::user()->username]) }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-user-edit"></i></div>
-                    Update Profile <span class="badge badge-pill badge-primary">Primary</span>
+                    Update Profile
                 </a>
             @endif
 
