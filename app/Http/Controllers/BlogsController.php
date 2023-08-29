@@ -32,7 +32,8 @@ class BlogsController extends Controller
         $blogs = Blog::where('status', 1)->latest()->paginate(10);
         Paginator::useBootstrap();
         $categories = Category::all();
-        return view('blogs.index', compact('blogs', 'categories'));
+        $mostViewedBlogs = Blog::orderBy('view_count', 'desc')->take(3)->get();
+        return view('blogs.index', compact('blogs', 'categories', 'mostViewedBlogs'));
     }
 
     /**
@@ -254,6 +255,9 @@ class BlogsController extends Controller
         // Get all categories
         $categories = Category::all();
 
+        // Get most viewed blogs
+        $mostViewedBlogs = Blog::orderBy('view_count', 'desc')->take(3)->get();
+
         // Search for blogs using the title or body
         $blogs = Blog::where('status', 1)
             ->where(function ($query) use ($searchQuery) {
@@ -269,10 +273,11 @@ class BlogsController extends Controller
         if ($blogs->isEmpty()) {
             // Get all blogs with pagination
             $blogs = Blog::where('status', 1)->latest()->paginate(10);
-            return view('blogs.index', compact('blogs'))->with('message1', 'Search again with a valid keyword.')->with('categories', $categories);
+            return view('blogs.index', compact('blogs', 'categories', 'mostViewedBlogs'))
+                ->with('message1', 'Search again with a valid keyword.');
         }
 
-        return view('blogs.index', compact('blogs', 'categories'));
+        return view('blogs.index', compact('blogs', 'categories', 'mostViewedBlogs'));
     }
 
 

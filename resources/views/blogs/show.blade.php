@@ -88,21 +88,35 @@
 
                         <p style="text-align: justify;">{!! $blog->body !!}</p>
                     </div>
-
                 </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
 
-                @if (Auth::user())
-                    @if (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $blog->user_id))
-                        <div class="d-flex align-items-center m-2">
-                            <a href="{{ route('blogs.edit', ['id' => $blog->id, 'slug' => $blog->slug]) }}" type="button"
-                                class="btn btn-success me-2">Edit</a>
-                            <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
-                                @csrf
-                                <button class="btn btn-danger delete-btn" type="submit">Delete</button>
-                            </form>
-                        </div>
+                    @if (Auth::user())
+                        @if (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $blog->user_id))
+                            <div class="d-flex align-items-center m-2">
+                                <a href="{{ route('blogs.edit', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
+                                    type="button" class="btn btn-success me-2">Edit</a>
+                                <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-danger delete-btn" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        @endif
                     @endif
-                @endif
+
+                    <span class="text-danger">
+                        <i class="fas fa-eye me-1"></i> {{ $blog->view_count }}
+                    </span>
+
+                    <span class="text-primary">
+                        <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
+                    </span>
+
+                    <button class="btn btn-secondary share-button"
+                        data-url="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
+                        <i class="fas fa-share"></i> Share
+                    </button>
+                </div>
 
 
             </div>
@@ -126,9 +140,7 @@
                     </span>
                 </button>
 
-                <span class="text-danger">
-                    <i class="fas fa-eye me-1"></i> {{ $blog->view_count }}
-                </span>
+
             </div>
 
 
@@ -176,7 +188,10 @@
 
         </div>
 
-        <h3 class="text-danger">You May Like !! </h3>
+        <div class="mb-2 mt-2 ubuntu-font p-2 "
+            style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
+            <h3 class="text-danger"><b>You May Like</b></h3>
+        </div>
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @php
@@ -201,7 +216,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-lg fw-bold text-dark">
                                 {{ Str::limit(ucwords($blog->title), 30) }}</h5>
-                            <p>{!! Str::limit(app('purifier')->clean($blog->body, ['HTML.Allowed' => 'p,strong,i,em']), 100) !!}
+                            <p>{!! Str::limit(app('purifier')->clean($blog->body, ['HTML.Allowed' => 'p,strong,i,em']), 100) !!}</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
@@ -213,6 +228,11 @@
                             <span class="text-danger">
                                 <i class="fas fa-eye me-1"></i> {{ $blog->view_count }}
                             </span>
+
+                            <button class="btn btn-secondary share-button"
+                                data-url="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
+                                <i class="fas fa-share"></i> Share
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -234,6 +254,63 @@
                 });
             });
         </script>
+
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Share button click event
+                const shareButtons = document.querySelectorAll('.share-button');
+                shareButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const url = this.getAttribute('data-url');
+                        showShareDialog(url);
+                    });
+                });
+
+                // Function to show the SweetAlert share dialog
+                function showShareDialog(url) {
+                    Swal.fire({
+                        title: 'Share This Artical',
+                        html: `
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                        <i class="fab fa-facebook"></i> Share on Facebook
+                    </a>
+                    <br>
+                    <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                        <i class="fab fa-twitter"></i> Share on Twitter
+                    </a>
+                    <br>
+                    <a href="https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                        <i class="fab fa-linkedin"></i> Share on LinkedIn
+                    </a>
+                    <br>
+                    <div class="input-group mt-2">
+                        <input type="text" class="form-control" value="${url}" id="share-url">
+                        <button class="btn btn-secondary copy-button">Copy</button>
+                    </div>
+                `,
+                        showCancelButton: true,
+                        cancelButtonText: 'Close',
+                        showConfirmButton: false,
+                    });
+
+                    const copyButton = document.querySelector('.copy-button');
+                    copyButton.addEventListener('click', function() {
+                        const shareUrlInput = document.getElementById('share-url');
+                        shareUrlInput.select();
+                        document.execCommand('copy');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Link Copied',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    });
+                }
+            });
+        </script>
+
 
 
 

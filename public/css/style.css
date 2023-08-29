@@ -517,3 +517,36 @@ h6 {
 .color {
     color: blue;
 }
+
+
+@keyframes rainbow-blink {
+
+    0%,
+    100% {
+        color: red;
+    }
+
+    16.67% {
+        color: orange;
+    }
+
+    33.33% {
+        color: yellow;
+    }
+
+    50% {
+        color: green;
+    }
+
+    66.67% {
+        color: blue;
+    }
+
+    83.33% {
+        color: indigo;
+    }
+}
+
+.rainbow-text {
+    display: inline-block;
+}

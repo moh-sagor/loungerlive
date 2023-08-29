@@ -26,8 +26,64 @@
                     </script>
                 @endif
 
+                {{-- most viewed part  --}}
+                <div class="mb-2 ubuntu-font p-2"
+                    style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
+                    <h3><b>Most Viewed Post</b></h3>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach ($mostViewedBlogs as $blog)
+                        <div class="col">
+                            <div
+                                class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
 
+                                @if ($blog->featured_image)
+                                    <img class="card-img-top" src="{{ asset($blog->featured_image) }}"
+                                        alt="{{ Str::limit($blog->title, 25) }}" class="img-fluid"
+                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                @else
+                                    <!-- Placeholder image when featured image is empty -->
+                                    <img class="card-img-top" src="{{ asset('images/empty.png') }}"
+                                        alt="{{ Str::limit($blog->title, 25) }}" class="img-fluid"
+                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                @endif
 
+                                <div class="card-body">
+                                    <h5 class="card-title text-lg fw-bold text-dark">
+                                        {{ Str::limit(ucwords($blog->title), 70) }}</h5>
+
+                                </div>
+
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
+                                        class="btn btn-primary">Read More</a>
+                                    <span class="text-info">
+                                        <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
+                                    </span>
+
+                                    <span class="text-danger">
+                                        <i class="fas fa-eye me-1"></i> {{ $blog->view_count }}
+                                    </span>
+
+                                    <button class="btn btn-secondary share-button"
+                                        data-url="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
+                                        <i class="fas fa-share"></i> Share
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                {{-- recent post part  --}}
+
+                <div class="mb-2 mt-2 ubuntu-font text-center bg-white p-2" style="border-radius: 8px;">
+                    <h3 class="mb-0">
+                        <b>
+                            <span class="rainbow-text" style="animation: rainbow-blink 2s infinite;">Recent Post</span>
+                        </b>
+                    </h3>
+                </div>
 
                 @foreach ($blogs as $blog)
                     <div class="card card-white post mt-2">
@@ -91,6 +147,12 @@
                                         <span class="text-primary">
                                             <i class="fas fa-eye"></i> {{ $blog->view_count }}
                                         </span>
+
+                                        <button class="btn btn-secondary share-button"
+                                            data-url="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
+                                            <i class="fas fa-share"></i> Share
+                                        </button>
+
                                     </div>
 
                                 </div>
@@ -104,7 +166,7 @@
 
             <div class="col-md-2">
                 <div class="sticky-column">
-                    <h6 class="text-center card card-white bg-primary my-2 ubuntu-font py-2">
+                    <h6 class="text-center card card-white bg-primary my-2 ubuntu-font py-2 mt-0">
                         <span style="color: azure;">Categories</span>
                     </h6>
                     <div class="container justify-content-center border-left border-right">
@@ -165,4 +227,58 @@
             });
         </script>
     @endif
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Share button click event
+            const shareButtons = document.querySelectorAll('.share-button');
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    showShareDialog(url);
+                });
+            });
+
+            // Function to show the SweetAlert share dialog
+            function showShareDialog(url) {
+                Swal.fire({
+                    title: 'Share Blog',
+                    html: `
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                        <i class="fab fa-facebook"></i> Share on Facebook
+                    </a>
+                    <br>
+                    <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                        <i class="fab fa-twitter"></i> Share on Twitter
+                    </a>
+                    <br>
+                    <a href="https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                        <i class="fab fa-linkedin"></i> Share on LinkedIn
+                    </a>
+                    <br>
+                    <div class="input-group mt-2">
+                        <input type="text" class="form-control" value="${url}" id="share-url">
+                        <button class="btn btn-secondary copy-button">Copy</button>
+                    </div>
+            `,
+                    showCancelButton: true,
+                    cancelButtonText: 'Close',
+                    showConfirmButton: false,
+                });
+
+                const copyButton = document.querySelector('.copy-button');
+                copyButton.addEventListener('click', function() {
+                    const shareUrlInput = document.getElementById('share-url');
+                    shareUrlInput.select();
+                    document.execCommand('copy');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Link Copied',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+            }
+        });
+    </script>
 @endsection
