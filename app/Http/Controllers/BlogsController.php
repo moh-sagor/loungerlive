@@ -252,6 +252,9 @@ class BlogsController extends Controller
         // Get the search query from the request
         $searchQuery = $request->input('search');
 
+        // get all blogs 
+        $blogshow = Blog::all();
+
         // Get all categories
         $categories = Category::all();
 
@@ -265,7 +268,7 @@ class BlogsController extends Controller
                     ->orWhere('body', 'like', '%' . $searchQuery . '%');
             })
             ->latest()
-            ->paginate(10);
+            ->paginate(5);
 
         Paginator::useBootstrap();
 
@@ -277,7 +280,7 @@ class BlogsController extends Controller
                 ->with('message1', 'Search again with a valid keyword.');
         }
 
-        return view('blogs.index', compact('blogs', 'categories', 'mostViewedBlogs'));
+        return view('blogs.search', compact('blogs', 'categories', 'mostViewedBlogs', 'searchQuery', 'blogshow'));
     }
 
 

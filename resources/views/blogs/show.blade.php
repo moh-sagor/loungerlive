@@ -188,6 +188,9 @@
 
         </div>
 
+
+        {{-- you may like  --}}
+
         <div class="mb-2 mt-2 ubuntu-font p-2 "
             style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
             <h3 class="text-danger"><b>You May Like</b></h3>
@@ -238,6 +241,8 @@
                 </div>
             @endforeach
         </div>
+
+
 
 
         <a href="#" class="go-to-home">

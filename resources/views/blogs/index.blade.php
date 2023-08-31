@@ -75,6 +75,9 @@
                     @endforeach
                 </div>
 
+
+
+
                 {{-- recent post part  --}}
 
                 <div class="mb-2 mt-2 ubuntu-font text-center bg-white p-2" style="border-radius: 8px;">
