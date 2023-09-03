@@ -74,8 +74,9 @@
                     @if (Auth::user())
                         @if (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $course->user_id))
                             <div class="d-flex align-items-center m-2">
-                                <a href="" type="button" class="btn btn-success me-2">Edit</a>
-                                <form action="" method="POST">
+                                <a href="{{ route('courses.edit', ['id' => $course->id, 'slug' => $course->slug]) }}"
+                                    type="button" class="btn btn-success me-2">Edit</a>
+                                <form action="{{ route('courses.destroy', $course->id) }} " method="POST">
                                     @csrf
                                     <button class="btn btn-danger delete-btn" type="submit">Delete</button>
                                 </form>
@@ -83,18 +84,18 @@
                         @endif
                     @endif
 
-                    {{-- <span class="text-danger">
-                        <i class="fas fa-eye me-1"></i> {{ $course->view_count }}
-                    </span> --}}
+                    <span class="text-danger">
+                        <i class="fas fa-eye me-1"></i>
+                    </span>
 
-                    {{-- <span class="text-primary">
-                        <i class="fas fa-comment-dots"></i> {{ $course->comments->count() }}
-                    </span> --}}
+                    <span class="text-primary">
+                        <i class="fas fa-comment-dots"></i>
+                    </span>
 
-                    {{-- <button class="btn btn-secondary share-button"
+                    <button class="btn btn-secondary share-button"
                         data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
                         <i class="fas fa-share"></i> Share
-                    </button> --}}
+                    </button>
                 </div>
             </div>
         </div>
@@ -107,7 +108,6 @@
                 <button type="button" class="btn btn-primary position-relative">
                     <h6>Comments</h6>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{ $course->comments->count() }}
                     </span>
                 </button>
 
@@ -118,7 +118,7 @@
             @if (Auth::check())
                 <div class="card mt-3 mb-3">
                     <div class="card-body">
-                        <form action="{{ route('comments.store', $course->id) }}" method="post">
+                        <form action="{{ route('comments.course.store', $course->id) }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <textarea name="content" class="form-control" rows="3" placeholder="Add a comment..."></textarea>
@@ -212,8 +212,6 @@
                 </div>
             @endforeach
         </div> --}}
-
-
 
 
         <a href="#" class="go-to-home">

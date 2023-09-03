@@ -44,10 +44,13 @@ Route::middleware('auth', )->group(function () {
     // courses routes 
     Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
     Route::post('/courses/store', [CourseController::class, 'store'])->name('courses.store');
-    // Route::get('/courses/{id}/{slug}/restore', [CourseController::class, 'restore'])->name('courses.restore');
-    // Route::get('/courses/{id}/{slug}/edit', [CourseController::class, 'edit'])->name('courses.edit');
-    // Route::post('/courses/{id}/update', [CourseController::class, 'update'])->name('courses.update');
-    // Route::post('/courses/{id}/destroy', [CourseController::class, 'destroy'])->name('courses.destroy');
+    Route::get('/courses/{id}/{slug}/restore', [CourseController::class, 'restore'])->name('courses.restore');
+    Route::get('/courses/{id}/{slug}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+    Route::post('/courses/{id}/update', [CourseController::class, 'update'])->name('courses.update');
+    Route::post('/courses/{id}/destroy', [CourseController::class, 'destroy'])->name('courses.destroy');
+    Route::get('/trashcourses', [CourseController::class, 'trash'])->name('courses.trash');
+    Route::post('/courses/store', [CourseController::class, 'store'])->name('courses.store');
+    Route::get('/courses/{id}/{slug}/parmanent-delete', [CourseController::class, 'parmanentDelete'])->name('courses.parmanent-delete');
 
     // admin routes 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');

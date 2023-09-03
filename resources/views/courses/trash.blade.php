@@ -4,7 +4,7 @@
         <div class="jumbotron text-center bg-light form-control ubuntu-font text-white">
             <h1 class="display-4">Restore the blog</h1>
         </div>
-        @foreach ($trashedBlogs as $trash)
+        @foreach ($trashedCourse as $trash)
             <div class="row">
                 <div class="col-md-3 col-12">
                     @if ($trash->featured_image)
@@ -14,21 +14,21 @@
                     @endif
                 </div>
                 <div class="col-md-9 col-12">
-                    <h2><a href="{{ route('blogs.show', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
+                    <h2><a href="{{ route('courses.show', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                             style="text-decoration: none;">{{ $trash->title }}</a>
                     </h2>
                     <p>{!! Str::limit($trash->body, 200) !!}</p>
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="d-flex">
-                                <form action="{{ route('blogs.restore', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
+                                <form action="{{ route('courses.restore', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                                     method="GET">
                                     @csrf
                                     <button class="btn btn-primary restore-btn me-2" type="button">Restore</button>
                                 </form>
 
                                 <a class="btn btn-danger btn-sm delete-parmanently"
-                                    href="{{ route('blogs.parmanent-delete', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
+                                    href="{{ route('courses.parmanent-delete', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                                     data-id="{{ $trash->id }}" data-slug="{{ $trash->slug }}">Delete Permanently</a>
                             </div>
                         </div>

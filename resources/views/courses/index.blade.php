@@ -79,10 +79,10 @@
                                 </span> --}}
 
                                     <!-- Replace this with the appropriate share URL for courses -->
-                                    {{-- <button class="btn btn-secondary share-button"
+                                    <button class="btn btn-secondary share-button"
                                         data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
-                                        <i class="fas fa-share"></i> Share
-                                    </button> --}}
+                                        <i class="fas fa-share"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>

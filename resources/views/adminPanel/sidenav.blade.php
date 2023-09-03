@@ -39,6 +39,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-pencil-alt"></i></div>
                     Create Courses
                 </a>
+                <a class="nav-link" href="{{ route('courses.trash') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-trash"></i></div>
+                    Trashed Course
+                </a>
             @endif
 
             {{-- for author   --}}

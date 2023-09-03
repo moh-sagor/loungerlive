@@ -3,12 +3,20 @@
 @section('content')
     <div class="container" style="padding-top: 70px;">
 
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('blogs.index') }}">Blogs</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $blog->title }}</li>
+            </ol>
+        </nav>
+
         {{-- Category dropdown menu --}}
         <div class="position-fixed top-0 end-0 mt-4 me-4" style="padding-top: 70px; z-index: 1000;"> {{-- Add z-index --}}
             {{-- Category dropdown menu --}}
             <div class="btn-group dropend">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-folder"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="categoryDropdown">
