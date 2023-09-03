@@ -5,22 +5,32 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\SocialloginController;
 use Illuminate\Support\Facades\Route;
 
 
 
-
+// public blogs 
 Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{id}/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
 Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/blogs/search', [BlogsController::class, 'search'])->name('blogs.search');
+Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
+
+
+// public users 
 Route::get('/users/profile/{username?}', [UserController::class, 'show'])->name('users.show');
 Route::get('/my/{username?}', [UserController::class, 'profile_show'])->name('users.profile_show');
-Route::get('/blogs/search', [BlogsController::class, 'search'])->name('blogs.search');
 
-Route::post('/blogs/{blog}/comments', [App\Http\Controllers\CommentsController::class, 'store'])->name('comments.store');
+// public comments 
+Route::post('/blogs/{blog}/comments', [CommentsController::class, 'store'])->name('comments.store');
 
+// public courses 
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/{id}/{slug}', [CourseController::class, 'show'])->name('courses.show');
 
 // google login
 Route::get('/gotogoogle', [SocialloginController::class, 'gotogoogle'])->name('gotogoogle');
@@ -30,6 +40,14 @@ Route::get('/apigstore', [SocialloginController::class, 'apigstore'])->name('api
 
 
 Route::middleware('auth', )->group(function () {
+
+    // courses routes 
+    Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+    Route::post('/courses/store', [CourseController::class, 'store'])->name('courses.store');
+    // Route::get('/courses/{id}/{slug}/restore', [CourseController::class, 'restore'])->name('courses.restore');
+    // Route::get('/courses/{id}/{slug}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+    // Route::post('/courses/{id}/update', [CourseController::class, 'update'])->name('courses.update');
+    // Route::post('/courses/{id}/destroy', [CourseController::class, 'destroy'])->name('courses.destroy');
 
     // admin routes 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
@@ -42,7 +60,6 @@ Route::middleware('auth', )->group(function () {
     Route::get('/request/show', [EmailController::class, 'show'])->name('emails.show');
     Route::post('/update-status/{id}', [EmailController::class, 'updateStatus'])->name('emails.update-status');
     Route::post('/delete-request/{id}', [EmailController::class, 'destroy'])->name('emails.delete-request');
-
 
 
 
@@ -69,14 +86,12 @@ Route::middleware('auth', )->group(function () {
     // blogs route 
     Route::get('/createblogs', [BlogsController::class, 'create'])->name('blogs.create');
     Route::get('/blogs/{id}/{slug}/restore', [BlogsController::class, 'restore'])->name('blogs.restore');
-    Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
     Route::get('/blogs/{id}/{slug}/edit', [BlogsController::class, 'edit'])->name('blogs.edit');
     Route::post('/blogs/{id}/update', [BlogsController::class, 'update'])->name('blogs.update');
     Route::post('/blogs/{id}/destroy', [BlogsController::class, 'destroy'])->name('blogs.destroy');
 
     // category route 
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/edit/{slug}', [CategoryController::class, 'edit'])->name('categories.edit');

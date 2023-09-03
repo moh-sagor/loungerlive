@@ -27,6 +27,7 @@
                         </button>
                     @endforeach
                 </div>
+
                 <div class="col-md-3 mt-1 form-group px-4">
                     <input class="form-control" type="text" id="myInput" onkeyup="myFunction()"
                         placeholder="Search for Users.." title="Type in a name">

@@ -1,10 +1,22 @@
 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
     <div class="sb-sidenav-menu">
         <div class="nav">
-            <div class="sb-sidenav-menu-heading">Dashboard</div>
-
             {{-- for admin  --}}
             @if (Auth::user() && Auth::user()->role_id === 1)
+                <div class="sb-sidenav-menu-heading">Admin Dashboard</div>
+                <a class="nav-link" href="{{ route('admin.users') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Manage Users
+                </a>
+                <a class="nav-link" href="{{ route('users.edit', ['username' => Auth::user()->username]) }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-edit"></i></div>
+                    Update Profile
+                </a>
+                <a class="nav-link" href="{{ route('emails.show') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Author Request
+                </a>
+                <div class="sb-sidenav-menu-heading">Blogs Dashboard</div>
                 <a class="nav-link" href="{{ route('blogs.create') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-pencil-alt"></i></div>
                     Create Blog
@@ -21,22 +33,17 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-check-circle"></i></div>
                     Published / Drafted
                 </a>
-                <a class="nav-link" href="{{ route('admin.users') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                    Manage Users
-                </a>
-                <a class="nav-link" href="{{ route('users.edit', ['username' => Auth::user()->username]) }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user-edit"></i></div>
-                    Update Profile
-                </a>
-                <a class="nav-link" href="{{ route('emails.show') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                    Author Request
+
+                <div class="sb-sidenav-menu-heading">Courses Dashboard</div>
+                <a class="nav-link" href="{{ route('courses.create') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-pencil-alt"></i></div>
+                    Create Courses
                 </a>
             @endif
 
             {{-- for author   --}}
             @if (Auth::user() && Auth::user()->role_id === 2)
+                <div class="sb-sidenav-menu-heading">Blogs Dashboard</div>
                 <a class="nav-link" href="{{ route('blogs.create') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-pencil-alt"></i></div>
                     Create Blog
@@ -45,6 +52,12 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-folder-plus"></i></div>
                     Create Category
                 </a>
+                <div class="sb-sidenav-menu-heading">Courses Dashboard</div>
+                <a class="nav-link" href="{{ route('courses.create') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-pencil-alt"></i></div>
+                    Create Courses
+                </a>
+                <div class="sb-sidenav-menu-heading">Profile Dashboard</div>
                 <a class="nav-link" href="{{ route('users.edit', ['username' => Auth::user()->username]) }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-user-edit"></i></div>
                     Update Profile

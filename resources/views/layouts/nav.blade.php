@@ -15,25 +15,20 @@
 
                             <!-- Left Content -->
                             <div class="col-auto">
-                                @if (Route::has('login'))
-                                    <ul class="navbar-nav ml-auto">
-                                        <li class="nav-item ms-2">
-                                            <a class="nav-link" href="{{ route('blogs.index') }}">
-                                                Blogs <span
-                                                    class="badge badge-light bg-secondary">{{ $blogs->count() }}</span>
-                                            </a>
-                                        </li>
-                                        @auth
-                                            <li class="nav-item">
-                                                <h5 class="nav-link border border-primary rounded p-2 bg-light text-dark">Hi
-                                                    {{ Auth::user()->name }} as {{ Auth::user()->role->name }}</h5>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
-                                            </li>
-                                        @endauth
-                                    </ul>
-                                @endif
+                                <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item ms-2">
+                                        <a class="nav-link" href="{{ route('blogs.index') }}">
+                                            Blogs
+                                            {{-- <span class="badge badge-light bg-secondary">{{ $blogs->count() }}</span> --}}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('courses.index') }}">
+                                            Courses
+                                            {{-- <span class="badge badge-light bg-secondary">{{ $blogs->count() }}</span> --}}
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
 
                             <!-- Right Content -->
@@ -92,8 +87,6 @@
                                         </ul>
                                     @endauth
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
