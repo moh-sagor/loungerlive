@@ -28,6 +28,11 @@
                             <input type="text" class="form-control" id="course_author" name="course_author"
                                 value="{{ $courses->course_author }}">
                         </div>
+                        <div class="form-group">
+                            <label for="link" class="form-label">Download Link</label>
+                            <input type="text" class="form-control" id="link" name="link"
+                                value="{{ $courses->link }}">
+                        </div>
 
                         <div class="form-group">
                             <label for="body" class="form-label">Course Body</label>

@@ -18,7 +18,7 @@ Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{id}/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
 Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/blogs/search', [BlogsController::class, 'search'])->name('blogs.search');
-Route::get('/blogs', [BlogsController::class, 'index'])->name('blogs.index');
+Route::get('/blogs', [BlogsController::class, 'bindex'])->name('blogs.bindex');
 
 
 // public users 
@@ -31,6 +31,8 @@ Route::post('/blogs/{blog}/comments', [CommentsController::class, 'store'])->nam
 // public courses 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{id}/{slug}', [CourseController::class, 'show'])->name('courses.show');
+Route::post('/courses/increment-download-count/{course}', [CourseController::class, 'incrementDownloadCount']);
+
 
 // google login
 Route::get('/gotogoogle', [SocialloginController::class, 'gotogoogle'])->name('gotogoogle');

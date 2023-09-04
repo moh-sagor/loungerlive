@@ -68,15 +68,14 @@
                                     <a href="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}"
                                         class="btn btn-primary">Course Details</a>
 
-                                    {{-- <!-- Replace this with the appropriate count for courses -->
-                                <span class="text-info">
-                                    <i class="fas fa-comment-dots"></i> {{ $course->comments_count }}
-                                </span>
-                
-                                <!-- Replace this with the appropriate view count for courses -->
-                                <span class="text-danger">
-                                    <i class="fas fa-eye me-1"></i> {{ $course->view_count }}
-                                </span> --}}
+
+                                    <span class="text-danger">
+                                        <i class="fas fa-eye me-1"></i>{{ $course->view_count }}
+                                    </span>
+
+                                    <span class="text-info">
+                                        <i class="fas fa-download me-1"></i>{{ $course->download_count }}
+                                    </span>
 
                                     <!-- Replace this with the appropriate share URL for courses -->
                                     <button class="btn btn-secondary share-button"

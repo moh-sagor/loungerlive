@@ -35,6 +35,14 @@ class BlogsController extends Controller
         $mostViewedBlogs = Blog::orderBy('view_count', 'desc')->take(3)->get();
         return view('blogs.index', compact('blogs', 'categories', 'mostViewedBlogs'));
     }
+    public function bindex()
+    {
+        $blogs = Blog::where('status', 1)->latest()->paginate(10);
+        Paginator::useBootstrap();
+        $categories = Category::all();
+        $mostViewedBlogs = Blog::orderBy('view_count', 'desc')->take(3)->get();
+        return view('blogs.bindex', compact('blogs', 'categories', 'mostViewedBlogs'));
+    }
 
     /**
      * Show the form for creating a new resource.

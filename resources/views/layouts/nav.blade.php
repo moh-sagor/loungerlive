@@ -17,7 +17,7 @@
                             <div class="col-auto">
                                 <ul class="navbar-nav ml-auto">
                                     <li class="nav-item ms-2">
-                                        <a class="nav-link" href="{{ route('blogs.index') }}">
+                                        <a class="nav-link" href="{{ route('blogs.bindex') }}">
                                             Blogs
                                             {{-- <span class="badge badge-light bg-secondary">{{ $blogs->count() }}</span> --}}
                                         </a>

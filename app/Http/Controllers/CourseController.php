@@ -199,4 +199,14 @@ class CourseController extends Controller
     }
 
 
+    public function incrementDownloadCount(Course $course)
+    {
+        $course->increment('download_count');
+        // You can return a response if needed
+        return response()->json(['message' => 'Download count incremented successfully']);
+    }
+
+
+
+
 }

@@ -19,9 +19,12 @@ return new class extends Migration {
             $table->text('body')->nullable();
             $table->string('image')->nullable();
             $table->string('instructor');
+            $table->string('link')->nullable();
             $table->string('course_author');
             $table->unsignedBigInteger('user_id')->nullable(); // Use unsignedBigInteger
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('view_count')->default(0);
+            $table->unsignedInteger('download_count')->default(0);
             $table->timestamps();
         });
     }
