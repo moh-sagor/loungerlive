@@ -130,11 +130,19 @@ class BlogsController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        $bc = $blog->category->pluck('id')->all();
-        $filtered = $categories->whereNotIn('id', $bc);
+        // Check if the currently authenticated user is the author or an admin
+        if (auth()->user()->isAdmin() || auth()->user()->id === $blog->user_id) {
+            $bc = $blog->category->pluck('id')->all();
+            $filtered = $categories->whereNotIn('id', $bc);
 
-        return view('blogs.edit', compact('blog', 'categories', 'filtered'));
+            return view('blogs.edit', compact('blog', 'categories', 'filtered'));
+        } else {
+            Session::flash('error', 'You do not permission to edit this!');
+            // Handle unauthorized access here, e.g., redirect or show an error message
+            return redirect()->route('blogs.bindex');
+        }
     }
+
 
 
 

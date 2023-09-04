@@ -2,7 +2,6 @@
 @include('partials.meta_dynamic')
 @section('content')
     <div class="container" style="padding-top: 70px;">
-
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>

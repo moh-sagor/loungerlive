@@ -26,6 +26,16 @@
                     </script>
                 @endif
 
+                @if (Session::has('error'))
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: '{{ Session::get('error') }}',
+                        });
+                    </script>
+                @endif
+
                 <div class="mb-2 mt-2 ubuntu-font text-center bg-white p-2" style="border-radius: 8px;">
                     <h3 class="mb-0">
                         <b>

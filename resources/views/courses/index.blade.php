@@ -4,9 +4,11 @@
     <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('blogs.search') }}" method="GET" class="mb-4">
+                <form action="{{ route('courses.search') }}" method="GET" class="mb-4">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="search" placeholder="Search courses...">
+                        <!-- Update the input field name to 'query' -->
+                        <input type="text" class="form-control" name="query" placeholder="Search courses..."
+                            value="{{ $query ?? '' }}">
                         <button type="submit" class="btn btn-primary ubuntu-font">Search</button>
                     </div>
                 </form>
@@ -26,7 +28,73 @@
                     </script>
                 @endif
 
-                {{-- most viewed part  --}}
+                <!-- Display Search Results If Query Is Present -->
+                @if (isset($query) && $courses->count() > 0)
+                    <div class="mb-2 ubuntu-font p-2"
+                        style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
+                        <h3><b>Search Results for <span class="text-danger">"{{ $query }}"</span></b></h3>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-3 g-4 mb-2">
+                        @foreach ($courses as $course)
+                            <div class="col">
+                                <div
+                                    class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+
+                                    @if ($course->image)
+                                        <img class="card-img-top" src="{{ asset($course->image) }}"
+                                            alt="{{ Str::limit($course->title, 25) }}" class="img-fluid"
+                                            style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                    @else
+                                        <!-- Placeholder image when image is empty -->
+                                        <img class="card-img-top" src="{{ asset('images/empty.png') }}"
+                                            alt="{{ Str::limit($course->title, 25) }}" class="img-fluid"
+                                            style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                    @endif
+
+                                    <div class="card-body">
+                                        <h5 class="card-title text-lg fw-bold text-dark">
+                                            {{ Str::limit(ucwords($course->title), 70) }}</h5>
+                                        <div class="d-flex justify-content-between">
+                                            <h6 class="card-title text-lg fw-bold text-danger">
+                                                <i class="fas fa-chalkboard-teacher me-2 "></i>
+                                                {{ Str::limit(ucwords($course->instructor), 70) }}
+                                            </h6>
+                                            <h6 class="card-title text-lg fw-bold text-primary">
+                                                <i class="fas fa-building me-2"></i>
+                                                {{ Str::limit(ucwords($course->course_author), 70) }}
+                                            </h6>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card-footer d-flex justify-content-between align-items-center">
+                                        <a href="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}"
+                                            class="btn btn-primary">Course Details</a>
+
+
+                                        <span class="text-danger">
+                                            <i class="fas fa-eye me-1"></i>{{ $course->view_count }}
+                                        </span>
+
+                                        <span class="text-info">
+                                            <i class="fas fa-download me-1"></i>{{ $course->download_count }}
+                                        </span>
+
+                                        <!-- Replace this with the appropriate share URL for courses -->
+                                        <button class="btn btn-secondary share-button"
+                                            data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{ $courses->links() }} <!-- Pagination links -->
+                @endif
+
+                {{-- Most viewed part --}}
                 <div class="mb-2 ubuntu-font p-2"
                     style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
                     <h3><b>Popular Courses</b></h3>
@@ -88,7 +156,11 @@
                     @endforeach
                 </div>
 
-
+                <div class="container">
+                    <div class="d-flex justify-content-center mt-4">
+                        {{ $courses->links() }}
+                    </div>
+                </div>
 
                 <a href="#" class="go-to-home">
                     <i class="fas fa-home"></i>
@@ -104,79 +176,77 @@
                         });
                     });
                 </script>
-
             </div>
         </div>
+    </div>
 
-
-
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
-        @if (Session::has('success'))
-            <script>
-                // Show the SweetAlert when the page is loaded
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: "{{ Session::get('success') }}",
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-                });
-            </script>
-        @endif
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    @if (Session::has('success'))
         <script>
+            // Show the SweetAlert when the page is loaded
             document.addEventListener('DOMContentLoaded', function() {
-                // Share button click event
-                const shareButtons = document.querySelectorAll('.share-button');
-                shareButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const url = this.getAttribute('data-url');
-                        showShareDialog(url);
-                    });
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: "{{ Session::get('success') }}",
+                    showConfirmButton: false,
+                    timer: 3000
                 });
-
-                // Function to show the SweetAlert share dialog
-                function showShareDialog(url) {
-                    Swal.fire({
-                        title: 'Share Blog',
-                        html: `
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                        <i class="fab fa-facebook"></i> Share on Facebook
-                    </a>
-                    <br>
-                    <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                        <i class="fab fa-twitter"></i> Share on Twitter
-                    </a>
-                    <br>
-                    <a href="https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                        <i class="fab fa-linkedin"></i> Share on LinkedIn
-                    </a>
-                    <br>
-                    <div class="input-group mt-2">
-                        <input type="text" class="form-control" value="${url}" id="share-url">
-                        <button class="btn btn-secondary copy-button">Copy</button>
-                    </div>
-            `,
-                        showCancelButton: true,
-                        cancelButtonText: 'Close',
-                        showConfirmButton: false,
-                    });
-
-                    const copyButton = document.querySelector('.copy-button');
-                    copyButton.addEventListener('click', function() {
-                        const shareUrlInput = document.getElementById('share-url');
-                        shareUrlInput.select();
-                        document.execCommand('copy');
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Link Copied',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    });
-                }
             });
         </script>
-    @endsection
+    @endif
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Share button click event
+            const shareButtons = document.querySelectorAll('.share-button');
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    showShareDialog(url);
+                });
+            });
+
+            // Function to show the SweetAlert share dialog
+            function showShareDialog(url) {
+                Swal.fire({
+                    title: 'Share Blog',
+                    html: `
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <i class="fab fa-facebook"></i> Share on Facebook
+                </a>
+                <br>
+                <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <i class="fab fa-twitter"></i> Share on Twitter
+                </a>
+                <br>
+                <a href="https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <i class="fab fa-linkedin"></i> Share on LinkedIn
+                </a>
+                <br>
+                <div class="input-group mt-2">
+                    <input type="text" class="form-control" value="${url}" id="share-url">
+                    <button class="btn btn-secondary copy-button">Copy</button>
+                </div>
+        `,
+                    showCancelButton: true,
+                    cancelButtonText: 'Close',
+                    showConfirmButton: false,
+                });
+
+                const copyButton = document.querySelector('.copy-button');
+                copyButton.addEventListener('click', function() {
+                    const shareUrlInput = document.getElementById('share-url');
+                    shareUrlInput.select();
+                    document.execCommand('copy');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Link Copied',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+            }
+        });
+    </script>
+@endsection

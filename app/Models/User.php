@@ -69,4 +69,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Blog::class);
     }
+
+    public function isAdmin()
+    {
+        // Assuming you have a 'role_id' column in your users table
+        // Check if the 'role_id' is set to the value that represents admin users
+        return $this->role_id === 1; // Adjust this condition as per your role setup
+    }
 }

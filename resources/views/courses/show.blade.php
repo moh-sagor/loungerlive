@@ -342,22 +342,22 @@
                         viewBox="0 0 13 11">
                         <polyline points="1 5.5 5 9.5 12 1.5"></polyline>
                     </svg>
-                    Completed
+                    Completed / Thanks
                 </div>
             </div>
         </div>
 
 
         {{-- you may like  --}}
-        {{-- 
-        <div class="mb-2 mt-2 ubuntu-font p-2 "
+
+        <div class="mb-2 mt-4 ubuntu-font p-2 "
             style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
             <h3 class="text-danger"><b>You May Like</b></h3>
         </div>
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @php
-                $shuffledcourses = $courseshow->shuffle()->take(6);
+                $shuffledcourses = $allcourse->shuffle()->take(6);
             @endphp
 
             @foreach ($shuffledcourses as $course)
@@ -383,12 +383,12 @@
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <a href="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}"
-                                class="btn btn-primary">Read More</a>
-                            <span class="text-info">
-                                <i class="fas fa-comment-dots"></i> {{ $course->comments->count() }}
-                            </span>
+                                class="btn btn-primary">Course Details</a>
                             <span class="text-danger">
                                 <i class="fas fa-eye me-1"></i> {{ $course->view_count }}
+                            </span>
+                            <span class="text-info">
+                                <i class="fas fa-download me-1"></i>{{ $course->download_count }}
                             </span>
                             <button class="btn btn-secondary share-button"
                                 data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
@@ -398,7 +398,7 @@
                     </div>
                 </div>
             @endforeach
-        </div> --}}
+        </div>
 
 
         <a href="#" class="go-to-home">

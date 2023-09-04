@@ -32,6 +32,7 @@ Route::post('/blogs/{blog}/comments', [CommentsController::class, 'store'])->nam
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{id}/{slug}', [CourseController::class, 'show'])->name('courses.show');
 Route::post('/courses/increment-download-count/{course}', [CourseController::class, 'incrementDownloadCount']);
+Route::get('/courses/search', [CourseController::class, 'search'])->name('courses.search');
 
 
 // google login

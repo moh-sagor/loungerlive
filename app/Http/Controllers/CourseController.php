@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Pagination\Paginator;
 use App\Models\Course;
 use Illuminate\Support\Facades\Session;
@@ -12,12 +13,21 @@ use Illuminate\Support\Facades\File;
 
 class CourseController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('author', ['only' => ['create', 'store', 'edit', 'update']]);
+        $this->middleware('admin', ['only' => ['destroy', 'trash', 'restore', 'parmanentDelete']]);
+
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $courses = Course::all();
+        // Paginate the courses with a specified number of items per page (e.g., 10 per page).
+        $courses = Course::latest()->paginate(18); // You can adjust the number as needed.
+        Paginator::useBootstrap();
         return view('courses.index', compact('courses'));
     }
 
@@ -83,13 +93,14 @@ class CourseController extends Controller
     {
         // Find the course by its ID
         $courses = Course::find($id);
+        $allcourses = Course::all();
         // Check if the course exists
         if (!$courses) {
             // Handle the case where the course does not exist, e.g., show an error page or redirect
             return redirect('/courses')->with('error', 'Course not found');
         }
         // Load the view to display the course details
-        return view('courses.show', ['course' => $courses]);
+        return view('courses.show', ['course' => $courses], ['allcourse' => $allcourses]);
     }
 
 
@@ -101,8 +112,13 @@ class CourseController extends Controller
         $courses = Course::where('id', $id)
             ->where('slug', $slug)
             ->firstOrFail();
-
-        return view('courses.edit', compact('courses'));
+        if (auth()->user()->isAdmin() || auth()->user()->id === $courses->user_id) {
+            return view('courses.edit', compact('courses'));
+        } else {
+            // Handle unauthorized access here, e.g., redirect or show an error message
+            Session::flash('error', 'You do not permission to edit this!');
+            return redirect()->route('courses.index');
+        }
     }
     /**
      * Update the specified resource in storage.
@@ -206,7 +222,25 @@ class CourseController extends Controller
         return response()->json(['message' => 'Download count incremented successfully']);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
 
+        // Perform the search using a case-insensitive "like" query
+        $courses = Course::where('title', 'like', '%' . $query . '%')
+            ->orWhere('body', 'like', '%' . $query . '%')
+            ->orWhere('instructor', 'like', '%' . $query . '%')
+            ->orWhere('course_author', 'like', '%' . $query . '%')
+            ->paginate(18); // You can adjust the pagination settings
 
+        if ($courses->isEmpty()) {
+            // Get all blogs with pagination
+            $courses = Course::latest()->paginate(18);
+            return view('courses.index', compact('courses'))
+                ->with('message1', 'Search again with a valid keyword.');
+        }
+
+        return view('courses.index', compact('courses', 'query'));
+    }
 
 }
