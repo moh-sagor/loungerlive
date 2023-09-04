@@ -253,12 +253,13 @@
                         </div>
 
                         <!-- Image -->
+                        <!-- Image -->
                         <div class="d-flex">
-                            <div class="row">
+                            <div class="row align-items-center"> <!-- Add align-items-center here -->
                                 <div class="col-md-3">
                                     {{-- added next  --}}
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 text-center">
                                     @if ($course->image)
                                         <img src="{{ asset($course->image) }}" alt="{{ Str::limit($course->title, 25) }}"
                                             class="img-fluid"
@@ -274,8 +275,8 @@
                                     {{-- added next  --}}
                                 </div>
                             </div>
-
                         </div>
+
 
                         <p style="text-align: justify;">{!! $course->body !!}</p>
                     </div>
@@ -404,137 +405,135 @@
         <a href="#" class="go-to-home">
             <i class="fas fa-home"></i>
         </a>
-
-
-        <script>
-            function simulateUpload() {
-                // Simulate an upload with a setTimeout for demonstration purposes.
-                // In your actual code, replace this with your real upload logic.
-                setTimeout(function() {
-                    // Upload is complete
-                    document.getElementById('uploadProgress').innerHTML = `
-                        <svg width="16" height="16" class="check" stroke="currentColor" fill="none" viewBox="0 0 13 11">
-                            <polyline points="1 5.5 5 9.5 12 1.5"></polyline>
-                        </svg>
-                        Completed
-                    `;
-
-                    // Redirect to the desired link after a delay (e.g., 2 seconds)
-                    setTimeout(function() {
-                        window.location.href = "{{ $course->link }}";
-                        // Trigger the download count increment on click
-                        incrementDownloadCount('{{ $course->id }}');
-                    }, 2000);
-                }, 3000); // Simulated upload time: 3 seconds
-            }
-        </script>
-
-        <script>
-            "use strict";
-            let sleep = (time) => new Promise(resolve => setTimeout(resolve, time));
-            let upload = document.querySelector(".upload");
-            let uploadBtn = document.querySelector(".upload__button");
-            uploadBtn.addEventListener("click", async () => {
-                upload.classList.add("uploading");
-                await sleep(3000);
-                upload.classList.add("uploaded");
-                await sleep(2000);
-                upload.classList.remove("uploading");
-                upload.classList.add("uploaded-after");
-                await sleep(1000);
-                upload.className = "upload";
-            });
-        </script>
-
-        <script>
-            document.querySelector(".go-to-home").addEventListener("click", function(event) {
-                event.preventDefault();
-                // Scroll to the top of the page
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            });
-        </script>
-
-        <script>
-            function incrementDownloadCount(courseId) {
-                // Send an AJAX request to your server to increment the download count
-                fetch('/courses/increment-download-count/' + courseId, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        },
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            // If the request was successful, you can update the UI or perform other actions
-                            window.location.href =
-                                '{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            }
-        </script>
-
-
-
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Share button click event
-                const shareButtons = document.querySelectorAll('.share-button');
-                shareButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const url = this.getAttribute('data-url');
-                        showShareDialog(url);
-                    });
-                });
-
-                // Function to show the SweetAlert share dialog
-                function showShareDialog(url) {
-                    Swal.fire({
-                        title: 'Share This Artical',
-                        html: `
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                    <i class="fab fa-facebook"></i> Share on Facebook
-                </a>
-                <br>
-                <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                    <i class="fab fa-twitter"></i> Share on Twitter
-                </a>
-                <br>
-                <a href="https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                    <i class="fab fa-linkedin"></i> Share on LinkedIn
-                </a>
-                <br>
-                <div class="input-group mt-2">
-                    <input type="text" class="form-control" value="${url}" id="share-url">
-                    <button class="btn btn-secondary copy-button">Copy</button>
-                </div>
-            `,
-                        showCancelButton: true,
-                        cancelButtonText: 'Close',
-                        showConfirmButton: false,
-                    });
-
-                    const copyButton = document.querySelector('.copy-button');
-                    copyButton.addEventListener('click', function() {
-                        const shareUrlInput = document.getElementById('share-url');
-                        shareUrlInput.select();
-                        document.execCommand('copy');
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Link Copied',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    });
-                }
-            });
-        </script>
-
     </div>
+
+    <script>
+        function simulateUpload() {
+            // Simulate an upload with a setTimeout for demonstration purposes.
+            // In your actual code, replace this with your real upload logic.
+            setTimeout(function() {
+                // Upload is complete
+                document.getElementById('uploadProgress').innerHTML = `
+                    <svg width="16" height="16" class="check" stroke="currentColor" fill="none" viewBox="0 0 13 11">
+                        <polyline points="1 5.5 5 9.5 12 1.5"></polyline>
+                    </svg>
+                    Completed
+                `;
+
+                // Redirect to the desired link after a delay (e.g., 2 seconds)
+                setTimeout(function() {
+                    window.location.href = "{{ $course->link }}";
+                    // Trigger the download count increment on click
+                    incrementDownloadCount('{{ $course->id }}');
+                }, 2000);
+            }, 3000); // Simulated upload time: 3 seconds
+        }
+    </script>
+
+    <script>
+        "use strict";
+        let sleep = (time) => new Promise(resolve => setTimeout(resolve, time));
+        let upload = document.querySelector(".upload");
+        let uploadBtn = document.querySelector(".upload__button");
+        uploadBtn.addEventListener("click", async () => {
+            upload.classList.add("uploading");
+            await sleep(3000);
+            upload.classList.add("uploaded");
+            await sleep(2000);
+            upload.classList.remove("uploading");
+            upload.classList.add("uploaded-after");
+            await sleep(1000);
+            upload.className = "upload";
+        });
+    </script>
+
+    <script>
+        document.querySelector(".go-to-home").addEventListener("click", function(event) {
+            event.preventDefault();
+            // Scroll to the top of the page
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
+
+    <script>
+        function incrementDownloadCount(courseId) {
+            // Send an AJAX request to your server to increment the download count
+            fetch('/courses/increment-download-count/' + courseId, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // If the request was successful, you can update the UI or perform other actions
+                        window.location.href =
+                            '{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Share button click event
+            const shareButtons = document.querySelectorAll('.share-button');
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    showShareDialog(url);
+                });
+            });
+
+            // Function to show the SweetAlert share dialog
+            function showShareDialog(url) {
+                Swal.fire({
+                    title: 'Share This Artical',
+                    html: `
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                <i class="fab fa-facebook"></i> Share on Facebook
+            </a>
+            <br>
+            <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                <i class="fab fa-twitter"></i> Share on Twitter
+            </a>
+            <br>
+            <a href="https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                <i class="fab fa-linkedin"></i> Share on LinkedIn
+            </a>
+            <br>
+            <div class="input-group mt-2">
+                <input type="text" class="form-control" value="${url}" id="share-url">
+                <button class="btn btn-secondary copy-button">Copy</button>
+            </div>
+        `,
+                    showCancelButton: true,
+                    cancelButtonText: 'Close',
+                    showConfirmButton: false,
+                });
+
+                const copyButton = document.querySelector('.copy-button');
+                copyButton.addEventListener('click', function() {
+                    const shareUrlInput = document.getElementById('share-url');
+                    shareUrlInput.select();
+                    document.execCommand('copy');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Link Copied',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+            }
+        });
+    </script>
 @endsection

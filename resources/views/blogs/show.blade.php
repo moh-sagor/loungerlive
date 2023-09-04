@@ -255,78 +255,72 @@
         <a href="#" class="go-to-home">
             <i class="fas fa-home"></i>
         </a>
-
-        <script>
-            document.querySelector(".go-to-home").addEventListener("click", function(event) {
-                event.preventDefault();
-                // Scroll to the top of the page
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            });
-        </script>
-
-
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Share button click event
-                const shareButtons = document.querySelectorAll('.share-button');
-                shareButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const url = this.getAttribute('data-url');
-                        showShareDialog(url);
-                    });
-                });
-
-                // Function to show the SweetAlert share dialog
-                function showShareDialog(url) {
-                    Swal.fire({
-                        title: 'Share This Artical',
-                        html: `
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                        <i class="fab fa-facebook"></i> Share on Facebook
-                    </a>
-                    <br>
-                    <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                        <i class="fab fa-twitter"></i> Share on Twitter
-                    </a>
-                    <br>
-                    <a href="https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                        <i class="fab fa-linkedin"></i> Share on LinkedIn
-                    </a>
-                    <br>
-                    <div class="input-group mt-2">
-                        <input type="text" class="form-control" value="${url}" id="share-url">
-                        <button class="btn btn-secondary copy-button">Copy</button>
-                    </div>
-                `,
-                        showCancelButton: true,
-                        cancelButtonText: 'Close',
-                        showConfirmButton: false,
-                    });
-
-                    const copyButton = document.querySelector('.copy-button');
-                    copyButton.addEventListener('click', function() {
-                        const shareUrlInput = document.getElementById('share-url');
-                        shareUrlInput.select();
-                        document.execCommand('copy');
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Link Copied',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    });
-                }
-            });
-        </script>
-
-
-
-
-
-
     </div>
+
+    <script>
+        document.querySelector(".go-to-home").addEventListener("click", function(event) {
+            event.preventDefault();
+            // Scroll to the top of the page
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Share button click event
+            const shareButtons = document.querySelectorAll('.share-button');
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    showShareDialog(url);
+                });
+            });
+
+            // Function to show the SweetAlert share dialog
+            function showShareDialog(url) {
+                Swal.fire({
+                    title: 'Share This Artical',
+                    html: `
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <i class="fab fa-facebook"></i> Share on Facebook
+                </a>
+                <br>
+                <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <i class="fab fa-twitter"></i> Share on Twitter
+                </a>
+                <br>
+                <a href="https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <i class="fab fa-linkedin"></i> Share on LinkedIn
+                </a>
+                <br>
+                <div class="input-group mt-2">
+                    <input type="text" class="form-control" value="${url}" id="share-url">
+                    <button class="btn btn-secondary copy-button">Copy</button>
+                </div>
+            `,
+                    showCancelButton: true,
+                    cancelButtonText: 'Close',
+                    showConfirmButton: false,
+                });
+
+                const copyButton = document.querySelector('.copy-button');
+                copyButton.addEventListener('click', function() {
+                    const shareUrlInput = document.getElementById('share-url');
+                    shareUrlInput.select();
+                    document.execCommand('copy');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Link Copied',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+            }
+        });
+    </script>
 @endsection
