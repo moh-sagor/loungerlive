@@ -11,7 +11,7 @@ class CommentsController extends Controller
     public function store(Request $request, $blogId)
     {
         $this->validate($request, [
-            'content' => 'required|min:5'
+            'content' => 'required|min:3'
         ]);
         $blog = Blog::findOrFail($blogId);
 

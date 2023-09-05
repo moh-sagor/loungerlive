@@ -284,7 +284,7 @@ class BlogsController extends Controller
                     ->orWhere('body', 'like', '%' . $searchQuery . '%');
             })
             ->latest()
-            ->paginate(5);
+            ->paginate(6);
 
         Paginator::useBootstrap();
 
@@ -292,7 +292,7 @@ class BlogsController extends Controller
         if ($blogs->isEmpty()) {
             // Get all blogs with pagination
             $blogs = Blog::where('status', 1)->latest()->paginate(10);
-            return view('blogs.index', compact('blogs', 'categories', 'mostViewedBlogs'))
+            return view('blogs.bindex', compact('blogs', 'categories', 'mostViewedBlogs'))
                 ->with('message1', 'Search again with a valid keyword.');
         }
 

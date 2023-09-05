@@ -1,6 +1,17 @@
 @extends('layouts.app')
 @include('partials.meta_static')
 @section('content')
+    <style>
+        .card {
+            transition: transform 0.2s;
+            /* Add a smooth transition for the transform property */
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            /* Zoom in on hover */
+        }
+    </style>
     <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-md-10">

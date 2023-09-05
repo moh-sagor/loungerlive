@@ -209,6 +209,23 @@
                 transform: scaleX(1) translateY(10%);
             }
         }
+
+        .card-v {
+            transition: transform 0.2s;
+            /* Add a smooth transition for the transform property */
+        }
+
+        .card-v:hover {
+            transform: scale(1.10);
+            /* Zoom in on hover */
+        }
+
+        /* Add any other custom styling as needed */
+        .vr {
+            border-left: 2px solid #0400ff;
+            height: auto;
+            margin: 0 5px;
+        }
     </style>
 
 
@@ -281,45 +298,79 @@
                         <p style="text-align: justify;">{!! $course->body !!}</p>
                     </div>
                 </div>
-                <div class="card-footer d-flex justify-content-between align-items-center">
 
-                    @if (Auth::user())
-                        @if (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $course->user_id))
-                            <div class="d-flex align-items-center m-2">
-                                <a href="{{ route('courses.edit', ['id' => $course->id, 'slug' => $course->slug]) }}"
-                                    type="button" class="btn btn-success me-2">Edit</a>
-                                <form action="{{ route('courses.destroy', $course->id) }} " method="POST">
-                                    @csrf
-                                    <button class="btn btn-danger delete-btn" type="submit">Delete</button>
-                                </form>
+                @if (Auth::user() &&
+                        (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $course->user_id)))
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6 col-6">
+                                <div class="d-flex justify-content-start">
+
+                                    <a href="{{ route('courses.edit', ['id' => $course->id, 'slug' => $course->slug]) }}"
+                                        type="button" class="btn btn-success me-2">Edit</a>
+                                    <form action="{{ route('courses.destroy', $course->id) }} " method="POST">
+                                        @csrf
+                                        <button class="btn btn-danger delete-btn" type="submit">Delete</button>
+                                    </form>
+
+                                </div>
                             </div>
-                        @endif
-                    @endif
+                            <div class="col-md-6 col-6">
+                                <div class="d-flex justify-content-end">
+                                    @php
+                                        $course->increment('view_count');
+                                    @endphp
+                                    <span class="text-danger me-3">
+                                        <i class="fas fa-eye me-1"></i>{{ $course->view_count }}
+                                    </span>
+                                    <div class="vr me-2"></div>
+                                    <span class="me-3">
+                                        <a href="{{ $course->link }}" target="_blank"
+                                            onclick="incrementDownloadCount('{{ $course->id }}')"
+                                            style="text-decoration: none">
+                                            <i class="fas fa-download me-1"></i>{{ $course->download_count }}
+                                        </a>
+                                    </span>
+                                    <div class="vr me-2"></div>
+                                    <button class="btn btn-secondary share-button"
+                                        data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
+                                        <i class="fas fa-share"></i>Share
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="card-footer">
+                        <div class="col-md-12 col-12">
+                            <div class="d-flex justify-content-center">
+                                @php
+                                    $course->increment('view_count');
+                                @endphp
+                                <span class="text-danger me-3">
+                                    <i class="fas fa-eye me-1"></i>{{ $course->view_count }}
+                                </span>
+                                <div class="vr me-2"></div>
+                                <span class="me-3">
+                                    <a href="{{ $course->link }}" target="_blank"
+                                        onclick="incrementDownloadCount('{{ $course->id }}')"
+                                        style="text-decoration: none">
+                                        <i class="fas fa-download me-1"></i>{{ $course->download_count }}
+                                    </a>
+                                </span>
+                                <div class="vr me-2"></div>
+                                <button class="btn btn-secondary share-button"
+                                    data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
+                                    <i class="fas fa-share"></i>Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
 
 
-                    @php
-                        $course->increment('view_count');
-                    @endphp
 
-
-                    <span class="text-danger">
-                        <i class="fas fa-eye me-1"></i>{{ $course->view_count }}
-                    </span>
-
-                    <span>
-                        <a href="{{ $course->link }}" target="_blank"
-                            onclick="incrementDownloadCount('{{ $course->id }}')" style="text-decoration: none">
-                            <i class="fas fa-download me-1"></i>{{ $course->download_count }}
-                        </a>
-                    </span>
-
-
-                    <button class="btn btn-secondary share-button"
-                        data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
-                        <i class="fas fa-share"></i> Share
-                    </button>
-                </div>
             </div>
         </div>
 
@@ -363,7 +414,8 @@
 
             @foreach ($shuffledcourses as $course)
                 <div class="col">
-                    <div class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                    <div
+                        class="card card-v h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
 
                         @if ($course->image)
                             <img class="card-img-top" src="{{ asset($course->image) }}"
@@ -385,12 +437,15 @@
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <a href="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}"
                                 class="btn btn-primary">Course Details</a>
+                            <div class="vr me-2"></div>
                             <span class="text-danger">
                                 <i class="fas fa-eye me-1"></i> {{ $course->view_count }}
                             </span>
+                            <div class="vr me-2"></div>
                             <span class="text-info">
                                 <i class="fas fa-download me-1"></i>{{ $course->download_count }}
                             </span>
+                            <div class="vr me-2"></div>
                             <button class="btn btn-secondary share-button"
                                 data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
                                 <i class="fas fa-share"></i> Share
@@ -497,7 +552,7 @@
             // Function to show the SweetAlert share dialog
             function showShareDialog(url) {
                 Swal.fire({
-                    title: 'Share This Artical',
+                    title: 'Share This Course',
                     html: `
                 <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
                 <i class="fab fa-facebook"></i> Share on Facebook

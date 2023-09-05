@@ -1,8 +1,33 @@
 @extends('layouts.app')
 @include('partials.meta_static')
-
 @section('content')
+    <style>
+        .card {
+            transition: transform 0.2s;
+            /* Add a smooth transition for the transform property */
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            /* Zoom in on hover */
+        }
+
+        /* Add any other custom styling as needed */
+        .vr {
+            border-left: 2px solid #0400ff;
+            height: auto;
+            margin: 0 5px;
+        }
+    </style>
+
     <div class="container" style="padding-top: 70px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('blogs.index') }}">Blogs</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $searchQuery }}</li>
+            </ol>
+        </nav>
         <div class="row">
             <div class="col-md-10">
                 <!-- Display the search results -->

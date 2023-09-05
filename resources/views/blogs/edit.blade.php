@@ -2,6 +2,13 @@
 @section('main')
     @include('partials.tinymce')
     <div class="container" style="padding-top: 70px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('blogs.index') }}">Blogs</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $blog->title }}</li>
+            </ol>
+        </nav>
         <div class="jumbotron text-center bg-light form-control ubuntu-font text-white">
             <h1 class="display-4">Edit the blog | {{ Str::limit($blog->title, 25) }}</h1>
         </div>

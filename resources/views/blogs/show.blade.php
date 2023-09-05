@@ -1,6 +1,26 @@
 @extends('layouts.app')
 @include('partials.meta_dynamic')
 @section('content')
+    <style>
+        .card-v {
+            transition: transform 0.2s;
+            /* Add a smooth transition for the transform property */
+        }
+
+        .card-v:hover {
+            transform: scale(1.02);
+            /* Zoom in on hover */
+        }
+
+        /* Add any other custom styling as needed */
+        .vr {
+            border-left: 2px solid #0400ff;
+            height: auto;
+            margin: 0 5px;
+        }
+    </style>
+
+
     <div class="container" style="padding-top: 70px;">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -96,36 +116,69 @@
                         <p style="text-align: justify;">{!! $blog->body !!}</p>
                     </div>
                 </div>
-                <div class="card-footer d-flex justify-content-between align-items-center">
 
-                    @if (Auth::user())
-                        @if (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $blog->user_id))
-                            <div class="d-flex align-items-center m-2">
-                                <a href="{{ route('blogs.edit', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
-                                    type="button" class="btn btn-success me-2">Edit</a>
-                                <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
-                                    @csrf
-                                    <button class="btn btn-danger delete-btn" type="submit">Delete</button>
-                                </form>
+
+
+                @if (Auth::user() &&
+                        (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $blog->user_id)))
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6 col-6">
+                                <div class="d-flex justify-content-start">
+
+                                    <a href="{{ route('blogs.edit', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
+                                        type="button" class="btn btn-success me-2">Edit</a>
+                                    <form action="{{ route('blogs.destroy', $blog->id) }} " method="POST">
+                                        @csrf
+                                        <button class="btn btn-danger delete-btn" type="submit">Delete</button>
+                                    </form>
+
+                                </div>
                             </div>
-                        @endif
-                    @endif
-
-                    <span class="text-danger">
-                        <i class="fas fa-eye me-1"></i> {{ $blog->view_count }}
-                    </span>
-
-                    <span class="text-primary">
-                        <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
-                    </span>
-
-                    <button class="btn btn-secondary share-button"
-                        data-url="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
-                        <i class="fas fa-share"></i> Share
-                    </button>
-                </div>
-
-
+                            <div class="col-md-6 col-6">
+                                <div class="d-flex justify-content-end">
+                                    @php
+                                        $blog->increment('view_count');
+                                    @endphp
+                                    <span class="text-danger me-3">
+                                        <i class="fas fa-eye me-1"></i>{{ $blog->view_count }}
+                                    </span>
+                                    <div class="vr me-2"></div>
+                                    <span class="me-3">
+                                        <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
+                                    </span>
+                                    <div class="vr me-2"></div>
+                                    <button class="btn btn-secondary share-button"
+                                        data-url="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
+                                        <i class="fas fa-share"></i> Share
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="card-footer">
+                        <div class="col-md-12 col-12">
+                            <div class="d-flex justify-content-center">
+                                @php
+                                    $blog->increment('view_count');
+                                @endphp
+                                <span class="text-danger me-3">
+                                    <i class="fas fa-eye me-1"></i>{{ $blog->view_count }}
+                                </span>
+                                <div class="vr me-2"></div>
+                                <span class="me-3">
+                                    <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
+                                </span>
+                                <div class="vr me-2"></div>
+                                <button class="btn btn-secondary share-button"
+                                    data-url="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
+                                    <i class="fas fa-share"></i> Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <?php
@@ -135,7 +188,7 @@
 
         </div>
 
-        <!-- ... existing comments ... -->
+        <!-- ... (existing content) ... -->
 
         <div class="mt-3">
 
@@ -146,13 +199,9 @@
                         {{ $blog->comments->count() }}
                     </span>
                 </button>
-
-
             </div>
-
-
             @if (Auth::check())
-                <div class="card mt-3 mb-3">
+                <div class="card card-v mt-3 mb-3">
                     <div class="card-body">
                         <form action="{{ route('comments.store', $blog->id) }}" method="post">
                             @csrf
@@ -167,33 +216,41 @@
                 <p class="mt-3">Please <a href="{{ route('login') }}">login</a> to post a comment.</p>
             @endif
 
-
-            @foreach ($blog->comments->reverse() as $comment)
-                <div class="card p-3 mt-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="user d-flex flex-row align-items-center">
-                            @if ($comment->user && $comment->user->photo)
-                                <img src="{{ asset('storage/' . $comment->user->photo) }}" class="rounded-circle m-2"
-                                    style="width: 50px;" alt="Avatar" />
-                            @else
-                                <img src="{{ asset('images/default_profile.jpg') }}" class="rounded-circle m-2"
-                                    style="width: 50px;" alt="Avatar" />
-                            @endif
-                            <span>
-                                <small class="font-weight-bold fs-5">{{ $comment->content }}</small>
-                            </span>
+            <!-- Display comments with pagination -->
+            @if ($blog->comments->count() > 0)
+                <div class="comments mt-3">
+                    @foreach ($blog->comments->reverse() as $comment)
+                        <div class="card card-v p-3 mt-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="user d-flex flex-row align-items-center">
+                                    @if ($comment->user && $comment->user->photo)
+                                        <img src="{{ asset('storage/' . $comment->user->photo) }}"
+                                            class="rounded-circle m-2" style="width: 50px;" alt="Avatar" />
+                                    @else
+                                        <img src="{{ asset('images/default_profile.jpg') }}" class="rounded-circle m-2"
+                                            style="width: 50px;" alt="Avatar" />
+                                    @endif
+                                    <span>
+                                        <small class="font-weight-bold fs-5">{{ $comment->content }}</small>
+                                    </span>
+                                </div>
+                                <small>{{ $comment->created_at->format('F j, Y') }}</small>
+                            </div>
+                            <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                <div class="reply text-red">
+                                    Comment by <span style="color:blue;">{{ $comment->user->name }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <small>{{ $comment->created_at->format('F j, Y') }}</small>
-                    </div>
-                    <div class="action d-flex justify-content-between mt-2 align-items-center">
-                        <div class="reply text-red">
-                            Comment by <span style="color:blue;">{{ $comment->user->name }}</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-            @endforeach
 
+                <!-- Add pagination links -->
+            @else
+                <p class="card card-v p-3 mt-2">No comments yet.</p>
+            @endif
         </div>
+
 
 
         {{-- you may like  --}}
@@ -210,7 +267,8 @@
 
             @foreach ($shuffledBlogs as $blog)
                 <div class="col">
-                    <div class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                    <div
+                        class="card card-v h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
 
                         @if ($blog->featured_image)
                             <img class="card-img-top" src="{{ asset($blog->featured_image) }}"
@@ -231,14 +289,16 @@
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
                                 class="btn btn-primary">Read More</a>
+                            <div class="vr me-2"></div>
                             <span class="text-info">
                                 <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
                             </span>
+                            <div class="vr me-2"></div>
 
                             <span class="text-danger">
                                 <i class="fas fa-eye me-1"></i> {{ $blog->view_count }}
                             </span>
-
+                            <div class="vr me-2"></div>
                             <button class="btn btn-secondary share-button"
                                 data-url="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
                                 <i class="fas fa-share"></i> Share

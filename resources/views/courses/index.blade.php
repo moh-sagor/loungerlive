@@ -1,6 +1,24 @@
 @extends('layouts.app')
 @include('partials.meta_static')
 @section('content')
+    <style>
+        .card {
+            transition: transform 0.2s;
+            /* Add a smooth transition for the transform property */
+        }
+
+        .card:hover {
+            transform: scale(1.10);
+            /* Zoom in on hover */
+        }
+
+        /* Add any other custom styling as needed */
+        .vr {
+            border-left: 2px solid #0400ff;
+            height: auto;
+            margin: 0 5px;
+        }
+    </style>
     <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-md-12">
@@ -28,72 +46,6 @@
                     </script>
                 @endif
 
-                <!-- Display Search Results If Query Is Present -->
-                @if (isset($query) && $courses->count() > 0)
-                    <div class="mb-2 ubuntu-font p-2"
-                        style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
-                        <h3><b>Search Results for <span class="text-danger">"{{ $query }}"</span></b></h3>
-                    </div>
-                    <div class="row row-cols-1 row-cols-md-3 g-4 mb-2">
-                        @foreach ($courses as $course)
-                            <div class="col">
-                                <div
-                                    class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-
-                                    @if ($course->image)
-                                        <img class="card-img-top" src="{{ asset($course->image) }}"
-                                            alt="{{ Str::limit($course->title, 25) }}" class="img-fluid"
-                                            style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                                    @else
-                                        <!-- Placeholder image when image is empty -->
-                                        <img class="card-img-top" src="{{ asset('images/empty.png') }}"
-                                            alt="{{ Str::limit($course->title, 25) }}" class="img-fluid"
-                                            style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                                    @endif
-
-                                    <div class="card-body">
-                                        <h5 class="card-title text-lg fw-bold text-dark">
-                                            {{ Str::limit(ucwords($course->title), 70) }}</h5>
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="card-title text-lg fw-bold text-danger">
-                                                <i class="fas fa-chalkboard-teacher me-2 "></i>
-                                                {{ Str::limit(ucwords($course->instructor), 70) }}
-                                            </h6>
-                                            <h6 class="card-title text-lg fw-bold text-primary">
-                                                <i class="fas fa-building me-2"></i>
-                                                {{ Str::limit(ucwords($course->course_author), 70) }}
-                                            </h6>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="card-footer d-flex justify-content-between align-items-center">
-                                        <a href="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}"
-                                            class="btn btn-primary">Course Details</a>
-
-
-                                        <span class="text-danger">
-                                            <i class="fas fa-eye me-1"></i>{{ $course->view_count }}
-                                        </span>
-
-                                        <span class="text-info">
-                                            <i class="fas fa-download me-1"></i>{{ $course->download_count }}
-                                        </span>
-
-                                        <!-- Replace this with the appropriate share URL for courses -->
-                                        <button class="btn btn-secondary share-button"
-                                            data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
-                                            <i class="fas fa-share"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-
-                    {{ $courses->links() }} <!-- Pagination links -->
-                @endif
-
                 {{-- Most viewed part --}}
                 <div class="mb-2 ubuntu-font p-2"
                     style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
@@ -102,13 +54,13 @@
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     @foreach ($courses as $course)
                         <div class="col">
-                            <div
-                                class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                            <div class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden p-2"
+                                style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);">
 
                                 @if ($course->image)
                                     <img class="card-img-top" src="{{ asset($course->image) }}"
                                         alt="{{ Str::limit($course->title, 25) }}" class="img-fluid"
-                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(23, 81, 73, 0.365);">
                                 @else
                                     <!-- Placeholder image when image is empty -->
                                     <img class="card-img-top" src="{{ asset('images/empty.png') }}"
@@ -136,15 +88,15 @@
                                     <a href="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}"
                                         class="btn btn-primary">Course Details</a>
 
-
+                                    <div class="vr me-2"></div>
                                     <span class="text-danger">
                                         <i class="fas fa-eye me-1"></i>{{ $course->view_count }}
                                     </span>
-
+                                    <div class="vr me-2"></div>
                                     <span class="text-info">
                                         <i class="fas fa-download me-1"></i>{{ $course->download_count }}
                                     </span>
-
+                                    <div class="vr me-2"></div>
                                     <!-- Replace this with the appropriate share URL for courses -->
                                     <button class="btn btn-secondary share-button"
                                         data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
@@ -177,6 +129,7 @@
                     });
                 </script>
             </div>
+
         </div>
     </div>
 
@@ -210,7 +163,7 @@
             // Function to show the SweetAlert share dialog
             function showShareDialog(url) {
                 Swal.fire({
-                    title: 'Share Blog',
+                    title: 'Share Course',
                     html: `
                 <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
                     <i class="fab fa-facebook"></i> Share on Facebook

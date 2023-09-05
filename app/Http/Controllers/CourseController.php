@@ -27,8 +27,9 @@ class CourseController extends Controller
     {
         // Paginate the courses with a specified number of items per page (e.g., 10 per page).
         $courses = Course::latest()->paginate(18); // You can adjust the number as needed.
+        $allcourse = Course::all();
         Paginator::useBootstrap();
-        return view('courses.index', compact('courses'));
+        return view('courses.index', compact('courses', 'allcourse'));
     }
 
     /**
@@ -225,6 +226,7 @@ class CourseController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
+        $allcourse = Course::all();
 
         // Perform the search using a case-insensitive "like" query
         $courses = Course::where('title', 'like', '%' . $query . '%')
@@ -240,7 +242,7 @@ class CourseController extends Controller
                 ->with('message1', 'Search again with a valid keyword.');
         }
 
-        return view('courses.index', compact('courses', 'query'));
+        return view('courses.search', compact('courses', 'query', 'allcourse'));
     }
 
 }
