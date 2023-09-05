@@ -37,7 +37,7 @@ class CategoryController extends Controller
         ]);
 
         // You can add a success message or redirect to a new page
-        return back();
+        return redirect('/categories');
     }
 
 
@@ -47,7 +47,8 @@ class CategoryController extends Controller
     public function show(string $slug)
     {
         $category = Category::where('slug', $slug)->first();
-        return view('categories.show', compact('category'));
+        $categories = Category::latest()->get(); // Retrieve all categories
+        return view('categories.show', compact('category', 'categories')); // Pass both $category and $categories to the view
     }
 
 
