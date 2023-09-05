@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('slug')->unique()->index(); // unique and indexed for faster searching/
             $table->text('name')->nullable(true);
+            $table->unsignedBigInteger('user_id')->nullable(); // Use unsignedBigInteger
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

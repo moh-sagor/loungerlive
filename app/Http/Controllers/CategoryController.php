@@ -33,7 +33,9 @@ class CategoryController extends Controller
         Category::create([
             'name' => $request['name'],
             'slug' => Str::slug($request['name'], '-'),
+            'user_id' => auth()->id(), // set the user_id to the currently authenticated user's ID
         ]);
+
         // You can add a success message or redirect to a new page
         return back();
     }

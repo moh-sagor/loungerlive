@@ -4,16 +4,17 @@
         <div class="jumbotron text-center bg-light form-control ubuntu-font text-white">
             <h1 class="display-4">{{ $category->name }}</h1>
         </div>
-        @auth
-            <div class="d-flex align-items-center m-2">
+        <div class="d-flex align-items-center m-2">
+            @if (Auth::user() &&
+                    (Auth::user()->role_id === 1 || (Auth::user()->role_id === 2 && Auth::user()->id === $category->user_id)))
                 <a href="{{ route('categories.edit', $category->slug) }}" type="button" class="btn btn-success me-2">Edit</a>
                 <form action="{{ route('categories.destroy', $category->slug) }}" method="POST">
                     @csrf
                     <button class="btn btn-danger delete-btn" type="submit">Delete</button>
                 </form>
-            </div>
+            @endif
+        </div>
 
-        @endauth
 
         <hr>
         <div class="col-md-12">

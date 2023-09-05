@@ -153,7 +153,15 @@
                             </div>
                         @endforeach
                     </div>
+                    <h6 class="text-center card card-white bg-info my-2 mt-2 ubuntu-font py-2">
+                        <span style="color: azure;"><a href="{{ route('courses.index') }}"
+                                style="text-decoration: none; color:aliceblue;">Find Course</a></span>
+                    </h6>
+
+
                 </div>
+
+
             </div>
 
             <div class="container">

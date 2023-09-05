@@ -1,11 +1,13 @@
 @extends('adminPanel.mainpage')
 @section('main')
     @include('partials.tinymce')
-    <div class="container" style="padding-top: 70px;">
+    <div class="container" style="padding-top: 10px;">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('blogs.index') }}">Blogs</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a
+                        href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">Show</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $blog->title }}</li>
             </ol>
         </nav>
