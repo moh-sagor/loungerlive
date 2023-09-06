@@ -31,6 +31,13 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
+        // Check if there are any existing users
+        $userCount = User::count();
+
+        // Set the role_id based on the user count
+        $role_id = ($userCount === 0) ? 1 : 3;
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'min:3', 'max:30', 'unique:' . User::class],
@@ -43,13 +50,13 @@ class RegisteredUserController extends Controller
             'username' => Str::slug(strtolower($request['username'])),
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => 3,
+            'role_id' => $role_id,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect()->route('users.show');
+        return redirect()->route('admin.index');
     }
 }
