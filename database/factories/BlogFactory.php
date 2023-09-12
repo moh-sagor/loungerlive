@@ -19,11 +19,11 @@ class BlogFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->sentence(10);
+        $title = $this->faker->sentence(0);
 
         return [
             'title' => $title,
-            'body' => $this->faker->sentence(100),
+            'body' => $this->faker->sentence(0),
             'slug' => Str::slug($title),
         ];
     }

@@ -37,6 +37,7 @@
                                 <th>S/N</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Phone</th>
                                 <th>Request Date</th>
                                 <th>Status </th>
                                 <th>Action</th>
@@ -49,6 +50,7 @@
                                     <th>{{ $serialNumber }}</th>
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->email }}</td>
+                                    <td>{{ $data->phone }}</td>
                                     <td>{{ $data->created_at->format('Y-m-d') }}
                                         <sup>{{ $data->created_at->diffForHumans() }}</sup>
                                     </td>

@@ -54,9 +54,8 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
         Auth::login($user);
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.confirm');
     }
 }

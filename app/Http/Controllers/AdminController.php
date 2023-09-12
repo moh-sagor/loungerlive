@@ -20,6 +20,10 @@ class AdminController extends Controller
     {
         return view('admin.index');
     }
+    public function confirm()
+    {
+        return view('admin.confirm');
+    }
 
     /**
      * Show the form for creating a new resource.

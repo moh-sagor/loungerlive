@@ -57,6 +57,7 @@ Route::middleware('auth', )->group(function () {
 
     // admin routes 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/confirm', [AdminController::class, 'confirm'])->name('admin.confirm');
     Route::get('/admin/blogs', [AdminController::class, 'blogs'])->name('admin.blogs');
     Route::post('/admin/blogs/{id}/toggle-status', [BlogsController::class, 'toggleStatus'])->name('blogs.toggle-status');
 

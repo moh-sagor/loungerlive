@@ -16,12 +16,14 @@ class EmailController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required|string',
                 'email' => 'required|email',
+                'phone' => 'required',
             ]);
 
             // Save to database
             $requestAccess = new EmailRequest();
             $requestAccess->name = $validatedData['name'];
             $requestAccess->email = $validatedData['email'];
+            $requestAccess->phone = $validatedData['phone'];
             $requestAccess->save();
 
             // Return a success response

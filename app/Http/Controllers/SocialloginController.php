@@ -37,11 +37,11 @@ class SocialloginController extends Controller
             $store->photo = $photoPath;
             $store->save();
             Auth::login($store);
-            return redirect()->route('users.show');
+            return redirect()->route('admin.index');
 
         } else {
             Auth::login($user);
-            return redirect()->route('users.show');
+            return redirect()->route('admin.index');
         }
 
 

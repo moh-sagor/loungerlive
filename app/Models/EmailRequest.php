@@ -12,5 +12,6 @@ class EmailRequest extends Model
         'name',
         'email',
         'status',
+        'phone',
     ];
 }

@@ -13,19 +13,6 @@ class CategoryTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $html = new Category();
-        $html->name = 'HTML';
-        $html->slug = 'html';
-        $html->save();
 
-        $css = new Category();
-        $css->name = 'CSS';
-        $css->slug = 'css';
-        $css->save();
-
-        $php = new Category();
-        $php->name = 'PHP';
-        $php->slug = 'php';
-        $php->save();
     }
 }

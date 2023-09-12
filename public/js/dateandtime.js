@@ -16,7 +16,7 @@ function updateLocationAndTime() {
                 .then(data => {
                     var locationName = data.display_name;
                     var locationNameElement = document.getElementById("locationName");
-                    locationNameElement.innerHTML = `<i class='fas fa-map-marker'></i> ${locationName}`;
+                    locationNameElement.innerHTML = `<i class='fas fa-map-marker'></i> <b>Your Location :</b> ${locationName}`;
                 })
                 .catch(error => {
                     console.error("Error fetching location data:", error);

@@ -9,6 +9,6 @@ class BlogsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Blog::factory()->times(15)->create();
+        Blog::factory()->times(0)->create();
     }
 }

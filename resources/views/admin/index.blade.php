@@ -134,6 +134,7 @@
                         html: `
                              <input type="text" name="name" class="swal2-input input-fields-hidden" placeholder="Your Name" required>
                                  <input type="email" name="email" class="swal2-input input-fields-hidden" placeholder="Your Email" required>
+                                 <input type="phone" name="phone" class="swal2-input input-fields-hidden" placeholder="Your Phone Number" required>
                                  `,
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -143,11 +144,13 @@
                         if (result.isConfirmed) {
                             const name = Swal.getPopup().querySelector('[name="name"]').value;
                             const email = Swal.getPopup().querySelector('[name="email"]').value;
+                            const phone = Swal.getPopup().querySelector('[name="phone"]').value;
 
                             // Create an object with the collected data
                             const data = {
                                 name: name,
-                                email: email
+                                email: email,
+                                phone: phone,
                             };
 
                             // Send the data to the server using fetch or your preferred method
