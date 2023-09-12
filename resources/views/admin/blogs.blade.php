@@ -5,7 +5,7 @@
             <h1 class="display-6">Manage Blogs</h1>
         </div>
         <div class="row">
-            <div class="col-md-6 col-12">
+            <div class="col-md-6 col-12 mt-2">
                 <div class="text-center bg-light form-control">
                     <h1 class="display-6">Published Blogs</h1>
                 </div>
@@ -64,7 +64,7 @@
 
 
 
-            <div class="col-md-6 col-12">
+            <div class="col-md-6 col-12 mt-2">
                 <div class="text-center bg-light form-control">
                     <h1 class="display-6">Drafted Blogs</h1>
                 </div>

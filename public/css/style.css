@@ -550,3 +550,16 @@ h6 {
 .rainbow-text {
     display: inline-block;
 }
+
+.backcolor {
+    background: linear-gradient(to bottom, rgb(52, 52, 57), rgb(52, 52, 57));
+    background-repeat: no-repeat;
+    height: auto;
+    width: 100%;
+}
+
+.form-border {
+    border: solid 2px rgb(0, 204, 255);
+    border-radius: 10px;
+    padding: 20px;
+}

@@ -565,7 +565,8 @@
 
     <div class="mobile-view">
 
-        <img src="{{ asset('images/loungerlive.png') }}" height="65" alt="LoungerLive Logo">
+        <img src="{{ asset('images/loungerlive.png') }}" height="65" alt="LoungerLive Logo"
+            style="filter: drop-shadow(10px 10px 20px rgb(87 87 87))">
 
         <div class="form-structor">
             {{-- SignUP  --}}
@@ -635,6 +636,9 @@
 
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                         </div>
+                        @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}">Forgot your password?</a>
+                        @endif
                         <button class="submit-btn">Log in</button>
 
 
@@ -651,7 +655,7 @@
 
 
         <img src="{{ asset('images/loungerlive.png') }}" height="80" alt="LoungerLive Logo"
-            style="padding-left:150px;">
+            style="padding-left:150px; filter: drop-shadow(10px 10px 20px rgb(87 87 87))">
 
 
         <div class="container" id="container">
@@ -727,7 +731,7 @@
 
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     @if (Route::has('password.request'))
-                        {{-- <a href="{{ route('password.request') }}">Forgot your password?</a> --}}
+                        <a href="{{ route('password.request') }}">Forgot your password?</a>
                     @endif
                     <button>Sign In</button>
                 </form>

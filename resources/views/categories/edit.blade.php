@@ -17,18 +17,20 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
-                <form action="{{ route('categories.update', $category->id) }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name"
-                            value="{{ $category->name }}">
-                    </div>
-                    <div class="d-flex justify-content-center mt-3">
-                        <button type="submit" class="btn btn-primary">Update Category</button>
-                    </div>
-                </form>
+            <div class="col-md-12 ">
+                <div class="form-border mt-2">
+                    <form action="{{ route('categories.update', $category->id) }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                value="{{ $category->name }}">
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button type="submit" class="btn btn-primary">Update Category</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
