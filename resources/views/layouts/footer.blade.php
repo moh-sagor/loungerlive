@@ -66,12 +66,14 @@
     <div class="footer_bottom">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6 col-sm-7">
-                    <p class="mb-0 f_400">© cakecounter Inc.. 2019 All rights reserved.</p>
+                <div class="col-lg-4 col-sm-4">
+                    <p class="mb-0 f_400">© LoungerLive.com... 2023-2024. All rights reserved.</p>
                 </div>
-                <div class="col-lg-6 col-sm-5 text-right">
-                    <p>Made with <i class="icon_heart"></i> in <a href="http://cakecounter.com"
-                            target="_blank">CakeCounter</a></p>
+                <div class="col-lg-4 col-sm-4 text-right">
+                    <p>Made By Md Sagor Hossain</p>
+                </div>
+                <div class="col-lg-4 col-sm-4 text-right">
+                    <p id="locationName"><i class="fas fa-map-marker"></i> Loading...</p>
                 </div>
             </div>
         </div>

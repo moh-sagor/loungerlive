@@ -4,12 +4,21 @@
     <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-md-10">
-                <form action="{{ route('blogs.search') }}" method="GET" class="mb-4">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="search" placeholder="Search blogs...">
-                        <button type="submit" class="btn btn-primary ubuntu-font">Search</button>
+                <div class="row">
+                    <div class="col-md-2 col-3 col-sm-3">
+                        <p id="location" style="display: none;"></p>
+                        <p class="form-control text-center ubuntu-font" id="time"></p>
                     </div>
-                </form>
+                    <div class="col-md-10 col-9 col-sm-9">
+                        <form action="{{ route('blogs.search') }}" method="GET" class="mb-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Search ...">
+                                <button type="submit" class="btn btn-primary ubuntu-font">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
 
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
                 @if (isset($message1))
@@ -26,67 +35,8 @@
                     </script>
                 @endif
 
-                {{-- most viewed part  --}}
-                <div class="mb-2 ubuntu-font p-2"
-                    style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
-                    <h3><b>Most Viewed Post</b></h3>
-                </div>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    @foreach ($mostViewedBlogs as $blog)
-                        <div class="col">
-                            <div
-                                class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-
-                                @if ($blog->featured_image)
-                                    <img class="card-img-top" src="{{ asset($blog->featured_image) }}"
-                                        alt="{{ Str::limit($blog->title, 25) }}" class="img-fluid"
-                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                                @else
-                                    <!-- Placeholder image when featured image is empty -->
-                                    <img class="card-img-top" src="{{ asset('images/empty.png') }}"
-                                        alt="{{ Str::limit($blog->title, 25) }}" class="img-fluid"
-                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                                @endif
-
-                                <div class="card-body">
-                                    <h5 class="card-title text-lg fw-bold text-dark">
-                                        {{ Str::limit(ucwords($blog->title), 70) }}</h5>
-
-                                </div>
-
-                                <div class="card-footer d-flex justify-content-between align-items-center">
-                                    <a href="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}"
-                                        class="btn btn-primary">Read More</a>
-                                    <span class="text-info">
-                                        <i class="fas fa-comment-dots"></i> {{ $blog->comments->count() }}
-                                    </span>
-
-                                    <span class="text-danger">
-                                        <i class="fas fa-eye me-1"></i> {{ $blog->view_count }}
-                                    </span>
-
-                                    <button class="btn btn-secondary share-button"
-                                        data-url="{{ route('blogs.show', ['id' => $blog->id, 'slug' => $blog->slug]) }}">
-                                        <i class="fas fa-share"></i> Share
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-
-
 
                 {{-- recent post part  --}}
-
-                <div class="mb-2 mt-2 ubuntu-font text-center bg-white p-2" style="border-radius: 8px;">
-                    <h3 class="mb-0">
-                        <b>
-                            <span class="rainbow-text" style="animation: rainbow-blink 2s infinite;">Recent Post</span>
-                        </b>
-                    </h3>
-                </div>
 
                 @foreach ($blogs as $blog)
                     <div class="card card-white post mt-2">
