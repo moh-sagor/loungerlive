@@ -46,11 +46,6 @@
                     </script>
                 @endif
 
-                {{-- Most viewed part --}}
-                <div class="mb-2 ubuntu-font p-2"
-                    style="text-align: center; background-color: rgb(255, 255, 255); border-radius: 8px;">
-                    <h3><b>Popular Courses</b></h3>
-                </div>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     @foreach ($courses as $course)
                         <div class="col">

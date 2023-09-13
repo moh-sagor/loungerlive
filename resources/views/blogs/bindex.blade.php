@@ -47,14 +47,6 @@
                     </script>
                 @endif
 
-                <div class="mb-2 mt-2 ubuntu-font text-center bg-white p-2" style="border-radius: 8px;">
-                    <h3 class="mb-0">
-                        <b>
-                            <span class="rainbow-text" style="animation: rainbow-blink 2s infinite;">Recent Post</span>
-                        </b>
-                    </h3>
-                </div>
-
                 @foreach ($blogs as $blog)
                     <div class="card card-white post mt-2">
                         <div class="card-header post-heading d-flex">
@@ -155,12 +147,13 @@
                     </div>
                     <h6 class="text-center card card-white bg-info my-2 mt-2 ubuntu-font py-2">
                         <span style="color: azure;"><a href="{{ route('courses.index') }}"
-                                style="text-decoration: none; color:aliceblue;">Find Course</a></span>
+                                style="text-decoration: none; color:aliceblue;">Popular Courses</a></span>
                     </h6>
-
-
+                    <h6 class="text-center card card-white bg-warning my-2 mt-2 ubuntu-font py-2">
+                        <span style="color: azure;"><a href="{{ route('movies.index') }}"
+                                style="text-decoration: none; color:aliceblue;">Download Movies</a></span>
+                    </h6>
                 </div>
-
 
             </div>
 

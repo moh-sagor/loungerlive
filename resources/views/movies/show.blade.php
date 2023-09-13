@@ -252,6 +252,27 @@
             background-color: transparent;
             /* Make the card background transparent */
         }
+
+        .header-icon {
+            width: 100%;
+            height: 367px;
+            line-height: 367px;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 auto;
+            color: #ffffff;
+            font-size: 54px;
+            text-shadow: 0px 0px 20px #6abcea, 0px 5px 20px #6ABCEA;
+            opacity: .85;
+        }
+
+        .header-icon:hover {
+            font-size: 74px;
+            text-shadow: 0px 0px 20px #6abcea, 0px 5px 30px #6ABCEA;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            opacity: 1;
+        }
     </style>
 
 
@@ -294,7 +315,8 @@
                     <div class="row">
                         <div class="col-md-12 col-12">
                             <div class="text-center">
-                                <h2>{{ ucwords($movie->title) }}</h2> <br>
+                                <h2>{{ ucwords($movie->title) }} <div class="vr ms-2 me-2"></div> {{ $movie->year }}</h2>
+                                <br>
                             </div>
 
                             <!-- Image -->
@@ -312,8 +334,8 @@
 
                                         @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
                                             <!-- Display as an image -->
-                                            <img src="{{ asset($movie->image) }}" alt="{{ Str::limit($movie->title, 25) }}"
-                                                class="img-fluid"
+                                            <img src="{{ asset($movie->image) }}"
+                                                alt="{{ Str::limit($movie->title, 25) }}" class="img-fluid"
                                                 style="border: 2px solid #e3e9de9b; border-radius: 10px; height:auto; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
                                         @elseif (in_array($extension, ['mp4', 'webm', 'ogg']))
                                             <!-- Display as a video with controls -->
@@ -461,12 +483,22 @@
                         @if ($movie->image)
                             <img class="card-img-top" src="{{ asset($movie->image) }}"
                                 alt="{{ Str::limit($movie->title, 25) }}" class="img-fluid"
-                                style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                style="border: 2px solid #e3e9de9b; border-radius: 10px; height:400px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                            <a href="{{ route('movies.show', ['id' => $movie->id, 'slug' => $movie->slug]) }}">
+                                <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
+                                    <i class="fas fa-play fa-3x header-icon"></i>
+                                </div>
+                            </a>
                         @else
                             <!-- Placeholder image when featured image is empty -->
                             <img class="card-img-top" src="{{ asset('images/empty.png') }}"
                                 alt="{{ Str::limit($movie->title, 25) }}" class="img-fluid"
-                                style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                style="border: 2px solid #e3e9de9b; border-radius: 10px; height:400px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                            <a href="{{ route('movies.show', ['id' => $movie->id, 'slug' => $movie->slug]) }}">
+                                <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
+                                    <i class="fas fa-play fa-3x header-icon"></i>
+                                </div>
+                            </a>
                         @endif
 
                         <div class="card-body">

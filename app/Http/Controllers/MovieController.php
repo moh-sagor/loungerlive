@@ -233,9 +233,6 @@ class MovieController extends Controller
 
         // Perform the search using a case-insensitive "like" query
         $movies = Movie::where('title', 'like', '%' . $query . '%')
-            ->orWhere('body', 'like', '%' . $query . '%')
-            ->orWhere('instructor', 'like', '%' . $query . '%')
-            ->orWhere('movie_author', 'like', '%' . $query . '%')
             ->paginate(18); // You can adjust the pagination settings
 
         if ($movies->isEmpty()) {
