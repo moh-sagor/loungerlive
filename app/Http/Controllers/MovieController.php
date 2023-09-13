@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Pagination\Paginator;
-use App\Models\Course;
+use App\Models\Movie;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
-class CourseController extends Controller
+class MovieController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('author', ['only' => ['create', 'store', 'edit', 'update']]);
@@ -25,11 +24,11 @@ class CourseController extends Controller
      */
     public function index()
     {
-        // Paginate the courses with a specified number of items per page (e.g., 10 per page).
-        $courses = Course::latest()->paginate(18); // You can adjust the number as needed.
-        $allcourse = Course::all();
+        // Paginate the movies with a specified number of items per page (e.g., 10 per page).
+        $movies = Movie::latest()->paginate(18); // You can adjust the number as needed.
+        $allmovie = Movie::all();
         Paginator::useBootstrap();
-        return view('courses.index', compact('courses', 'allcourse'));
+        return view('movies.index', compact('movies', 'allmovie'));
     }
 
     /**
@@ -37,7 +36,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('courses.create');
+        return view('movies.create');
     }
 
     /**
@@ -49,8 +48,9 @@ class CourseController extends Controller
         $rules = [
             "title" => ["required", 'min:5', "max:160"],
             "body" => ["required", 'max:500'],
-            "instructor" => ["required", 'min:5'],
-            "course_author" => ["required", 'min:3'],
+            "year" => ["required", 'min:4'],
+            "actors" => ["required"],
+            "producer" => ["required"],
             "link" => ["required"],
         ];
         $this->validate($request, $rules);
@@ -65,25 +65,25 @@ class CourseController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $extension = $image->getClientOriginalExtension();
-            $imageName = 'course_image_' . time() . '.' . $extension;
-            $image->move(public_path('images/course_image'), $imageName);
-            $input['image'] = 'images/course_image/' . $imageName;
+            $imageName = 'movie_image_' . time() . '.' . $extension;
+            $image->move(public_path('images/movie_image'), $imageName);
+            $input['image'] = 'images/movie_image/' . $imageName;
         }
 
-        // Create a new course instance
-        $course = new Course($input);
+        // Create a new movie instance
+        $movie = new Movie($input);
 
-        // Associate the course with the authenticated user
-        $course->user_id = Auth::id();
+        // Associate the movie with the authenticated user
+        $movie->user_id = Auth::id();
 
-        // Save the course to the database
-        $course->save();
+        // Save the movie to the database
+        $movie->save();
 
         // Flash a success message to the session
-        Session::flash('success', 'Congratulations on creating a course!');
+        Session::flash('success', 'Congratulations on creating a movie!');
 
         // Redirect to a success page or return a response
-        return redirect('/courses');
+        return redirect('/movies');
     }
 
 
@@ -93,16 +93,16 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        // Find the course by its ID
-        $courses = Course::find($id);
-        $allcourses = Course::all();
-        // Check if the course exists
-        if (!$courses) {
-            // Handle the case where the course does not exist, e.g., show an error page or redirect
-            return redirect('/courses')->with('error', 'Course not found');
+        // Find the movie by its ID
+        $movies = Movie::find($id);
+        $allmovies = Movie::all();
+        // Check if the movie exists
+        if (!$movies) {
+            // Handle the case where the movie does not exist, e.g., show an error page or redirect
+            return redirect('/movies')->with('error', 'Movie not found');
         }
-        // Load the view to display the course details
-        return view('courses.show', ['course' => $courses], ['allcourse' => $allcourses]);
+        // Load the view to display the movie details
+        return view('movies.show', ['movie' => $movies], ['allmovie' => $allmovies]);
     }
 
 
@@ -111,15 +111,15 @@ class CourseController extends Controller
      */
     public function edit($id, $slug)
     {
-        $courses = Course::where('id', $id)
+        $movies = Movie::where('id', $id)
             ->where('slug', $slug)
             ->firstOrFail();
-        if (auth()->user()->isAdmin() || auth()->user()->id === $courses->user_id) {
-            return view('courses.edit', compact('courses'));
+        if (auth()->user()->isAdmin() || auth()->user()->id === $movies->user_id) {
+            return view('movies.edit', compact('movies'));
         } else {
             // Handle unauthorized access here, e.g., redirect or show an error message
             Session::flash('error', 'You do not permission to edit this!');
-            return redirect()->route('courses.index');
+            return redirect()->route('movies.index');
         }
     }
     /**
@@ -131,14 +131,15 @@ class CourseController extends Controller
         $rules = [
             "title" => ["required", 'min:5', "max:160"],
             "body" => ["required", 'max:500'],
-            "instructor" => ["required", 'min:5'],
-            "course_author" => ["required", 'min:3'],
+            "year" => ["required", 'min:4'],
+            "actors" => ["required"],
+            "producer" => ["required"],
             "link" => ["required"],
         ];
         $this->validate($request, $rules);
 
-        // Find the course to be updated
-        $course = Course::findOrFail($id);
+        // Find the movie to be updated
+        $movie = Movie::findOrFail($id);
 
         $input = $request->all();
 
@@ -150,24 +151,24 @@ class CourseController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $extension = $image->getClientOriginalExtension();
-            $imageName = 'course_image_' . time() . '.' . $extension;
-            $image->move(public_path('images/course_image'), $imageName);
-            $input['image'] = 'images/course_image/' . $imageName;
+            $imageName = 'movie_image_' . time() . '.' . $extension;
+            $image->move(public_path('images/movie_image'), $imageName);
+            $input['image'] = 'images/movie_image/' . $imageName;
 
             // Delete the previous image file if it exists
-            if (File::exists(public_path($course->image))) {
-                File::delete(public_path($course->image));
+            if (File::exists(public_path($movie->image))) {
+                File::delete(public_path($movie->image));
             }
         }
 
-        // Update the course attributes
-        $course->update($input);
+        // Update the movie attributes
+        $movie->update($input);
 
         // Flash a success message to the session
-        Session::flash('success', 'Course updated successfully!');
+        Session::flash('success', 'Movie updated successfully!');
 
         // Redirect to a success page or return a response
-        return redirect('/courses');
+        return redirect('/movies');
     }
 
 
@@ -176,27 +177,27 @@ class CourseController extends Controller
      */
     public function destroy(string $id)
     {
-        $course = Course::findOrFail($id); // Find the specific Course model instance
-        $course->delete(); // Delete the model
+        $movie = Movie::findOrFail($id); // Find the specific Movie model instance
+        $movie->delete(); // Delete the model
         // You can add a success message or redirect to a new page
-        return redirect('/courses');
+        return redirect('/movies');
     }
     public function trash()
     {
-        $trashedCourse = Course::onlyTrashed()->get(); # get all tr
-        return view("courses.trash", compact("trashedCourse"));
+        $trashedmovie = Movie::onlyTrashed()->get(); # get all tr
+        return view("movies.trash", compact("trashedmovie"));
 
     }
     public function restore($id, $slug)
     {
-        $restoredCourse = Course::onlyTrashed()
+        $restoredmovie = Movie::onlyTrashed()
             ->where('id', $id)
             ->where('slug', $slug)
             ->firstOrFail();
 
-        if ($restoredCourse) {
-            $restoredCourse->restore();
-            return redirect('/')->with('success', 'Course post restored successfully.');
+        if ($restoredmovie) {
+            $restoredmovie->restore();
+            return redirect('/')->with('success', 'Movie post restored successfully.');
         }
 
         return redirect('/')->with('message', 'The trash is empty.');
@@ -205,22 +206,22 @@ class CourseController extends Controller
 
     public function parmanentDelete($id, $slug)
     {
-        $deletedCourse = Course::onlyTrashed()
+        $deletedmovie = Movie::onlyTrashed()
             ->where('id', $id)
             ->where('slug', $slug)
             ->firstOrFail();
 
-        if ($deletedCourse) {
-            $deletedCourse->forceDelete();
-            return redirect()->route('courses.trash')->with('success', 'Course post permanently deleted.');
+        if ($deletedmovie) {
+            $deletedmovie->forceDelete();
+            return redirect()->route('movies.trash')->with('success', 'Movie post permanently deleted.');
         }
-        return redirect()->route('courses.trash')->with('message', 'Course post not found.');
+        return redirect()->route('movies.trash')->with('message', 'Movie post not found.');
     }
 
 
-    public function incrementDownloadCount(Course $course)
+    public function incrementDownloadCount(Movie $movie)
     {
-        $course->increment('download_count');
+        $movie->increment('download_count');
         // You can return a response if needed
         return response()->json(['message' => 'Download count incremented successfully']);
     }
@@ -228,23 +229,23 @@ class CourseController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $allcourse = Course::all();
+        $allmovie = Movie::all();
 
         // Perform the search using a case-insensitive "like" query
-        $courses = Course::where('title', 'like', '%' . $query . '%')
+        $movies = Movie::where('title', 'like', '%' . $query . '%')
             ->orWhere('body', 'like', '%' . $query . '%')
             ->orWhere('instructor', 'like', '%' . $query . '%')
-            ->orWhere('course_author', 'like', '%' . $query . '%')
+            ->orWhere('movie_author', 'like', '%' . $query . '%')
             ->paginate(18); // You can adjust the pagination settings
 
-        if ($courses->isEmpty()) {
+        if ($movies->isEmpty()) {
             // Get all blogs with pagination
-            $courses = Course::latest()->paginate(18);
-            return view('courses.index', compact('courses'))
+            $movies = Movie::latest()->paginate(18);
+            return view('movies.index', compact('movies'))
                 ->with('message1', 'Search again with a valid keyword.');
         }
 
-        return view('courses.search', compact('courses', 'query', 'allcourse'));
+        return view('movies.search', compact('movies', 'query', 'allmovie'));
     }
 
 }

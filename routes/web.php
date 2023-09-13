@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\SocialloginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MovieController;
 
 
 
@@ -34,6 +35,12 @@ Route::get('/courses/{id}/{slug}', [CourseController::class, 'show'])->name('cou
 Route::post('/courses/increment-download-count/{course}', [CourseController::class, 'incrementDownloadCount']);
 Route::get('/courses/search', [CourseController::class, 'search'])->name('courses.search');
 
+// public movies 
+Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
+Route::get('/movies/{id}/{slug}', [MovieController::class, 'show'])->name('movies.show');
+Route::post('/movies/increment-download-count/{course}', [MovieController::class, 'incrementDownloadCount']);
+Route::get('/movies/search', [MovieController::class, 'search'])->name('movies.search');
+
 
 // google login
 Route::get('/gotogoogle', [SocialloginController::class, 'gotogoogle'])->name('gotogoogle');
@@ -54,6 +61,16 @@ Route::middleware('auth', )->group(function () {
     Route::get('/trashcourses', [CourseController::class, 'trash'])->name('courses.trash');
     Route::post('/courses/store', [CourseController::class, 'store'])->name('courses.store');
     Route::get('/courses/{id}/{slug}/parmanent-delete', [CourseController::class, 'parmanentDelete'])->name('courses.parmanent-delete');
+    // movies routes 
+    Route::get('/movies/create', [MovieController::class, 'create'])->name('movies.create');
+    Route::post('/movies/store', [MovieController::class, 'store'])->name('movies.store');
+    Route::get('/movies/{id}/{slug}/restore', [MovieController::class, 'restore'])->name('movies.restore');
+    Route::get('/movies/{id}/{slug}/edit', [MovieController::class, 'edit'])->name('movies.edit');
+    Route::post('/movies/{id}/update', [MovieController::class, 'update'])->name('movies.update');
+    Route::post('/movies/{id}/destroy', [MovieController::class, 'destroy'])->name('movies.destroy');
+    Route::get('/trashmovies', [MovieController::class, 'trash'])->name('movies.trash');
+    Route::post('/movies/store', [MovieController::class, 'store'])->name('movies.store');
+    Route::get('/movies/{id}/{slug}/parmanent-delete', [MovieController::class, 'parmanentDelete'])->name('movies.parmanent-delete');
 
     // admin routes 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');

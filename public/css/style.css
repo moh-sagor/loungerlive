@@ -563,3 +563,10 @@ h6 {
     border-radius: 10px;
     padding: 20px;
 }
+
+.nav-hover:hover {
+    background-color: rgba(0, 238, 255, 0.34);
+    padding: 0 5px 0 5px;
+    border-radius: 20px;
+    color: black;
+}

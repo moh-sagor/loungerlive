@@ -16,16 +16,19 @@
                             <!-- Left Content -->
                             <div class="col-auto">
                                 <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item ms-2">
+                                    <li class="nav-item ms-2 nav-hover">
                                         <a class="nav-link" href="{{ route('blogs.bindex') }}">
                                             Blogs
-                                            {{-- <span class="badge badge-light bg-secondary">{{ $blogs->count() }}</span> --}}
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item nav-hover">
                                         <a class="nav-link" href="{{ route('courses.index') }}">
                                             Courses
-                                            {{-- <span class="badge badge-light bg-secondary">{{ $blogs->count() }}</span> --}}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item nav-hover">
+                                        <a class="nav-link" href="{{ route('movies.index') }}">
+                                            Movies
                                         </a>
                                     </li>
                                 </ul>

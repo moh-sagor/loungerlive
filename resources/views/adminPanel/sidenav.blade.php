@@ -43,6 +43,15 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-trash"></i></div>
                     Trashed Course
                 </a>
+                <div class="sb-sidenav-menu-heading">Movies Dashboard</div>
+                <a class="nav-link" href="{{ route('movies.create') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-pencil-alt"></i></div>
+                    Create Movies
+                </a>
+                <a class="nav-link" href="{{ route('movies.trash') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-trash"></i></div>
+                    Trashed Movies
+                </a>
             @endif
 
             {{-- for author   --}}
@@ -60,6 +69,11 @@
                 <a class="nav-link" href="{{ route('courses.create') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-pencil-alt"></i></div>
                     Create Courses
+                </a>
+                <div class="sb-sidenav-menu-heading">Movies Dashboard</div>
+                <a class="nav-link" href="{{ route('movies.create') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-pencil-alt"></i></div>
+                    Create Movies
                 </a>
                 <div class="sb-sidenav-menu-heading">Profile Dashboard</div>
                 <a class="nav-link" href="{{ route('users.edit', ['username' => Auth::user()->username]) }}">
