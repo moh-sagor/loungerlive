@@ -59,6 +59,8 @@
                             <input type="file" class="form-control" id="image" name="image" />
                         </div>
 
+
+
                         <div class="d-flex justify-content-center mt-3">
                             <button type="submit" class="btn btn-primary">Update Movie</button>
                         </div>

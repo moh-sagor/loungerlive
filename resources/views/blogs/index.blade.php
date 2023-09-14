@@ -202,13 +202,16 @@
                     <a class="btn btn-danger" href="{{ route('courses.index') }}">More Courses</a>
                 </div>
 
+
+
+
                 {{-- movies  --}}
                 <div class="container-movie mt-5">
                     @foreach ($movies as $movie)
                         <div class="movie-card">
                             <div class="movie-header"
-                                style="background:url({{ asset($movie->image) }}); background-size: cover;
-                                background-position: 100% 100%;">
+                                style="background:url({{ asset($movie->image) }}); background-size:cover;
+                                background-position:top;">
                                 <div class="header-icon-container">
                                     <a href="{{ route('movies.show', ['id' => $movie->id, 'slug' => $movie->slug]) }}">
                                         <i class="material-icons header-icon"></i>
@@ -253,11 +256,15 @@
                         </div><!--movie-card-->
                     @endforeach
                 </div>
+
                 <div class="d-flex justify-content-center mt-0">
                     <a class="btn btn-danger" href="{{ route('movies.index') }}">More Movies</a>
                 </div>
-
             </div>
+
+
+
+
 
             <div class="col-md-2 ">
                 <div class="sticky-column">
@@ -291,11 +298,6 @@
                 </div>
             </div>
 
-            {{-- <div class="container">
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $blogs->links() }}
-                </div>
-            </div> --}}
 
             <a href="#" class="go-to-home">
                 <i class="fas fa-home"></i>

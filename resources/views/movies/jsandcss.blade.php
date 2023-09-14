@@ -1,30 +1,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 <style>
-    .intro {
-        text-align: center;
-    }
-
-    ul {
-        list-style-type: none;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    p {
-        font-weight: 400;
-    }
-
     a {
         text-decoration: none;
-        color: inherit;
-    }
-
-    a:hover {
-        color: #6ABCEA;
     }
 
     .container-movie {
@@ -33,12 +11,11 @@
         display: flex;
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-        max-width: 100%;
+        max-width: 1000%;
         margin-left: auto;
         margin-right: auto;
         -webkit-box-pack: center;
         -ms-flex-pack: center;
-        justify-content: center;
     }
 
     .movie-form {
@@ -51,7 +28,7 @@
         box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
         width: 100%;
         max-width: 315px;
-        margin: 2em;
+        margin: 20px;
         border-radius: 10px;
         margin-top: -10px;
         display: inline-block;

@@ -39,7 +39,6 @@
                                 <input type="text" class="form-control" id="link" name="link"
                                     placeholder="Enter Download Link">
                             </div>
-
                             <div class="form-group">
                                 <label for="body" class="form-label">Movie Body</label>
                                 <textarea name="body" id="body" class="form-control my-editor" placeholder="Enter body"></textarea>
@@ -50,6 +49,8 @@
                                 <label class="form-label" for="image">Movie Banner</label>
                                 <input type="file" class="form-control" id="image" name="image" />
                             </div>
+
+
 
                             <div class="d-flex justify-content-center mt-3">
                                 <button type="submit" class="btn btn-primary">Create New Movies</button>
