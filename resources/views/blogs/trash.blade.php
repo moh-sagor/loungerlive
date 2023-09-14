@@ -10,7 +10,7 @@
                     @if ($trash->featured_image)
                         <img src="{{ asset($trash->featured_image ? $trash->featured_image : ' ') }}"
                             alt="{{ Str::limit($trash->title, 25) }}" width="300" height="220"
-                            style="border: 2px solid #639c2b9b; border-radius: 10px;">
+                            style="border: 2px solid #639c2b9b; border-radius: 10px; filter:drop-shadow(10px 10px 20px rgb(0, 0, 0));">
                     @endif
                 </div>
                 <div class="col-md-9 col-12">
@@ -24,10 +24,12 @@
                                 <form action="{{ route('blogs.restore', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                                     method="GET">
                                     @csrf
-                                    <button class="btn btn-primary restore-btn me-2" type="button">Restore</button>
+                                    <button style="filter:drop-shadow(10px 10px 20px rgb(0, 157, 255));"
+                                        class="btn btn-primary restore-btn me-2" type="button">Restore</button>
                                 </form>
 
-                                <a class="btn btn-danger btn-sm delete-parmanently"
+                                <a style="filter:drop-shadow(10px 10px 20px rgb(255, 0, 64));"
+                                    class="btn btn-danger btn-sm delete-parmanently"
                                     href="{{ route('blogs.parmanent-delete', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                                     data-id="{{ $trash->id }}" data-slug="{{ $trash->slug }}">Delete Permanently</a>
                             </div>

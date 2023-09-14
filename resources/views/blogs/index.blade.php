@@ -1,6 +1,26 @@
 @extends('layouts.app')
 @include('partials.meta_static')
+@include('movies.jsandcss')
 @section('content')
+    <style>
+        .card {
+            transition: transform 0.2s;
+            /* Add a smooth transition for the transform property */
+        }
+
+        .card:hover {
+            transform: scale(1.10);
+            /* Zoom in on hover */
+        }
+
+        .cat-hover {
+            transition: transform 0.2s;
+        }
+
+        .cat-hover:hover {
+            transform: scale(1.10);
+        }
+    </style>
     <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-md-10">
@@ -36,7 +56,7 @@
                 @endif
 
 
-                {{-- recent post part  --}}
+                {{-- post part  --}}
 
                 @foreach ($blogs as $blog)
                     <div class="card card-white post mt-2">
@@ -115,14 +135,136 @@
                     </div>
                 @endforeach
 
+                <div class="d-flex justify-content-center mt-2 ">
+                    <a class="btn btn-danger" href="{{ route('blogs.bindex') }}">More Blogs</a>
+                </div>
+
+                {{-- courses  --}}
+
+                <div class="row row-cols-1 row-cols-md-3 g-4 mt-2 ">
+                    @foreach ($courses as $course)
+                        <div class="col">
+                            <div class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden p-2"
+                                style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);">
+
+                                @if ($course->image)
+                                    <img class="card-img-top" src="{{ asset($course->image) }}"
+                                        alt="{{ Str::limit($course->title, 25) }}" class="img-fluid"
+                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(23, 81, 73, 0.365);">
+                                @else
+                                    <!-- Placeholder image when image is empty -->
+                                    <img class="card-img-top" src="{{ asset('images/empty.png') }}"
+                                        alt="{{ Str::limit($course->title, 25) }}" class="img-fluid"
+                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:200px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                @endif
+
+                                <div class="card-body">
+                                    <h5 class="card-title text-lg fw-bold text-dark">
+                                        {{ Str::limit(ucwords($course->title), 70) }}</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="card-title text-lg fw-bold text-danger">
+                                            <i class="fas fa-chalkboard-teacher me-2 "></i>
+                                            {{ Str::limit(ucwords($course->instructor), 70) }}
+                                        </h6>
+                                        <h6 class="card-title text-lg fw-bold text-primary">
+                                            <i class="fas fa-building me-2"></i>
+                                            {{ Str::limit(ucwords($course->course_author), 70) }}
+                                        </h6>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}"
+                                        class="btn btn-primary">Course Details</a>
+
+                                    <div class="vr me-2"></div>
+                                    <span class="text-danger">
+                                        <i class="fas fa-eye me-1"></i>{{ $course->view_count }}
+                                    </span>
+                                    <div class="vr me-2"></div>
+                                    <span class="text-info">
+                                        <i class="fas fa-download me-1"></i>{{ $course->download_count }}
+                                    </span>
+                                    <div class="vr me-2"></div>
+                                    <!-- Replace this with the appropriate share URL for courses -->
+                                    <button class="btn btn-secondary share-button"
+                                        data-url="{{ route('courses.show', ['id' => $course->id, 'slug' => $course->slug]) }}">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="d-flex justify-content-center mt-2">
+                    <a class="btn btn-danger" href="{{ route('courses.index') }}">More Courses</a>
+                </div>
+
+                {{-- movies  --}}
+                <div class="container-movie mt-5">
+                    @foreach ($movies as $movie)
+                        <div class="movie-card">
+                            <div class="movie-header"
+                                style="background:url({{ asset($movie->image) }}); background-size: cover;
+                                background-position: 100% 100%;">
+                                <div class="header-icon-container">
+                                    <a href="{{ route('movies.show', ['id' => $movie->id, 'slug' => $movie->slug]) }}">
+                                        <i class="material-icons header-icon"></i>
+                                    </a>
+                                </div>
+                            </div><!--movie-header-->
+                            <div class="movie-content">
+                                <div class="movie-content-header">
+                                    <a href="{{ route('movies.show', ['id' => $movie->id, 'slug' => $movie->slug]) }}"
+                                        style="text-decoration: none;">
+                                        <h3 class="movie-title">{{ Str::limit(ucwords($movie->title), 70) }}</h3>
+                                        <div class="vr ms-2 me-2"></div>
+                                        <h3 class="movie-title">{{ Str::limit(ucwords($movie->year), 70) }}</h3>
+                                    </a>
+                                    <div class="imax-logo">
+                                    </div>
+
+                                </div>
+                                <div class="movie-info">
+                                    <div class="info-section">
+                                        <label> <i class="fas fa-user"></i> Producer :
+                                            {{ Str::limit(ucwords($movie->producer), 70) }}</label>
+                                        <span> <i class="fas fa-user-friends"></i>
+                                            {{ Str::limit(ucwords($movie->actors), 70) }}</span>
+                                    </div><!--date,time-->
+                                    <div class="info-section">
+                                        <label><i class="fas fa-eye me-1"></i></label>
+                                        <span>{{ $movie->view_count }}</span>
+                                    </div><!--screen-->
+                                    <div class="info-section">
+                                        <label> <i class="fas fa-download me-1"></i></label>
+                                        <span>{{ $movie->download_count }}</span>
+                                    </div><!--row-->
+                                    <div class="info-section">
+                                        <label><a class="share-button"
+                                                data-url="{{ route('movies.show', ['id' => $movie->id, 'slug' => $movie->slug]) }}">
+                                                <i class="fas fa-share"></i>
+                                            </a></label>
+                                    </div>
+                                </div>
+                            </div><!--movie-content-->
+                        </div><!--movie-card-->
+                    @endforeach
+                </div>
+                <div class="d-flex justify-content-center mt-0">
+                    <a class="btn btn-danger" href="{{ route('movies.index') }}">More Movies</a>
+                </div>
+
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-2 ">
                 <div class="sticky-column">
                     <h6 class="text-center card card-white bg-primary my-2 ubuntu-font py-2 mt-0">
                         <span style="color: azure;">Categories</span>
                     </h6>
-                    <div class="container justify-content-center border-left border-right">
+                    <div class="container justify-content-center border-left border-right cat-hover">
                         @foreach ($categories as $category)
                             <div class="d-flex justify-content-center py-1">
                                 <div class="second py-2 px-2">
@@ -136,14 +278,24 @@
                             </div>
                         @endforeach
                     </div>
+                    <h6 class="text-center card card-white bg-info my-2 mt-2 ubuntu-font py-2">
+                        <span style="color: azure;"><a href="{{ route('courses.index') }}"
+                                style="text-decoration: none; color:aliceblue;">Popular Courses</a></span>
+                    </h6>
+                    <h6 class="text-center card card-white bg-warning my-2 mt-2 ubuntu-font py-2">
+                        <span style="color: azure;"><a href="{{ route('movies.index') }}"
+                                style="text-decoration: none; color:aliceblue;">Download Movies</a></span>
+                    </h6>
+
+
                 </div>
             </div>
 
-            <div class="container">
+            {{-- <div class="container">
                 <div class="d-flex justify-content-center mt-4">
                     {{ $blogs->links() }}
                 </div>
-            </div>
+            </div> --}}
 
             <a href="#" class="go-to-home">
                 <i class="fas fa-home"></i>

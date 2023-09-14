@@ -2,33 +2,37 @@
 @section('main')
     <div class="container" style="padding-top: 10px;">
         <div class="jumbotron text-center bg-light form-control ubuntu-font text-white">
-            <h1 class="display-4">Restore the blog</h1>
+            <h1 class="display-4">Restore the Movie</h1>
         </div>
-        @foreach ($trashedCourse as $trash)
+        @foreach ($trashedmovie as $trash)
             <div class="row">
                 <div class="col-md-3 col-12">
-                    @if ($trash->featured_image)
-                        <img src="{{ asset($trash->featured_image ? $trash->featured_image : ' ') }}"
-                            alt="{{ Str::limit($trash->title, 25) }}" width="300" height="220"
-                            style="border: 2px solid #639c2b9b; border-radius: 10px;">
+                    @if ($trash->image)
+                        <img src="{{ asset($trash->image ? $trash->image : ' ') }}" alt="{{ Str::limit($trash->title, 25) }}"
+                            class="img-fluid mx-auto"
+                            style="max-width: 100%; max-height: 100%; display: block; border: 2px solid #639c2b9b; border-radius: 10px; filter:drop-shadow(10px 10px 20px black);"
+                            width="150" height="200">
                     @endif
                 </div>
+
                 <div class="col-md-9 col-12">
-                    <h2><a href="{{ route('courses.show', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
+                    <h2><a href="{{ route('movies.show', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                             style="text-decoration: none;">{{ $trash->title }}</a>
                     </h2>
                     <p>{!! Str::limit($trash->body, 200) !!}</p>
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="d-flex">
-                                <form action="{{ route('courses.restore', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
+                                <form action="{{ route('movies.restore', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                                     method="GET">
                                     @csrf
-                                    <button class="btn btn-primary restore-btn me-2" type="button">Restore</button>
+                                    <button style="filter:drop-shadow(10px 10px 20px rgb(0, 213, 255));"
+                                        class="btn btn-primary restore-btn me-2" type="button">Restore</button>
                                 </form>
 
                                 <a class="btn btn-danger btn-sm delete-parmanently"
-                                    href="{{ route('courses.parmanent-delete', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
+                                    style="filter:drop-shadow(10px 10px 20px red);"
+                                    href="{{ route('movies.parmanent-delete', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                                     data-id="{{ $trash->id }}" data-slug="{{ $trash->slug }}">Delete Permanently</a>
                             </div>
                         </div>

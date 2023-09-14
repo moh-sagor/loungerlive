@@ -2,15 +2,16 @@
 @section('main')
     <div class="container" style="padding-top: 10px;">
         <div class="jumbotron text-center bg-light form-control ubuntu-font text-white">
-            <h1 class="display-4">Restore the blog</h1>
+            <h1 class="display-4">Restore the Course</h1>
         </div>
         @foreach ($trashedCourse as $trash)
             <div class="row">
                 <div class="col-md-3 col-12">
-                    @if ($trash->featured_image)
-                        <img src="{{ asset($trash->featured_image ? $trash->featured_image : ' ') }}"
-                            alt="{{ Str::limit($trash->title, 25) }}" width="300" height="220"
-                            style="border: 2px solid #639c2b9b; border-radius: 10px;">
+                    @if ($trash->image)
+                        <img src="{{ asset($trash->image ? $trash->image : ' ') }}" alt="{{ Str::limit($trash->title, 25) }}"
+                            class="mx-auto"
+                            style="display: block; border: 2px solid #639c2b9b; border-radius: 10px; filter:drop-shadow(10px 10px 20px black);"
+                            width="200" height="180">
                     @endif
                 </div>
                 <div class="col-md-9 col-12">
@@ -24,10 +25,12 @@
                                 <form action="{{ route('courses.restore', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                                     method="GET">
                                     @csrf
-                                    <button class="btn btn-primary restore-btn me-2" type="button">Restore</button>
+                                    <button style="filter:drop-shadow(10px 10px 20px rgb(0, 157, 255));"
+                                        class="btn btn-primary restore-btn me-2" type="button">Restore</button>
                                 </form>
 
-                                <a class="btn btn-danger btn-sm delete-parmanently"
+                                <a style="filter:drop-shadow(10px 10px 20px rgb(255, 0, 0));"
+                                    class="btn btn-danger btn-sm delete-parmanently"
                                     href="{{ route('courses.parmanent-delete', ['id' => $trash->id, 'slug' => $trash->slug]) }}"
                                     data-id="{{ $trash->id }}" data-slug="{{ $trash->slug }}">Delete Permanently</a>
                             </div>

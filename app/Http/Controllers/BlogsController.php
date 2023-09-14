@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\Role;
+use App\Models\Course;
+use App\Models\Movie;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -29,12 +30,25 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::where('status', 1)->latest()->paginate(10);
+        // Fetch the latest 10 blogs
+        $blogs = Blog::where('status', 1)->latest()->paginate(6);
+
+        // Fetch the latest 10 courses
+        $courses = Course::latest()->paginate(8);
+
+        // Fetch the latest 10 movies
+        $movies = Movie::latest()->paginate(6);
+
         Paginator::useBootstrap();
+
+        // You can also fetch other data like categories, most viewed blogs, etc., as needed.
         $categories = Category::all();
-        $mostViewedBlogs = Blog::orderBy('view_count', 'desc')->take(3)->get();
-        return view('blogs.index', compact('blogs', 'categories', 'mostViewedBlogs'));
+        // $mostViewedBlogs = Blog::orderBy('view_count', 'desc')->take(3)->get();
+
+        // Return the data to the view
+        return view('blogs.index', compact('blogs', 'courses', 'movies', 'categories'));
     }
+
     public function bindex()
     {
         $blogs = Blog::where('status', 1)->latest()->paginate(10);
