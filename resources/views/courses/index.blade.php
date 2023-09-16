@@ -22,14 +22,28 @@
     <div class="container" style="padding-top: 70px;">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('courses.search') }}" method="GET" class="mb-4">
-                    <div class="input-group">
-                        <!-- Update the input field name to 'query' -->
-                        <input type="text" class="form-control" name="query" placeholder="Search courses..."
-                            value="{{ $query ?? '' }}">
-                        <button type="submit" class="btn btn-primary ubuntu-font">Search</button>
+
+                <div class="row">
+                    <div class="col-md-3">
                     </div>
-                </form>
+                    <div class="col-md-6">
+                        <div class="movie-form">
+                            <form action="{{ route('courses.search') }}" method="GET" class="mb-4">
+                                <div class="input-group">
+                                    <!-- Update the input field name to 'query' -->
+                                    <input type="text" class="form-control" name="query"
+                                        placeholder="Search courses..." value="{{ $query ?? '' }}">
+                                    <button type="submit" class="btn btn-primary ubuntu-font">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+
+                    </div>
+                </div>
+
+
 
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
                 @if (isset($message1))

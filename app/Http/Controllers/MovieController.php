@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Pagination\Paginator;
 use App\Models\Movie;
+use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,8 @@ class MovieController extends Controller
         $movies = Movie::latest()->paginate(18); // You can adjust the number as needed.
         $allmovie = Movie::all();
         Paginator::useBootstrap();
-        return view('movies.index', compact('movies', 'allmovie'));
+        $categories = Category::all();
+        return view('movies.index', compact('movies', 'allmovie', 'categories'));
     }
 
     /**
@@ -96,13 +98,18 @@ class MovieController extends Controller
         // Find the movie by its ID
         $movies = Movie::find($id);
         $allmovies = Movie::all();
+        $categories = Category::all();
         // Check if the movie exists
         if (!$movies) {
             // Handle the case where the movie does not exist, e.g., show an error page or redirect
             return redirect('/movies')->with('error', 'Movie not found');
         }
         // Load the view to display the movie details
-        return view('movies.show', ['movie' => $movies], ['allmovie' => $allmovies]);
+        return view('movies.show', [
+            'movie' => $movies,
+            'allmovie' => $allmovies,
+            'categories' => $categories
+        ]);
     }
 
 
@@ -230,6 +237,7 @@ class MovieController extends Controller
     {
         $query = $request->input('query');
         $allmovie = Movie::all();
+        $categories = Category::all();
 
         // Perform the search using a case-insensitive "like" query
         $movies = Movie::where('title', 'like', '%' . $query . '%')
@@ -238,11 +246,12 @@ class MovieController extends Controller
         if ($movies->isEmpty()) {
             // Get all blogs with pagination
             $movies = Movie::latest()->paginate(18);
-            return view('movies.index', compact('movies'))
+            $categories = Category::all();
+            return view('movies.index', compact('movies', 'categories'))
                 ->with('message1', 'Search again with a valid keyword.');
         }
 
-        return view('movies.search', compact('movies', 'query', 'allmovie'));
+        return view('movies.search', compact('movies', 'query', 'allmovie', 'categories'));
     }
 
 }

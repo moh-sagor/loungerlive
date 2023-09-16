@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->text('body');
+            $table->string('link')->nullable();
+            $table->string('btn_name')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->unsignedBigInteger('user_id')->nullable(); // Use unsignedBigInteger

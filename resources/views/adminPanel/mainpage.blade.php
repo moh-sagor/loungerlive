@@ -9,7 +9,7 @@
     <meta name="description" content="@yield('meta_description')">
     <title> @yield('meta_title')</title>
 
-
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/loungerlive_fav.JPG') }}">
     {{-- google font  --}}
     <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Poppins:wght@400;500&display=swap"
         rel="stylesheet">

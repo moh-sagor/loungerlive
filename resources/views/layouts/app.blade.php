@@ -11,6 +11,7 @@
 
 
 
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/loungerlive_fav.JPG') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{-- google font  --}}
     <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Poppins:wght@400;500&display=swap"

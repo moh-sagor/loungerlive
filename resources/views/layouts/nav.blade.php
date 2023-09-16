@@ -31,6 +31,31 @@
                                             Movies
                                         </a>
                                     </li>
+
+                                    <!-- Add the "Category" dropdown menu -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle text-danger" href="#"
+                                            id="categoryDropdown" role="button" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <strong>All Categories</strong>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                                            @foreach ($categories as $category)
+                                                <div class="d-flex justify-content-center py-1">
+                                                    <div class="second py-2 px-2">
+                                                        <span class="text1 ms-2 ubuntu-font">
+                                                            <a class="dropdown-item text-danger"
+                                                                href="{{ route('categories.show', $category->slug) }}"
+                                                                style="text-decoration: none;"> <i
+                                                                    class="fas fa-folder"></i>
+                                                                {{ $category->name }}
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -96,4 +121,13 @@
             @endif
         </div>
     </div>
+
+
+
 </nav>
+<style>
+    /* Add custom CSS to open dropdown on hover */
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+    }
+</style>

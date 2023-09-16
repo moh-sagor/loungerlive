@@ -56,16 +56,16 @@
         text-align: center;
         vertical-align: middle;
         margin: 0 auto;
-        color: #ffffff;
+        color: #00d9ff;
         font-size: 54px;
-        text-shadow: 0px 0px 20px #6abcea, 0px 5px 20px #6ABCEA;
+        text-shadow: 0px 0px 30px #68f6f8, 0px 5px 30px #2cf1ff;
         opacity: .85;
     }
 
     .header-icon:hover {
         background: rgba(0, 0, 0, 0.15);
         font-size: 74px;
-        text-shadow: 0px 0px 20px #6abcea, 0px 5px 30px #6ABCEA;
+        text-shadow: 0px 0px 20px #ff00d0, 0px 5px 30px #c85be6;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         opacity: 1;

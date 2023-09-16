@@ -18,6 +18,71 @@
             height: auto;
             margin: 0 5px;
         }
+
+        .glow-on-hover {
+            width: 400px;
+            height: 50px;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 25px;
+            background: #111;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+        }
+
+        .glow-on-hover:after {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 1;
+            /* Set opacity to 1 to make it always visible */
+            border-radius: 10px;
+        }
+
+        .glow-on-hover:active {
+            color: #000;
+        }
+
+        .glow-on-hover:active:before {
+            background: transparent;
+        }
+
+        .glow-on-hover:before {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+
+        @keyframes glowing {
+            0% {
+                background-position: 0 0;
+            }
+
+            50% {
+                background-position: 400% 0;
+            }
+
+            100% {
+                background-position: 0 0;
+            }
+        }
     </style>
 
 
@@ -181,11 +246,18 @@
                 @endif
             </div>
 
+
             <?php
             // Increment the view count of the blog post
             $blog->increment('view_count');
             ?>
 
+        </div>
+
+        {{-- button  --}}
+
+        <div class="container d-flex justify-content-center">
+            <a href="{{ $blog->link }}" class="glow-on-hover btn" target="_blank">{{ $blog->btn_name }}</a>
         </div>
 
         <!-- ... (existing content) ... -->

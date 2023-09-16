@@ -30,6 +30,20 @@
                             <label for="body" class="form-label form-fonts">Body</label>
                             <textarea class="form-control my-editor" id="body" name="body" rows="5">{{ $blog->body }}</textarea>
                         </div>
+
+                        <div class="form-group">
+                            <label for="link" class="form-label form-fonts ">Link</label>
+                            <input type="text" class="form-control" id="link" name="link"
+                                value="{{ $blog->link }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="btn_name" class="form-label form-fonts ">Button Name</label>
+                            <input type="text" class="form-control" id="btn_name" name="btn_name"
+                                value="{{ $blog->btn_name }}">
+                        </div>
+
+
                         <div class="form-group form-check-inline">
                             <label for="category" class="form-label form-fonts mt-4">Select Category</label><br>
 

@@ -22,8 +22,20 @@
                         <div class="form-group">
                             <label for="body" class="form-label form-fonts">Body</label>
                             <textarea name="body" id="body" class="form-control my-editor" placeholder="Enter body"></textarea>
-
                         </div>
+
+                        <div class="form-group">
+                            <label for="link" class="form-label form-fonts ">Link</label>
+                            <input type="text" class="form-control" id="link" name="link"
+                                placeholder="Enter link">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="btn_name" class="form-label form-fonts ">Button Name</label>
+                            <input type="text" class="form-control" id="btn_name" name="btn_name"
+                                placeholder="Enter btn_name">
+                        </div>
+
                         <div class="form-group form-check-inline">
                             <label for="category" class="form-label mt-4 form-fonts">Select Category</label><br>
                             @foreach ($categories as $category)

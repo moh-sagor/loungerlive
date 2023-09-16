@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Pagination\Paginator;
 use App\Models\Course;
+use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,8 @@ class CourseController extends Controller
         $courses = Course::latest()->paginate(18); // You can adjust the number as needed.
         $allcourse = Course::all();
         Paginator::useBootstrap();
-        return view('courses.index', compact('courses', 'allcourse'));
+        $categories = Category::all();
+        return view('courses.index', compact('courses', 'allcourse', 'categories'));
     }
 
     /**
@@ -96,13 +98,19 @@ class CourseController extends Controller
         // Find the course by its ID
         $courses = Course::find($id);
         $allcourses = Course::all();
+        $categories = Category::all();
         // Check if the course exists
         if (!$courses) {
             // Handle the case where the course does not exist, e.g., show an error page or redirect
             return redirect('/courses')->with('error', 'Course not found');
         }
         // Load the view to display the course details
-        return view('courses.show', ['course' => $courses], ['allcourse' => $allcourses]);
+        return view('courses.show', [
+            'course' => $courses,
+            'allcourse' => $allcourses,
+            'categories' => $categories
+        ]);
+
     }
 
 
@@ -229,6 +237,7 @@ class CourseController extends Controller
     {
         $query = $request->input('query');
         $allcourse = Course::all();
+        $categories = Category::all();
 
         // Perform the search using a case-insensitive "like" query
         $courses = Course::where('title', 'like', '%' . $query . '%')
@@ -240,11 +249,12 @@ class CourseController extends Controller
         if ($courses->isEmpty()) {
             // Get all blogs with pagination
             $courses = Course::latest()->paginate(18);
-            return view('courses.index', compact('courses'))
+            $categories = Category::all();
+            return view('courses.index', compact('courses', 'categories'))
                 ->with('message1', 'Search again with a valid keyword.');
         }
 
-        return view('courses.search', compact('courses', 'query', 'allcourse'));
+        return view('courses.search', compact('courses', 'query', 'allcourse', 'categories'));
     }
 
 }

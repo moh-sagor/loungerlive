@@ -142,7 +142,7 @@
                     <h5 class="text-primary"><b>You May Like</b></h5>
                 </div>
                 @php
-                    $shuffledmovies = $allmovie->shuffle()->take(25);
+                    $shuffledmovies = $allmovie->shuffle()->take(6);
                 @endphp
 
                 @foreach ($shuffledmovies as $movie)
@@ -172,32 +172,6 @@
                             </a>
                         </div>
                     </div>
-                    {{-- <div class="col d-flex justify-content-center me-2">
-                        <div
-                            class="card h-100 border border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden p-2">
-
-                            <a href="{{ route('movies.show', ['id' => $movie->id, 'slug' => $movie->slug]) }}"
-                                style="text-decoration: none;">
-                                <h5 class="p-2 card-title text-lg fw-bold text-dark">
-                                    {{ Str::limit(ucwords($movie->title), 30) }}</h5>
-                            </a>
-
-                            @if ($movie->image)
-                                <a href="{{ route('movies.show', ['id' => $movie->id, 'slug' => $movie->slug]) }}">
-                                    <img class="card-img-top justify-content-center" src="{{ asset($movie->image) }}"
-                                        alt="{{ Str::limit($movie->title, 25) }}"
-                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:100px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                                </a>
-                            @else
-                                <!-- Placeholder image when featured image is empty -->
-                                <a href="{{ route('movies.show', ['id' => $movie->id, 'slug' => $movie->slug]) }}">
-                                    <img class="card-img-top" src="{{ asset('images/empty.png') }}"
-                                        alt="{{ Str::limit($movie->title, 25) }}"
-                                        style="border: 2px solid #e3e9de9b; border-radius: 10px; height:100px; width:auto; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                                </a>
-                            @endif
-                        </div>
-                    </div> --}}
                 @endforeach
             </div>
 
