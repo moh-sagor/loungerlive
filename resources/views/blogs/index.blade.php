@@ -30,7 +30,7 @@
                         <p class="form-control text-center ubuntu-font" id="time"></p>
                     </div>
                     <div class="col-md-10 col-9 col-sm-9">
-                        <form action="{{ route('blogs.search') }}" method="GET" class="mb-4">
+                        <form action="{{ route('blogs.allsearch') }}" method="GET" class="mb-4">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search ...">
                                 <button type="submit" class="btn btn-primary ubuntu-font">Search</button>

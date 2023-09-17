@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .card {
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+    </style>
     <div class="container" style="padding-top: 70px;">
         <div class="jumbotron text-center bg-light form-control ubuntu-font text-white">
             <h1 class="display-4">{{ $category->name }}</h1>

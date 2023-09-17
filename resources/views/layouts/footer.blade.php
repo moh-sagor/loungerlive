@@ -1,7 +1,7 @@
 <footer class="new_footer_area bg_color">
     <div class="new_footer_top">
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="f_widget company_widget wow fadeInLeft" data-wow-delay="0.2s"
                         style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="footer_bg">
             <div class="footer_bg_one"></div>

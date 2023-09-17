@@ -18,7 +18,9 @@ use App\Http\Controllers\MovieController;
 Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{id}/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
 Route::get('/blogs/search', [BlogsController::class, 'search'])->name('blogs.search');
+Route::get('/blogs/allsearch', [BlogsController::class, 'allsearch'])->name('blogs.allsearch');
 Route::get('/blogs', [BlogsController::class, 'bindex'])->name('blogs.bindex');
+
 
 // public categoires 
 Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name('categories.show');

@@ -314,5 +314,39 @@ class BlogsController extends Controller
     }
 
 
+    public function allsearch(Request $request)
+    {
+        $searchQuery = $request->input('search');
+        $categories = Category::all();
+
+        // Search for blogs
+        $blogResults = Blog::where('status', 1)
+            ->where(function ($query) use ($searchQuery) {
+                $query->where('title', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('body', 'like', '%' . $searchQuery . '%');
+            })
+            ->get();
+
+        // Search for movies
+        $movieResults = Movie::where('title', 'like', '%' . $searchQuery . '%')
+            ->get();
+
+        // Search for courses
+        $courseResults = Course::where('title', 'like', '%' . $searchQuery . '%')
+            ->orWhere('body', 'like', '%' . $searchQuery . '%')
+            ->orWhere('instructor', 'like', '%' . $searchQuery . '%')
+            ->orWhere('course_author', 'like', '%' . $searchQuery . '%')
+            ->get();
+
+        // Combine the results from all three models
+        $results = [
+            'blogs' => $blogResults,
+            'movies' => $movieResults,
+            'courses' => $courseResults,
+        ];
+
+        return view('blogs.allsearch', compact('results', 'searchQuery', 'categories'));
+    }
+
 
 }
