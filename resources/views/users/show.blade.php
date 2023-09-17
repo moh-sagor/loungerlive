@@ -21,6 +21,11 @@
                                                 <a href="{{ route('users.edit', $user->username) }}"
                                                     class="btn btn-outline-primary">Edit</a>
                                             @endif
+                                            <!-- Display QR Code -->
+                                            <a id="showQrCode" class="btn btn-outline-primary">QR CODE</a>
+
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +68,7 @@
                                             <h6 class="mb-0"><i style="color: rgb(8, 157, 244)"
                                                     class="me-4 fas fa-globe"></i>
                                                 <a style="text-decoration: none;" target="_blank"
-                                                    href="{{ $user->website }}">{{ $user->website }}</a>
+                                                    href="https://{{ $user->website }}">{{ $user->website }}</a>
                                             </h6>
                                         </li>
                                     @endif
@@ -165,7 +170,8 @@
                                     @if (Auth::check() && Auth::user()->id === $user->id)
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0"><span style="color:rgb(51, 51, 58);"> Email :</span></h6>
+                                                <h6 class="mb-0"><span style="color:rgb(51, 51, 58);"> Email :</span>
+                                                </h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
                                                 {{ $user->email }}
@@ -338,4 +344,25 @@
         </div>
 
     </div>
+
+
+
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+    <script>
+        document.getElementById('showQrCode').addEventListener('click', function() {
+            // Generate the QR code using the user's profile link
+            const qrCodeData = "{{ route('users.profile_show', $user->username) }}";
+            const qrCodeImage =
+                `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrCodeData)}" alt="QR Code" class="img-fluid">`;
+
+            // Display the QR code in a SweetAlert
+            Swal.fire({
+                title: 'Scan QR CODE for : {{ $user->username }}',
+                html: qrCodeImage,
+                showCancelButton: false,
+                confirmButtonText: 'Close',
+            });
+        });
+    </script>
+
 @endsection

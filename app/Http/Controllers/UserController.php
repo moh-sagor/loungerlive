@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserController extends Controller
 {
@@ -49,6 +51,7 @@ class UserController extends Controller
     // UserController.php
     public function show(string $username = null)
     {
+        $categories = Category::all();
         // If $username is null, get the current logged-in user
         if ($username === null) {
             $user = auth()->user();
@@ -57,11 +60,12 @@ class UserController extends Controller
             $user = User::where('username', $username)->first();
         }
 
-        return view('users.show', compact('user'));
+        return view('users.show', compact('user', 'categories'));
     }
 
     public function profile_show(string $username = null)
     {
+        $categories = Category::all();
         // If $username is null, get the current logged-in user
         if ($username === null) {
             $user = auth()->user();
@@ -70,7 +74,7 @@ class UserController extends Controller
             $user = User::where('username', $username)->first();
         }
 
-        return view('users.show', compact('user'));
+        return view('users.show', compact('user', 'categories'));
     }
 
 
@@ -120,5 +124,16 @@ class UserController extends Controller
     {
         $user->delete();
         return back();
+    }
+
+
+    public function showQrCode($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+
+        // Generate the QR code with the user's profile link
+        $qrCode = QrCode::size(200)->generate(route('users.profile_show', $user->username));
+
+        return view('users.qrcode', compact('user', 'qrCode'));
     }
 }

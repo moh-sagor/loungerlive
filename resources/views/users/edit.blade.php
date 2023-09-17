@@ -68,7 +68,7 @@
                                 <div class="form-group">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" class="form-control sky-input" id="name" name="name"
-                                        value="{{ $user->name }}">
+                                        value="{{ $user->name }}" placeholder="Enter Your Name: " readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="username" class="form-label">Username</label>
@@ -92,54 +92,58 @@
                                 <div class="form-group">
                                     <label for="phone" class="form-label">phone</label>
                                     <input type="text" class="form-control sky-input" id="phone" name="phone"
-                                        value="{{ $user->phone }}">
+                                        value="{{ $user->phone }}"placeholder="+8809638211865">
                                 </div>
                                 <div class="form-group">
                                     <label for="website" class="form-label">website</label>
                                     <input type="text" class="form-control sky-input" id="website" name="website"
-                                        value="{{ $user->website }}">
+                                        value="{{ $user->website }}" placeholder="https://www.loungerlive.com">
                                 </div>
                                 <div class="form-group">
                                     <label for="linkedin" class="form-label">linkedin</label>
                                     <input type="text" class="form-control sky-input" id="linkedin" name="linkedin"
-                                        value="{{ $user->linkedin }}">
+                                        value="{{ $user->linkedin }}"
+                                        placeholder="https://www.linkedin.com/in/moh-sagor/">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="profession" class="form-label">Profession</label>
                                     <input type="text" class="form-control sky-input" id="profession"
-                                        name="profession" value="{{ $user->profession }}">
+                                        name="profession" value="{{ $user->profession }}"
+                                        placeholder="Enter Your Profession">
                                 </div>
                                 <div class="form-group">
                                     <label for="github" class="form-label">github</label>
                                     <input type="text" class="form-control sky-input" id="github" name="github"
-                                        value="{{ $user->github }}">
+                                        value="{{ $user->github }}" placeholder="https://github.com/moh-sagor">
                                 </div>
                                 <div class="form-group">
                                     <label for="facebook" class="form-label">facebook</label>
                                     <input type="text" class="form-control sky-input" id="facebook" name="facebook"
-                                        value="{{ $user->facebook }}">
+                                        value="{{ $user->facebook }}"
+                                        placeholder="https://www.facebook.com/md.sagor.rzs">
                                 </div>
                                 <div class="form-group">
                                     <label for="twitter" class="form-label">twitter</label>
                                     <input type="text" class="form-control sky-input" id="twitter" name="twitter"
-                                        value="{{ $user->twitter }}">
+                                        value="{{ $user->twitter }}" placeholder="https://twitter.com/S0707sagor">
                                 </div>
                                 <div class="form-group">
                                     <label for="youtube" class="form-label">youtube</label>
                                     <input type="text" class="form-control sky-input" id="youtube" name="youtube"
-                                        value="{{ $user->youtube }}">
+                                        value="{{ $user->youtube }}"
+                                        placeholder="https://www.youtube.com/@ProgrammingMania">
                                 </div>
                                 <div class="form-group">
                                     <label for="nid" class="form-label">nid</label>
                                     <input type="text" class="form-control sky-input" id="nid" name="nid"
-                                        value="{{ $user->nid }}">
+                                        value="{{ $user->nid }}" placeholder="Enter Your NID">
                                 </div>
                                 <div class="form-group">
                                     <label for="passport" class="form-label">passport</label>
                                     <input type="text" class="form-control sky-input" id="passport" name="passport"
-                                        value="{{ $user->passport }}">
+                                        value="{{ $user->passport }}" placeholder="Enter Your Passport">
                                 </div>
                                 <div class="form-group">
                                     <label for="photo" class="form-label">Photo</label>

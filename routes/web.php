@@ -17,14 +17,18 @@ use App\Http\Controllers\MovieController;
 // public blogs 
 Route::get('/', [BlogsController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{id}/{slug}', [BlogsController::class, 'show'])->name('blogs.show');
-Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/blogs/search', [BlogsController::class, 'search'])->name('blogs.search');
 Route::get('/blogs', [BlogsController::class, 'bindex'])->name('blogs.bindex');
+
+// public categoires 
+Route::get('/categories/show/{slug}', [CategoryController::class, 'show'])->name('categories.show');
 
 
 // public users 
 Route::get('/users/profile/{username?}', [UserController::class, 'show'])->name('users.show');
 Route::get('/my/{username?}', [UserController::class, 'profile_show'])->name('users.profile_show');
+Route::get('/users/profile/show/{username}/qrcode', 'UserController@showQrCode')->name('users.profile_qrcode');
+
 
 // public comments 
 Route::post('/blogs/{blog}/comments', [CommentsController::class, 'store'])->name('comments.store');

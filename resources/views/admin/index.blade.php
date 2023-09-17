@@ -30,7 +30,7 @@
                                 Hi, <span style="color:red">{{ ucfirst(Auth::user()->name) }} </span><br>
                                 A model for open collaboration
                             </h1>
-                            <p class="mt-4 fs-2 fs-md-4 lh-sm">Run your affiliate marketing dream here.It's hasslefree and
+                            <p class="mt-4 fs-2 fs-md-4 lh-sm">Run your Blogging dream here.It's hasslefree and
                                 easy and obviously secure.</p>
                             @if (Auth::user() && Auth::user()->role_id === 3)
                                 <form id="requestForm">
@@ -67,7 +67,7 @@
                                 <div class="card-body"><img src="{{ asset('admin_welcome/assets/img/icons/icon1.png') }}"
                                         alt="" />
                                     <h3 class="py-3">Make Money</h3>
-                                    <p class="lead mb-0">Make money with affiliate marketing.</p>
+                                    <p class="lead mb-0">Make money with Blogging.</p>
                                 </div>
                             </div>
                         </div>

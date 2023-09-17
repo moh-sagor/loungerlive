@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Pagination\Paginator;
+
 
 class CategoryController extends Controller
 {
@@ -33,7 +35,8 @@ class CategoryController extends Controller
         Category::create([
             'name' => $request['name'],
             'slug' => Str::slug($request['name'], '-'),
-            'user_id' => auth()->id(), // set the user_id to the currently authenticated user's ID
+            'user_id' => auth()->id(),
+            // set the user_id to the currently authenticated user's ID
         ]);
 
         // You can add a success message or redirect to a new page
@@ -47,7 +50,8 @@ class CategoryController extends Controller
     public function show(string $slug)
     {
         $category = Category::where('slug', $slug)->first();
-        $categories = Category::latest()->get(); // Retrieve all categories
+        $categories = Category::latest()->paginate(10); // Retrieve all categories
+        Paginator::useBootstrap();
         return view('categories.show', compact('category', 'categories')); // Pass both $category and $categories to the view
     }
 
